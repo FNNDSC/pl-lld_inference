@@ -50,6 +50,7 @@ COPY --from=download /tmp/model /usr/local/lib/lld
 WORKDIR /usr/local/src
 
 COPY requirements.txt .
+RUN pip install --upgrade pip setuptools wheel
 RUN pip install -r requirements.txt
 
 COPY . .
