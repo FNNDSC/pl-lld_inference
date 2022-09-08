@@ -1,0 +1,2221 @@
+********************************************************************************
+[1;1m                          Software Support by BioGrids[1;22m
+********************************************************************************
+ Developed with support from HMS Tools-and-Technologies fund.
+ If your use of BioGrids compiled software was an important element in 
+ your publication, please include the following statement in your work:
+ "Software used in the project was installed and configured by BioGrids 
+ (cite: eLife 2013;2:e01456, Collaboration gets the most out of software.)"
+********************************************************************************
+This BioGrids installation last updated: [32m2022-04-05[0m
+ Please submit bug reports and help requests to:  help@biogrids.org.
+[1;1m       For additional information visit https://sbgrid.org/wiki/capsules[1;22m
+********************************************************************************
+********************************************************************************
+Sourcing /programs/local/local.shrc
+WARNING:tensorflow:From /home/ch117967/PluginLLDforRP/tensorflow_train/train_loop.py:14: The name tf.ConfigProto is deprecated. Please use tf.compat.v1.ConfigProto instead.
+
+WARNING:tensorflow:From /home/ch117967/PluginLLDforRP/tensorflow_train/train_loop.py:16: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+2022-04-05 16:47:48.575083: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: SSE4.1 SSE4.2 AVX AVX2 FMA
+2022-04-05 16:47:48.594209: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2200000000 Hz
+2022-04-05 16:47:48.594784: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x5565e8698bf0 executing computations on platform Host. Devices:
+2022-04-05 16:47:48.594831: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): <undefined>, <undefined>
+2022-04-05 16:47:48.652454: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcuda.so.1
+2022-04-05 16:47:51.538266: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+name: Tesla T4 major: 7 minor: 5 memoryClockRate(GHz): 1.59
+pciBusID: 0000:02:00.0
+2022-04-05 16:47:51.539400: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 1 with properties: 
+name: Tesla T4 major: 7 minor: 5 memoryClockRate(GHz): 1.59
+pciBusID: 0000:81:00.0
+2022-04-05 16:47:51.540499: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 2 with properties: 
+name: Tesla T4 major: 7 minor: 5 memoryClockRate(GHz): 1.59
+pciBusID: 0000:84:00.0
+2022-04-05 16:47:51.545982: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.1
+2022-04-05 16:47:51.584352: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10
+2022-04-05 16:47:51.606502: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10
+2022-04-05 16:47:51.624671: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10
+2022-04-05 16:47:51.661143: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10
+2022-04-05 16:47:51.676742: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10
+2022-04-05 16:47:51.812327: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+2022-04-05 16:47:51.823921: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0, 1, 2
+2022-04-05 16:47:51.824051: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.1
+2022-04-05 16:47:51.831206: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+2022-04-05 16:47:51.831245: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0 1 2 
+2022-04-05 16:47:51.831267: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N N N 
+2022-04-05 16:47:51.831279: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 1:   N N Y 
+2022-04-05 16:47:51.831290: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 2:   N Y N 
+2022-04-05 16:47:51.840052: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 14249 MB memory) -> physical GPU (device: 0, name: Tesla T4, pci bus id: 0000:02:00.0, compute capability: 7.5)
+2022-04-05 16:47:51.843891: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:1 with 14249 MB memory) -> physical GPU (device: 1, name: Tesla T4, pci bus id: 0000:81:00.0, compute capability: 7.5)
+2022-04-05 16:47:51.848146: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:2 with 14249 MB memory) -> physical GPU (device: 2, name: Tesla T4, pci bus id: 0000:84:00.0, compute capability: 7.5)
+2022-04-05 16:47:51.852082: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x5565ea07e670 executing computations on platform CUDA. Devices:
+2022-04-05 16:47:51.852112: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): Tesla T4, Compute Capability 7.5
+2022-04-05 16:47:51.852126: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (1): Tesla T4, Compute Capability 7.5
+2022-04-05 16:47:51.852137: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (2): Tesla T4, Compute Capability 7.5
+WARNING:tensorflow:From main.py:93: The name tf.make_template is deprecated. Please use tf.compat.v1.make_template instead.
+
+WARNING:tensorflow:From /home/ch117967/PluginLLDforRP/tensorflow_train/data_generator.py:20: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+WARNING:tensorflow:From /home/ch117967/PluginLLDforRP/tensorflow_train/data_generator.py:22: The name tf.FIFOQueue is deprecated. Please use tf.queue.FIFOQueue instead.
+
+WARNING:tensorflow:From /home/ch117967/PluginLLDforRP/tensorflow_train/layers/layers.py:58: conv2d (from tensorflow.python.layers.convolutional) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.keras.layers.Conv2D` instead.
+WARNING:tensorflow:Entity <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f7086159710>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f7086159710>>: AssertionError: Bad argument number for Name: 3, expecting 4
+WARNING:tensorflow:Entity <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f709051def0>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f709051def0>>: AssertionError: Bad argument number for Name: 3, expecting 4
+WARNING:tensorflow:Entity <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f7086159978>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f7086159978>>: AssertionError: Bad argument number for Name: 3, expecting 4
+WARNING:tensorflow:Entity <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f7086159e48>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f7086159e48>>: AssertionError: Bad argument number for Name: 3, expecting 4
+WARNING:tensorflow:Entity <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f70860c1f28>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f70860c1f28>>: AssertionError: Bad argument number for Name: 3, expecting 4
+WARNING:tensorflow:Entity <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f7085f9eef0>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f7085f9eef0>>: AssertionError: Bad argument number for Name: 3, expecting 4
+WARNING:tensorflow:Entity <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f7085f9e908>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f7085f9e908>>: AssertionError: Bad argument number for Name: 3, expecting 4
+WARNING:tensorflow:From main.py:117: The name tf.train.MomentumOptimizer is deprecated. Please use tf.compat.v1.train.MomentumOptimizer instead.
+
+WARNING:tensorflow:Entity <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f7085f217b8>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f7085f217b8>>: AssertionError: Bad argument number for Name: 3, expecting 4
+WARNING:tensorflow:Entity <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f7084178f28>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f7084178f28>>: AssertionError: Bad argument number for Name: 3, expecting 4
+WARNING:tensorflow:Entity <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f7085e4c198>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f7085e4c198>>: AssertionError: Bad argument number for Name: 3, expecting 4
+WARNING:tensorflow:Entity <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f708617be10>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f708617be10>>: AssertionError: Bad argument number for Name: 3, expecting 4
+WARNING:tensorflow:Entity <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f70860c1198>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f70860c1198>>: AssertionError: Bad argument number for Name: 3, expecting 4
+WARNING:tensorflow:Entity <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f7084132d68>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f7084132d68>>: AssertionError: Bad argument number for Name: 3, expecting 4
+WARNING:tensorflow:Entity <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f70860c1e80>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Conv.call of <tensorflow.python.layers.convolutional.Conv2D object at 0x7f70860c1e80>>: AssertionError: Bad argument number for Name: 3, expecting 4
+WARNING:tensorflow:From /home/ch117967/PluginLLDforRP/tensorflow_train/utils/summary_handler.py:19: The name tf.summary.scalar is deprecated. Please use tf.compat.v1.summary.scalar instead.
+
+WARNING:tensorflow:From /home/ch117967/PluginLLDforRP/tensorflow_train/utils/summary_handler.py:44: The name tf.summary.merge is deprecated. Please use tf.compat.v1.summary.merge instead.
+
+WARNING:tensorflow:From /home/ch117967/PluginLLDforRP/tensorflow_train/utils/summary_handler.py:47: The name tf.metrics.mean is deprecated. Please use tf.compat.v1.metrics.mean instead.
+
+WARNING:tensorflow:
+The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+  * https://github.com/tensorflow/io (for I/O related ops)
+If you depend on functionality not listed there, please file an issue.
+
+WARNING:tensorflow:From /home/ch117967/PluginLLDforRP/tensorflow_train/utils/summary_handler.py:48: The name tf.summary.FileWriter is deprecated. Please use tf.compat.v1.summary.FileWriter instead.
+
+WARNING:tensorflow:From /home/ch117967/PluginLLDforRP/tensorflow_train/train_loop.py:56: start_queue_runners (from tensorflow.python.training.queue_runner_impl) is deprecated and will be removed in a future version.
+Instructions for updating:
+To construct input pipelines, use the `tf.data` module.
+WARNING:tensorflow:`tf.train.start_queue_runners()` was called when no queue runners were defined. You can safely remove the call to this deprecated function.
+WARNING:tensorflow:From /home/ch117967/PluginLLDforRP/tensorflow_train/train_loop.py:45: The name tf.train.Saver is deprecated. Please use tf.compat.v1.train.Saver instead.
+
+WARNING:tensorflow:From /home/ch117967/PluginLLDforRP/tensorflow_train/train_loop.py:168: The name tf.train.GradientDescentOptimizer is deprecated. Please use tf.compat.v1.train.GradientDescentOptimizer instead.
+
+WARNING:tensorflow:From /home/ch117967/PluginLLDforRP/tensorflow_train/train_loop.py:172: The name tf.train.AdamOptimizer is deprecated. Please use tf.compat.v1.train.AdamOptimizer instead.
+
+2022-04-05 16:48:04.340653: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+loaded 503 ids
+BasicDataset is deprecated and may be removed in later versions. Use GraphDataset instead.
+ReferenceTransformationDataset is deprecated and may be removed in later versions. Use GraphDataset instead.
+loaded 1 ids
+BasicDataset is deprecated and may be removed in later versions. Use GraphDataset instead.
+ReferenceTransformationDataset is deprecated and may be removed in later versions. Use GraphDataset instead.
+initNetworks() is deprecated and may be removed in later versions. Use init_networks() instead.
+conv0: in=[8, 1, 128, 256] out=[8, 128, 128, 256] ks=[15, 15] s=(1, 1) pad=same act=relu k_init=he b_init=0 norm=None train=True format=channels_first
+conv1: in=[8, 128, 128, 256] out=[8, 128, 128, 256] ks=[15, 15] s=(1, 1) pad=same act=relu k_init=he b_init=0 norm=None train=True format=channels_first
+conv2: in=[8, 128, 128, 256] out=[8, 128, 128, 256] ks=[15, 15] s=(1, 1) pad=same act=relu k_init=he b_init=0 norm=None train=True format=channels_first
+conv3: in=[8, 128, 128, 256] out=[8, 128, 128, 256] ks=[15, 15] s=(1, 1) pad=same act=relu k_init=he b_init=0 norm=None train=True format=channels_first
+conv4: in=[8, 128, 128, 256] out=[8, 128, 128, 256] ks=[15, 15] s=(1, 1) pad=same act=relu k_init=he b_init=0 norm=None train=True format=channels_first
+conv5: in=[8, 128, 128, 256] out=[8, 128, 128, 256] ks=[15, 15] s=(1, 1) pad=same act=relu k_init=he b_init=0 norm=None train=True format=channels_first
+heatmaps: in=[8, 128, 128, 256] out=[8, 6, 128, 256] ks=[1, 1] s=(1, 1) pad=same act=None k_init=norm(0.0±0.0001) b_init=0 norm=None train=True format=channels_first
+conv0: in=[1, 1, 128, 256] out=[1, 128, 128, 256] ks=[15, 15] s=(1, 1) pad=same act=relu k_init=he b_init=0 norm=None train=False format=channels_first
+conv1: in=[1, 128, 128, 256] out=[1, 128, 128, 256] ks=[15, 15] s=(1, 1) pad=same act=relu k_init=he b_init=0 norm=None train=False format=channels_first
+conv2: in=[1, 128, 128, 256] out=[1, 128, 128, 256] ks=[15, 15] s=(1, 1) pad=same act=relu k_init=he b_init=0 norm=None train=False format=channels_first
+conv3: in=[1, 128, 128, 256] out=[1, 128, 128, 256] ks=[15, 15] s=(1, 1) pad=same act=relu k_init=he b_init=0 norm=None train=False format=channels_first
+conv4: in=[1, 128, 128, 256] out=[1, 128, 128, 256] ks=[15, 15] s=(1, 1) pad=same act=relu k_init=he b_init=0 norm=None train=False format=channels_first
+conv5: in=[1, 128, 128, 256] out=[1, 128, 128, 256] ks=[15, 15] s=(1, 1) pad=same act=relu k_init=he b_init=0 norm=None train=False format=channels_first
+heatmaps: in=[1, 128, 128, 256] out=[1, 6, 128, 256] ks=[1, 1] s=(1, 1) pad=same act=None k_init=norm(0.0±0.0001) b_init=0 norm=None train=False format=channels_first
+Variables
+<tf.Variable 'net/downsampling/conv0/kernel:0' shape=(15, 15, 1, 128) dtype=float32_ref>
+<tf.Variable 'net/downsampling/conv0/bias:0' shape=(128,) dtype=float32_ref>
+<tf.Variable 'net/downsampling/conv1/kernel:0' shape=(15, 15, 128, 128) dtype=float32_ref>
+<tf.Variable 'net/downsampling/conv1/bias:0' shape=(128,) dtype=float32_ref>
+<tf.Variable 'net/downsampling/conv2/kernel:0' shape=(15, 15, 128, 128) dtype=float32_ref>
+<tf.Variable 'net/downsampling/conv2/bias:0' shape=(128,) dtype=float32_ref>
+<tf.Variable 'net/downsampling/conv3/kernel:0' shape=(15, 15, 128, 128) dtype=float32_ref>
+<tf.Variable 'net/downsampling/conv3/bias:0' shape=(128,) dtype=float32_ref>
+<tf.Variable 'net/downsampling/conv4/kernel:0' shape=(15, 15, 128, 128) dtype=float32_ref>
+<tf.Variable 'net/downsampling/conv4/bias:0' shape=(128,) dtype=float32_ref>
+<tf.Variable 'net/downsampling/conv5/kernel:0' shape=(15, 15, 128, 128) dtype=float32_ref>
+<tf.Variable 'net/downsampling/conv5/bias:0' shape=(128,) dtype=float32_ref>
+<tf.Variable 'net/downsampling/heatmaps/kernel:0' shape=(1, 1, 128, 6) dtype=float32_ref>
+<tf.Variable 'net/downsampling/heatmaps/bias:0' shape=(6,) dtype=float32_ref>
+<tf.Variable 'net/downsampling/conv0/kernel/Momentum:0' shape=(15, 15, 1, 128) dtype=float32_ref>
+<tf.Variable 'net/downsampling/conv0/bias/Momentum:0' shape=(128,) dtype=float32_ref>
+<tf.Variable 'net/downsampling/conv1/kernel/Momentum:0' shape=(15, 15, 128, 128) dtype=float32_ref>
+<tf.Variable 'net/downsampling/conv1/bias/Momentum:0' shape=(128,) dtype=float32_ref>
+<tf.Variable 'net/downsampling/conv2/kernel/Momentum:0' shape=(15, 15, 128, 128) dtype=float32_ref>
+<tf.Variable 'net/downsampling/conv2/bias/Momentum:0' shape=(128,) dtype=float32_ref>
+<tf.Variable 'net/downsampling/conv3/kernel/Momentum:0' shape=(15, 15, 128, 128) dtype=float32_ref>
+<tf.Variable 'net/downsampling/conv3/bias/Momentum:0' shape=(128,) dtype=float32_ref>
+<tf.Variable 'net/downsampling/conv4/kernel/Momentum:0' shape=(15, 15, 128, 128) dtype=float32_ref>
+<tf.Variable 'net/downsampling/conv4/bias/Momentum:0' shape=(128,) dtype=float32_ref>
+<tf.Variable 'net/downsampling/conv5/kernel/Momentum:0' shape=(15, 15, 128, 128) dtype=float32_ref>
+<tf.Variable 'net/downsampling/conv5/bias/Momentum:0' shape=(128,) dtype=float32_ref>
+<tf.Variable 'net/downsampling/heatmaps/kernel/Momentum:0' shape=(1, 1, 128, 6) dtype=float32_ref>
+<tf.Variable 'net/downsampling/heatmaps/bias/Momentum:0' shape=(6,) dtype=float32_ref>
+Data generator thread start
+Data generator thread start
+Data generator thread start
+Data generator thread start
+Data generator thread start
+Data generator thread start
+Data generator thread start
+Data generator thread start
+Starting main loop
+Training parameters:
+Batch size: 8
+Learning rate: 1e-07
+Max iterations: 20000
+Output folder: conv_cv0/2022-04-05_16-47-51
+Testing  |--------------------------------------------------| 0.0%  completeatsai time test duration = 8.4360 seconds
+Testing  |XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX| 100.0%  complete
+ipe (28.879960364457503, 0.0, 28.879960364457503)
+pe (28.879960364457503, 18.91044331218474, 22.923582386773873)
+outliers [6, 6, 5]
+atsai num training data 503
+16:48:12: test iter: 0 loss: 37.7320 loss_reg: 0.0384 seconds: 11.898
+16:48:23: train iter: 0 loss: 22.0015 loss_reg: 0.0384 seconds: 22.652
+16:48:52: train iter: 10 loss: 26.9538 loss_reg: 0.0384 seconds: 29.488
+16:49:22: train iter: 20 loss: 27.6205 loss_reg: 0.0384 seconds: 29.870
+16:49:52: train iter: 30 loss: 27.3812 loss_reg: 0.0384 seconds: 30.327
+16:50:23: train iter: 40 loss: 24.9774 loss_reg: 0.0384 seconds: 30.689
+16:50:54: train iter: 50 loss: 25.9725 loss_reg: 0.0384 seconds: 30.943
+16:51:25: train iter: 60 loss: 26.4861 loss_reg: 0.0384 seconds: 30.999
+16:51:56: train iter: 70 loss: 26.2673 loss_reg: 0.0384 seconds: 31.072
+16:52:27: train iter: 80 loss: 27.0656 loss_reg: 0.0384 seconds: 31.189
+16:52:59: train iter: 90 loss: 26.4422 loss_reg: 0.0384 seconds: 31.197
+16:53:30: train iter: 100 loss: 26.5231 loss_reg: 0.0384 seconds: 31.228
+16:54:01: train iter: 110 loss: 26.0757 loss_reg: 0.0384 seconds: 31.281
+16:54:32: train iter: 120 loss: 26.6410 loss_reg: 0.0384 seconds: 31.297
+16:55:04: train iter: 130 loss: 26.3509 loss_reg: 0.0384 seconds: 31.292
+16:55:35: train iter: 140 loss: 25.2345 loss_reg: 0.0384 seconds: 31.274
+16:56:06: train iter: 150 loss: 25.4372 loss_reg: 0.0384 seconds: 31.270
+16:56:37: train iter: 160 loss: 26.4031 loss_reg: 0.0384 seconds: 31.303
+16:57:09: train iter: 170 loss: 25.0078 loss_reg: 0.0384 seconds: 31.308
+16:57:40: train iter: 180 loss: 25.8402 loss_reg: 0.0384 seconds: 31.310
+16:58:11: train iter: 190 loss: 25.6292 loss_reg: 0.0384 seconds: 31.301
+16:58:43: train iter: 200 loss: 26.1742 loss_reg: 0.0384 seconds: 31.293
+16:59:14: train iter: 210 loss: 25.1509 loss_reg: 0.0384 seconds: 31.278
+16:59:45: train iter: 220 loss: 25.1377 loss_reg: 0.0384 seconds: 31.286
+17:00:17: train iter: 230 loss: 25.0159 loss_reg: 0.0384 seconds: 31.281
+17:00:48: train iter: 240 loss: 26.3120 loss_reg: 0.0384 seconds: 31.299
+17:01:19: train iter: 250 loss: 24.9952 loss_reg: 0.0384 seconds: 31.287
+17:01:50: train iter: 260 loss: 27.6128 loss_reg: 0.0384 seconds: 31.298
+17:02:22: train iter: 270 loss: 25.4290 loss_reg: 0.0384 seconds: 31.304
+17:02:53: train iter: 280 loss: 25.8277 loss_reg: 0.0384 seconds: 31.291
+17:03:24: train iter: 290 loss: 25.6250 loss_reg: 0.0384 seconds: 31.293
+17:03:56: train iter: 300 loss: 25.0168 loss_reg: 0.0384 seconds: 31.299
+17:04:27: train iter: 310 loss: 26.0804 loss_reg: 0.0384 seconds: 31.284
+17:04:58: train iter: 320 loss: 26.6791 loss_reg: 0.0384 seconds: 31.310
+17:05:30: train iter: 330 loss: 26.3018 loss_reg: 0.0384 seconds: 31.298
+17:06:01: train iter: 340 loss: 26.2580 loss_reg: 0.0384 seconds: 31.293
+17:06:32: train iter: 350 loss: 25.2561 loss_reg: 0.0384 seconds: 31.292
+17:07:03: train iter: 360 loss: 26.7487 loss_reg: 0.0384 seconds: 31.274
+17:07:35: train iter: 370 loss: 25.1958 loss_reg: 0.0384 seconds: 31.298
+17:08:06: train iter: 380 loss: 25.5059 loss_reg: 0.0384 seconds: 31.306
+17:08:37: train iter: 390 loss: 25.0735 loss_reg: 0.0384 seconds: 31.277
+17:09:09: train iter: 400 loss: 25.0479 loss_reg: 0.0384 seconds: 31.284
+17:09:40: train iter: 410 loss: 25.4266 loss_reg: 0.0384 seconds: 31.297
+17:10:11: train iter: 420 loss: 25.9816 loss_reg: 0.0384 seconds: 31.293
+17:10:42: train iter: 430 loss: 25.1477 loss_reg: 0.0384 seconds: 31.279
+17:11:14: train iter: 440 loss: 25.9099 loss_reg: 0.0384 seconds: 31.287
+17:11:45: train iter: 450 loss: 25.0485 loss_reg: 0.0384 seconds: 31.306
+17:12:16: train iter: 460 loss: 24.4593 loss_reg: 0.0384 seconds: 31.297
+17:12:48: train iter: 470 loss: 25.3783 loss_reg: 0.0384 seconds: 31.309
+17:13:19: train iter: 480 loss: 24.8512 loss_reg: 0.0384 seconds: 31.274
+17:13:50: train iter: 490 loss: 25.9425 loss_reg: 0.0384 seconds: 31.302
+17:14:22: train iter: 500 loss: 24.2056 loss_reg: 0.0384 seconds: 31.321
+17:14:53: train iter: 510 loss: 25.2087 loss_reg: 0.0384 seconds: 31.289
+17:15:24: train iter: 520 loss: 25.9820 loss_reg: 0.0384 seconds: 31.296
+17:15:55: train iter: 530 loss: 23.2962 loss_reg: 0.0384 seconds: 31.258
+17:16:27: train iter: 540 loss: 24.5372 loss_reg: 0.0384 seconds: 31.313
+17:16:58: train iter: 550 loss: 24.5882 loss_reg: 0.0384 seconds: 31.272
+17:17:29: train iter: 560 loss: 25.1154 loss_reg: 0.0384 seconds: 31.292
+17:18:00: train iter: 570 loss: 24.5128 loss_reg: 0.0384 seconds: 31.260
+17:18:32: train iter: 580 loss: 25.1232 loss_reg: 0.0384 seconds: 31.300
+17:19:03: train iter: 590 loss: 25.0531 loss_reg: 0.0384 seconds: 31.289
+17:19:34: train iter: 600 loss: 24.2921 loss_reg: 0.0384 seconds: 31.286
+17:20:06: train iter: 610 loss: 24.3927 loss_reg: 0.0384 seconds: 31.264
+17:20:37: train iter: 620 loss: 24.5386 loss_reg: 0.0384 seconds: 31.309
+17:21:08: train iter: 630 loss: 26.5132 loss_reg: 0.0384 seconds: 31.310
+17:21:40: train iter: 640 loss: 25.1500 loss_reg: 0.0384 seconds: 31.269
+17:22:11: train iter: 650 loss: 24.5808 loss_reg: 0.0384 seconds: 31.289
+17:22:42: train iter: 660 loss: 25.5779 loss_reg: 0.0384 seconds: 31.280
+17:23:13: train iter: 670 loss: 24.7178 loss_reg: 0.0384 seconds: 31.278
+17:23:45: train iter: 680 loss: 24.3005 loss_reg: 0.0384 seconds: 31.251
+17:24:16: train iter: 690 loss: 23.1275 loss_reg: 0.0384 seconds: 31.271
+17:24:47: train iter: 700 loss: 24.3449 loss_reg: 0.0384 seconds: 31.245
+17:25:18: train iter: 710 loss: 25.3279 loss_reg: 0.0384 seconds: 31.262
+17:25:50: train iter: 720 loss: 23.6516 loss_reg: 0.0384 seconds: 31.251
+17:26:21: train iter: 730 loss: 24.1581 loss_reg: 0.0384 seconds: 31.274
+17:26:52: train iter: 740 loss: 23.5911 loss_reg: 0.0384 seconds: 31.243
+17:27:23: train iter: 750 loss: 23.6135 loss_reg: 0.0384 seconds: 31.263
+17:27:55: train iter: 760 loss: 25.2090 loss_reg: 0.0384 seconds: 31.284
+17:28:26: train iter: 770 loss: 24.9678 loss_reg: 0.0384 seconds: 31.298
+17:28:57: train iter: 780 loss: 24.7051 loss_reg: 0.0384 seconds: 31.254
+17:29:29: train iter: 790 loss: 24.3061 loss_reg: 0.0384 seconds: 31.300
+17:30:00: train iter: 800 loss: 24.5350 loss_reg: 0.0384 seconds: 31.258
+17:30:31: train iter: 810 loss: 23.0446 loss_reg: 0.0384 seconds: 31.282
+17:31:02: train iter: 820 loss: 23.2524 loss_reg: 0.0384 seconds: 31.284
+17:31:34: train iter: 830 loss: 23.8559 loss_reg: 0.0384 seconds: 31.271
+17:32:05: train iter: 840 loss: 23.8883 loss_reg: 0.0384 seconds: 31.256
+17:32:36: train iter: 850 loss: 23.3789 loss_reg: 0.0384 seconds: 31.269
+17:33:07: train iter: 860 loss: 23.8823 loss_reg: 0.0384 seconds: 31.265
+17:33:39: train iter: 870 loss: 23.3508 loss_reg: 0.0384 seconds: 31.277
+17:34:10: train iter: 880 loss: 24.1234 loss_reg: 0.0384 seconds: 31.261
+17:34:41: train iter: 890 loss: 23.9199 loss_reg: 0.0384 seconds: 31.279
+17:35:13: train iter: 900 loss: 23.5451 loss_reg: 0.0384 seconds: 31.266
+17:35:44: train iter: 910 loss: 22.6700 loss_reg: 0.0384 seconds: 31.302
+17:36:15: train iter: 920 loss: 24.0822 loss_reg: 0.0384 seconds: 31.295
+17:36:46: train iter: 930 loss: 24.0031 loss_reg: 0.0384 seconds: 31.258
+17:37:18: train iter: 940 loss: 23.8805 loss_reg: 0.0384 seconds: 31.272
+17:37:49: train iter: 950 loss: 23.2212 loss_reg: 0.0384 seconds: 31.275
+17:38:20: train iter: 960 loss: 23.1597 loss_reg: 0.0384 seconds: 31.248
+17:38:51: train iter: 970 loss: 22.7027 loss_reg: 0.0384 seconds: 31.245
+17:39:23: train iter: 980 loss: 22.0323 loss_reg: 0.0384 seconds: 31.256
+17:39:54: train iter: 990 loss: 23.1240 loss_reg: 0.0384 seconds: 31.254
+17:40:25: train iter: 1000 loss: 22.8115 loss_reg: 0.0384 seconds: 31.267
+17:40:56: train iter: 1010 loss: 22.8265 loss_reg: 0.0384 seconds: 31.268
+17:41:28: train iter: 1020 loss: 21.8755 loss_reg: 0.0384 seconds: 31.279
+17:41:59: train iter: 1030 loss: 24.7107 loss_reg: 0.0384 seconds: 31.274
+17:42:30: train iter: 1040 loss: 22.6529 loss_reg: 0.0384 seconds: 31.265
+17:43:02: train iter: 1050 loss: 22.2809 loss_reg: 0.0384 seconds: 31.252
+17:43:33: train iter: 1060 loss: 22.5318 loss_reg: 0.0384 seconds: 31.283
+17:44:04: train iter: 1070 loss: 22.5292 loss_reg: 0.0384 seconds: 31.293
+17:44:35: train iter: 1080 loss: 22.5045 loss_reg: 0.0384 seconds: 31.249
+17:45:07: train iter: 1090 loss: 22.3376 loss_reg: 0.0384 seconds: 31.257
+17:45:38: train iter: 1100 loss: 21.8743 loss_reg: 0.0384 seconds: 31.257
+17:46:09: train iter: 1110 loss: 22.8820 loss_reg: 0.0384 seconds: 31.270
+17:46:40: train iter: 1120 loss: 21.6784 loss_reg: 0.0384 seconds: 31.286
+17:47:12: train iter: 1130 loss: 21.3721 loss_reg: 0.0384 seconds: 31.263
+17:47:43: train iter: 1140 loss: 21.6802 loss_reg: 0.0384 seconds: 31.260
+17:48:14: train iter: 1150 loss: 21.0535 loss_reg: 0.0384 seconds: 31.271
+17:48:46: train iter: 1160 loss: 21.0401 loss_reg: 0.0384 seconds: 31.294
+17:49:17: train iter: 1170 loss: 21.7927 loss_reg: 0.0384 seconds: 31.257
+17:49:48: train iter: 1180 loss: 20.8760 loss_reg: 0.0384 seconds: 31.270
+17:50:19: train iter: 1190 loss: 20.8414 loss_reg: 0.0384 seconds: 31.275
+17:50:51: train iter: 1200 loss: 20.3566 loss_reg: 0.0384 seconds: 31.239
+17:51:22: train iter: 1210 loss: 21.5437 loss_reg: 0.0384 seconds: 31.293
+17:51:53: train iter: 1220 loss: 22.1500 loss_reg: 0.0384 seconds: 31.243
+17:52:24: train iter: 1230 loss: 21.4170 loss_reg: 0.0384 seconds: 31.276
+17:52:56: train iter: 1240 loss: 21.8190 loss_reg: 0.0384 seconds: 31.266
+17:53:27: train iter: 1250 loss: 21.8037 loss_reg: 0.0384 seconds: 31.285
+17:53:58: train iter: 1260 loss: 21.7228 loss_reg: 0.0384 seconds: 31.278
+17:54:30: train iter: 1270 loss: 20.6512 loss_reg: 0.0384 seconds: 31.277
+17:55:01: train iter: 1280 loss: 21.4592 loss_reg: 0.0384 seconds: 31.277
+17:55:32: train iter: 1290 loss: 20.9546 loss_reg: 0.0384 seconds: 31.277
+17:56:03: train iter: 1300 loss: 19.6732 loss_reg: 0.0384 seconds: 31.292
+17:56:35: train iter: 1310 loss: 19.3970 loss_reg: 0.0384 seconds: 31.283
+17:57:06: train iter: 1320 loss: 20.7125 loss_reg: 0.0384 seconds: 31.277
+17:57:37: train iter: 1330 loss: 21.2764 loss_reg: 0.0384 seconds: 31.261
+17:58:08: train iter: 1340 loss: 20.5203 loss_reg: 0.0384 seconds: 31.280
+17:58:40: train iter: 1350 loss: 19.8044 loss_reg: 0.0384 seconds: 31.276
+17:59:11: train iter: 1360 loss: 20.0471 loss_reg: 0.0384 seconds: 31.272
+17:59:42: train iter: 1370 loss: 19.7469 loss_reg: 0.0384 seconds: 31.273
+18:00:14: train iter: 1380 loss: 20.8352 loss_reg: 0.0384 seconds: 31.316
+18:00:45: train iter: 1390 loss: 19.8694 loss_reg: 0.0384 seconds: 31.308
+18:01:16: train iter: 1400 loss: 19.4645 loss_reg: 0.0384 seconds: 31.294
+18:01:48: train iter: 1410 loss: 18.9242 loss_reg: 0.0384 seconds: 31.294
+18:02:19: train iter: 1420 loss: 19.4890 loss_reg: 0.0384 seconds: 31.314
+18:02:50: train iter: 1430 loss: 18.5213 loss_reg: 0.0384 seconds: 31.337
+18:03:21: train iter: 1440 loss: 18.4643 loss_reg: 0.0384 seconds: 31.296
+18:03:53: train iter: 1450 loss: 19.3916 loss_reg: 0.0384 seconds: 31.294
+18:04:24: train iter: 1460 loss: 18.7847 loss_reg: 0.0384 seconds: 31.271
+18:04:55: train iter: 1470 loss: 19.3868 loss_reg: 0.0384 seconds: 31.291
+18:05:27: train iter: 1480 loss: 19.6043 loss_reg: 0.0384 seconds: 31.317
+18:05:58: train iter: 1490 loss: 19.6449 loss_reg: 0.0384 seconds: 31.309
+18:06:29: train iter: 1500 loss: 19.4469 loss_reg: 0.0384 seconds: 31.319
+18:07:01: train iter: 1510 loss: 18.5568 loss_reg: 0.0384 seconds: 31.338
+18:07:32: train iter: 1520 loss: 18.1545 loss_reg: 0.0384 seconds: 31.296
+18:08:03: train iter: 1530 loss: 19.6297 loss_reg: 0.0384 seconds: 31.332
+18:08:35: train iter: 1540 loss: 18.5885 loss_reg: 0.0384 seconds: 31.312
+18:09:06: train iter: 1550 loss: 19.5484 loss_reg: 0.0384 seconds: 31.321
+18:09:37: train iter: 1560 loss: 18.6574 loss_reg: 0.0384 seconds: 31.322
+18:10:08: train iter: 1570 loss: 19.4398 loss_reg: 0.0384 seconds: 31.290
+18:10:40: train iter: 1580 loss: 18.2900 loss_reg: 0.0384 seconds: 31.323
+18:11:11: train iter: 1590 loss: 18.2910 loss_reg: 0.0384 seconds: 31.318
+18:11:42: train iter: 1600 loss: 18.6015 loss_reg: 0.0384 seconds: 31.313
+18:12:14: train iter: 1610 loss: 17.9494 loss_reg: 0.0384 seconds: 31.317
+18:12:45: train iter: 1620 loss: 17.6709 loss_reg: 0.0384 seconds: 31.305
+18:13:16: train iter: 1630 loss: 18.2732 loss_reg: 0.0384 seconds: 31.321
+18:13:48: train iter: 1640 loss: 17.0312 loss_reg: 0.0384 seconds: 31.302
+18:14:19: train iter: 1650 loss: 18.2442 loss_reg: 0.0384 seconds: 31.320
+18:14:50: train iter: 1660 loss: 18.5474 loss_reg: 0.0384 seconds: 31.332
+18:15:22: train iter: 1670 loss: 18.1853 loss_reg: 0.0384 seconds: 31.348
+18:15:53: train iter: 1680 loss: 18.4409 loss_reg: 0.0384 seconds: 31.318
+18:16:24: train iter: 1690 loss: 17.7274 loss_reg: 0.0384 seconds: 31.340
+18:16:56: train iter: 1700 loss: 17.2177 loss_reg: 0.0384 seconds: 31.340
+18:17:27: train iter: 1710 loss: 17.2800 loss_reg: 0.0384 seconds: 31.334
+18:17:58: train iter: 1720 loss: 17.3164 loss_reg: 0.0384 seconds: 31.299
+18:18:30: train iter: 1730 loss: 17.3519 loss_reg: 0.0384 seconds: 31.311
+18:19:01: train iter: 1740 loss: 16.7858 loss_reg: 0.0384 seconds: 31.326
+18:19:32: train iter: 1750 loss: 16.9209 loss_reg: 0.0384 seconds: 31.348
+18:20:04: train iter: 1760 loss: 17.1678 loss_reg: 0.0384 seconds: 31.328
+18:20:35: train iter: 1770 loss: 17.6484 loss_reg: 0.0384 seconds: 31.347
+18:21:06: train iter: 1780 loss: 18.0790 loss_reg: 0.0384 seconds: 31.330
+18:21:38: train iter: 1790 loss: 17.6612 loss_reg: 0.0384 seconds: 31.345
+18:22:09: train iter: 1800 loss: 16.5446 loss_reg: 0.0384 seconds: 31.347
+18:22:40: train iter: 1810 loss: 17.2539 loss_reg: 0.0384 seconds: 31.341
+18:23:12: train iter: 1820 loss: 16.4984 loss_reg: 0.0384 seconds: 31.346
+18:23:43: train iter: 1830 loss: 16.3766 loss_reg: 0.0384 seconds: 31.315
+18:24:14: train iter: 1840 loss: 17.9376 loss_reg: 0.0384 seconds: 31.343
+18:24:46: train iter: 1850 loss: 16.6385 loss_reg: 0.0384 seconds: 31.335
+18:25:17: train iter: 1860 loss: 17.4232 loss_reg: 0.0384 seconds: 31.320
+18:25:48: train iter: 1870 loss: 16.4270 loss_reg: 0.0384 seconds: 31.346
+18:26:20: train iter: 1880 loss: 16.8266 loss_reg: 0.0384 seconds: 31.342
+18:26:51: train iter: 1890 loss: 15.4302 loss_reg: 0.0384 seconds: 31.321
+18:27:22: train iter: 1900 loss: 16.5807 loss_reg: 0.0384 seconds: 31.306
+18:27:54: train iter: 1910 loss: 16.4954 loss_reg: 0.0384 seconds: 31.330
+18:28:25: train iter: 1920 loss: 17.1322 loss_reg: 0.0384 seconds: 31.336
+18:28:56: train iter: 1930 loss: 15.6381 loss_reg: 0.0384 seconds: 31.321
+18:29:28: train iter: 1940 loss: 17.6367 loss_reg: 0.0384 seconds: 31.311
+18:29:59: train iter: 1950 loss: 15.4898 loss_reg: 0.0384 seconds: 31.328
+18:30:30: train iter: 1960 loss: 15.6459 loss_reg: 0.0384 seconds: 31.331
+18:31:02: train iter: 1970 loss: 17.4099 loss_reg: 0.0384 seconds: 31.322
+18:31:33: train iter: 1980 loss: 15.6170 loss_reg: 0.0384 seconds: 31.358
+18:32:04: train iter: 1990 loss: 15.3356 loss_reg: 0.0384 seconds: 31.321
+18:32:36: train iter: 2000 loss: 16.9185 loss_reg: 0.0384 seconds: 31.328
+18:33:07: train iter: 2010 loss: 16.0557 loss_reg: 0.0384 seconds: 31.337
+18:33:38: train iter: 2020 loss: 16.8742 loss_reg: 0.0384 seconds: 31.302
+18:34:10: train iter: 2030 loss: 16.1307 loss_reg: 0.0384 seconds: 31.340
+18:34:41: train iter: 2040 loss: 16.9625 loss_reg: 0.0384 seconds: 31.315
+18:35:12: train iter: 2050 loss: 16.6535 loss_reg: 0.0384 seconds: 31.342
+18:35:44: train iter: 2060 loss: 16.7729 loss_reg: 0.0384 seconds: 31.352
+18:36:15: train iter: 2070 loss: 15.3920 loss_reg: 0.0384 seconds: 31.353
+18:36:46: train iter: 2080 loss: 16.0875 loss_reg: 0.0384 seconds: 31.345
+18:37:18: train iter: 2090 loss: 16.1083 loss_reg: 0.0384 seconds: 31.363
+18:37:49: train iter: 2100 loss: 16.1464 loss_reg: 0.0384 seconds: 31.358
+18:38:20: train iter: 2110 loss: 15.2838 loss_reg: 0.0384 seconds: 31.349
+18:38:52: train iter: 2120 loss: 16.8288 loss_reg: 0.0384 seconds: 31.330
+18:39:23: train iter: 2130 loss: 14.9873 loss_reg: 0.0384 seconds: 31.345
+18:39:54: train iter: 2140 loss: 14.8257 loss_reg: 0.0384 seconds: 31.338
+18:40:26: train iter: 2150 loss: 16.3265 loss_reg: 0.0384 seconds: 31.343
+18:40:57: train iter: 2160 loss: 16.5304 loss_reg: 0.0384 seconds: 31.333
+18:41:28: train iter: 2170 loss: 16.0084 loss_reg: 0.0384 seconds: 31.312
+18:42:00: train iter: 2180 loss: 15.6546 loss_reg: 0.0384 seconds: 31.331
+18:42:31: train iter: 2190 loss: 15.4139 loss_reg: 0.0384 seconds: 31.308
+18:43:02: train iter: 2200 loss: 14.5307 loss_reg: 0.0384 seconds: 31.310
+18:43:34: train iter: 2210 loss: 15.4015 loss_reg: 0.0384 seconds: 31.342
+18:44:05: train iter: 2220 loss: 15.0266 loss_reg: 0.0384 seconds: 31.345
+18:44:36: train iter: 2230 loss: 15.5672 loss_reg: 0.0384 seconds: 31.326
+18:45:08: train iter: 2240 loss: 15.1801 loss_reg: 0.0384 seconds: 31.328
+18:45:39: train iter: 2250 loss: 15.6031 loss_reg: 0.0384 seconds: 31.358
+18:46:10: train iter: 2260 loss: 15.4439 loss_reg: 0.0384 seconds: 31.337
+18:46:42: train iter: 2270 loss: 14.7536 loss_reg: 0.0384 seconds: 31.322
+18:47:13: train iter: 2280 loss: 15.7213 loss_reg: 0.0384 seconds: 31.336
+18:47:44: train iter: 2290 loss: 14.8552 loss_reg: 0.0384 seconds: 31.338
+18:48:16: train iter: 2300 loss: 15.6529 loss_reg: 0.0384 seconds: 31.342
+18:48:47: train iter: 2310 loss: 15.2274 loss_reg: 0.0384 seconds: 31.338
+18:49:18: train iter: 2320 loss: 14.5983 loss_reg: 0.0384 seconds: 31.349
+18:49:50: train iter: 2330 loss: 14.9423 loss_reg: 0.0384 seconds: 31.353
+18:50:21: train iter: 2340 loss: 15.6789 loss_reg: 0.0384 seconds: 31.312
+18:50:52: train iter: 2350 loss: 15.8867 loss_reg: 0.0384 seconds: 31.343
+18:51:24: train iter: 2360 loss: 15.6501 loss_reg: 0.0384 seconds: 31.325
+18:51:55: train iter: 2370 loss: 15.4542 loss_reg: 0.0384 seconds: 31.324
+18:52:26: train iter: 2380 loss: 15.3655 loss_reg: 0.0384 seconds: 31.319
+18:52:58: train iter: 2390 loss: 15.6864 loss_reg: 0.0384 seconds: 31.323
+18:53:29: train iter: 2400 loss: 14.9692 loss_reg: 0.0384 seconds: 31.309
+18:54:00: train iter: 2410 loss: 14.7490 loss_reg: 0.0384 seconds: 31.340
+18:54:32: train iter: 2420 loss: 14.5800 loss_reg: 0.0384 seconds: 31.306
+18:55:03: train iter: 2430 loss: 15.3719 loss_reg: 0.0384 seconds: 31.297
+18:55:34: train iter: 2440 loss: 14.9809 loss_reg: 0.0384 seconds: 31.332
+18:56:06: train iter: 2450 loss: 14.4440 loss_reg: 0.0384 seconds: 31.309
+18:56:37: train iter: 2460 loss: 14.4753 loss_reg: 0.0384 seconds: 31.327
+18:57:08: train iter: 2470 loss: 14.6112 loss_reg: 0.0384 seconds: 31.318
+18:57:40: train iter: 2480 loss: 13.7943 loss_reg: 0.0384 seconds: 31.317
+18:58:11: train iter: 2490 loss: 15.2316 loss_reg: 0.0384 seconds: 31.326
+18:58:42: train iter: 2500 loss: 14.9155 loss_reg: 0.0384 seconds: 31.328
+18:59:14: train iter: 2510 loss: 15.3652 loss_reg: 0.0384 seconds: 31.328
+18:59:45: train iter: 2520 loss: 15.5893 loss_reg: 0.0384 seconds: 31.318
+19:00:16: train iter: 2530 loss: 15.5705 loss_reg: 0.0384 seconds: 31.357
+19:00:48: train iter: 2540 loss: 16.0703 loss_reg: 0.0384 seconds: 31.350
+19:01:19: train iter: 2550 loss: 15.0676 loss_reg: 0.0384 seconds: 31.317
+19:01:50: train iter: 2560 loss: 14.4299 loss_reg: 0.0384 seconds: 31.372
+19:02:22: train iter: 2570 loss: 14.4875 loss_reg: 0.0384 seconds: 31.358
+19:02:53: train iter: 2580 loss: 14.0416 loss_reg: 0.0384 seconds: 31.316
+19:03:24: train iter: 2590 loss: 13.8586 loss_reg: 0.0384 seconds: 31.334
+19:03:56: train iter: 2600 loss: 14.5121 loss_reg: 0.0384 seconds: 31.347
+19:04:27: train iter: 2610 loss: 14.7168 loss_reg: 0.0384 seconds: 31.339
+19:04:58: train iter: 2620 loss: 14.6159 loss_reg: 0.0384 seconds: 31.343
+19:05:30: train iter: 2630 loss: 14.4905 loss_reg: 0.0384 seconds: 31.370
+19:06:01: train iter: 2640 loss: 14.5630 loss_reg: 0.0384 seconds: 31.299
+19:06:32: train iter: 2650 loss: 13.7359 loss_reg: 0.0384 seconds: 31.324
+19:07:04: train iter: 2660 loss: 14.7191 loss_reg: 0.0384 seconds: 31.356
+19:07:35: train iter: 2670 loss: 14.2049 loss_reg: 0.0384 seconds: 31.339
+19:08:06: train iter: 2680 loss: 14.2451 loss_reg: 0.0384 seconds: 31.331
+19:08:38: train iter: 2690 loss: 14.5665 loss_reg: 0.0384 seconds: 31.336
+19:09:09: train iter: 2700 loss: 14.1173 loss_reg: 0.0384 seconds: 31.318
+19:09:40: train iter: 2710 loss: 15.7091 loss_reg: 0.0384 seconds: 31.344
+19:10:12: train iter: 2720 loss: 14.9175 loss_reg: 0.0384 seconds: 31.343
+19:10:43: train iter: 2730 loss: 14.4141 loss_reg: 0.0384 seconds: 31.366
+19:11:14: train iter: 2740 loss: 14.7375 loss_reg: 0.0384 seconds: 31.363
+19:11:46: train iter: 2750 loss: 14.2020 loss_reg: 0.0384 seconds: 31.363
+19:12:17: train iter: 2760 loss: 14.5636 loss_reg: 0.0384 seconds: 31.358
+19:12:48: train iter: 2770 loss: 14.8881 loss_reg: 0.0384 seconds: 31.355
+19:13:20: train iter: 2780 loss: 14.2288 loss_reg: 0.0384 seconds: 31.352
+19:13:51: train iter: 2790 loss: 14.2030 loss_reg: 0.0384 seconds: 31.337
+19:14:22: train iter: 2800 loss: 13.8626 loss_reg: 0.0384 seconds: 31.319
+19:14:54: train iter: 2810 loss: 14.6071 loss_reg: 0.0384 seconds: 31.355
+19:15:25: train iter: 2820 loss: 14.5592 loss_reg: 0.0384 seconds: 31.329
+19:15:56: train iter: 2830 loss: 13.5588 loss_reg: 0.0384 seconds: 31.311
+19:16:28: train iter: 2840 loss: 15.0122 loss_reg: 0.0384 seconds: 31.332
+19:16:59: train iter: 2850 loss: 14.6272 loss_reg: 0.0384 seconds: 31.343
+19:17:31: train iter: 2860 loss: 14.5325 loss_reg: 0.0384 seconds: 31.363
+19:18:02: train iter: 2870 loss: 14.3440 loss_reg: 0.0384 seconds: 31.319
+19:18:33: train iter: 2880 loss: 12.9788 loss_reg: 0.0384 seconds: 31.327
+19:19:04: train iter: 2890 loss: 14.3888 loss_reg: 0.0384 seconds: 31.335
+19:19:36: train iter: 2900 loss: 14.5371 loss_reg: 0.0384 seconds: 31.336
+19:20:07: train iter: 2910 loss: 14.2347 loss_reg: 0.0384 seconds: 31.348
+19:20:39: train iter: 2920 loss: 14.0450 loss_reg: 0.0384 seconds: 31.329
+19:21:10: train iter: 2930 loss: 13.7760 loss_reg: 0.0384 seconds: 31.310
+19:21:41: train iter: 2940 loss: 15.3178 loss_reg: 0.0384 seconds: 31.330
+19:22:12: train iter: 2950 loss: 13.3787 loss_reg: 0.0384 seconds: 31.338
+19:22:44: train iter: 2960 loss: 13.9631 loss_reg: 0.0384 seconds: 31.337
+19:23:15: train iter: 2970 loss: 12.9754 loss_reg: 0.0384 seconds: 31.331
+19:23:46: train iter: 2980 loss: 14.5425 loss_reg: 0.0384 seconds: 31.327
+19:24:18: train iter: 2990 loss: 13.6855 loss_reg: 0.0384 seconds: 31.320
+19:24:49: train iter: 3000 loss: 14.6064 loss_reg: 0.0384 seconds: 31.341
+19:25:20: train iter: 3010 loss: 13.5341 loss_reg: 0.0384 seconds: 31.326
+19:25:52: train iter: 3020 loss: 13.9460 loss_reg: 0.0384 seconds: 31.335
+19:26:23: train iter: 3030 loss: 13.9048 loss_reg: 0.0384 seconds: 31.328
+19:26:54: train iter: 3040 loss: 13.1154 loss_reg: 0.0384 seconds: 31.335
+19:27:26: train iter: 3050 loss: 13.8880 loss_reg: 0.0384 seconds: 31.326
+19:27:57: train iter: 3060 loss: 13.7155 loss_reg: 0.0384 seconds: 31.330
+19:28:28: train iter: 3070 loss: 13.6489 loss_reg: 0.0384 seconds: 31.322
+19:29:00: train iter: 3080 loss: 13.5412 loss_reg: 0.0384 seconds: 31.306
+19:29:31: train iter: 3090 loss: 13.8860 loss_reg: 0.0384 seconds: 31.326
+19:30:02: train iter: 3100 loss: 13.3889 loss_reg: 0.0384 seconds: 31.351
+19:30:34: train iter: 3110 loss: 13.5151 loss_reg: 0.0384 seconds: 31.349
+19:31:05: train iter: 3120 loss: 12.7967 loss_reg: 0.0384 seconds: 31.321
+19:31:36: train iter: 3130 loss: 12.1758 loss_reg: 0.0384 seconds: 31.353
+19:32:08: train iter: 3140 loss: 13.0639 loss_reg: 0.0384 seconds: 31.308
+19:32:39: train iter: 3150 loss: 13.2571 loss_reg: 0.0384 seconds: 31.324
+19:33:10: train iter: 3160 loss: 13.8044 loss_reg: 0.0384 seconds: 31.341
+19:33:42: train iter: 3170 loss: 14.1191 loss_reg: 0.0384 seconds: 31.322
+19:34:13: train iter: 3180 loss: 14.6813 loss_reg: 0.0384 seconds: 31.371
+19:34:44: train iter: 3190 loss: 13.7206 loss_reg: 0.0384 seconds: 31.313
+19:35:16: train iter: 3200 loss: 12.7061 loss_reg: 0.0384 seconds: 31.324
+19:35:47: train iter: 3210 loss: 13.3819 loss_reg: 0.0384 seconds: 31.351
+19:36:18: train iter: 3220 loss: 13.4661 loss_reg: 0.0384 seconds: 31.332
+19:36:50: train iter: 3230 loss: 13.1983 loss_reg: 0.0384 seconds: 31.332
+19:37:21: train iter: 3240 loss: 13.6598 loss_reg: 0.0384 seconds: 31.316
+19:37:52: train iter: 3250 loss: 13.8295 loss_reg: 0.0384 seconds: 31.318
+19:38:24: train iter: 3260 loss: 14.9804 loss_reg: 0.0384 seconds: 31.372
+19:38:55: train iter: 3270 loss: 13.8582 loss_reg: 0.0384 seconds: 31.328
+19:39:26: train iter: 3280 loss: 13.1065 loss_reg: 0.0384 seconds: 31.349
+19:39:58: train iter: 3290 loss: 13.9390 loss_reg: 0.0384 seconds: 31.329
+19:40:29: train iter: 3300 loss: 13.1198 loss_reg: 0.0384 seconds: 31.345
+19:41:00: train iter: 3310 loss: 12.5598 loss_reg: 0.0384 seconds: 31.332
+19:41:32: train iter: 3320 loss: 13.3641 loss_reg: 0.0384 seconds: 31.338
+19:42:03: train iter: 3330 loss: 14.5183 loss_reg: 0.0384 seconds: 31.359
+19:42:34: train iter: 3340 loss: 13.5752 loss_reg: 0.0384 seconds: 31.312
+19:43:06: train iter: 3350 loss: 12.7575 loss_reg: 0.0384 seconds: 31.343
+19:43:37: train iter: 3360 loss: 13.6584 loss_reg: 0.0384 seconds: 31.342
+19:44:08: train iter: 3370 loss: 13.0781 loss_reg: 0.0384 seconds: 31.314
+19:44:40: train iter: 3380 loss: 13.3388 loss_reg: 0.0384 seconds: 31.346
+19:45:11: train iter: 3390 loss: 14.0099 loss_reg: 0.0384 seconds: 31.309
+19:45:42: train iter: 3400 loss: 12.7069 loss_reg: 0.0384 seconds: 31.311
+19:46:14: train iter: 3410 loss: 13.8196 loss_reg: 0.0384 seconds: 31.345
+19:46:45: train iter: 3420 loss: 14.0513 loss_reg: 0.0384 seconds: 31.326
+19:47:16: train iter: 3430 loss: 13.5206 loss_reg: 0.0384 seconds: 31.323
+19:47:48: train iter: 3440 loss: 12.4380 loss_reg: 0.0384 seconds: 31.354
+19:48:19: train iter: 3450 loss: 12.3214 loss_reg: 0.0384 seconds: 31.322
+19:48:50: train iter: 3460 loss: 13.5510 loss_reg: 0.0384 seconds: 31.326
+19:49:22: train iter: 3470 loss: 13.3979 loss_reg: 0.0384 seconds: 31.338
+19:49:53: train iter: 3480 loss: 13.4946 loss_reg: 0.0384 seconds: 31.338
+19:50:24: train iter: 3490 loss: 13.9269 loss_reg: 0.0384 seconds: 31.334
+19:50:56: train iter: 3500 loss: 13.6457 loss_reg: 0.0384 seconds: 31.367
+19:51:27: train iter: 3510 loss: 12.3194 loss_reg: 0.0384 seconds: 31.344
+19:51:59: train iter: 3520 loss: 13.7716 loss_reg: 0.0384 seconds: 31.363
+19:52:30: train iter: 3530 loss: 13.1739 loss_reg: 0.0384 seconds: 31.350
+19:53:01: train iter: 3540 loss: 13.7751 loss_reg: 0.0384 seconds: 31.352
+19:53:33: train iter: 3550 loss: 14.3913 loss_reg: 0.0384 seconds: 31.337
+19:54:04: train iter: 3560 loss: 12.7828 loss_reg: 0.0384 seconds: 31.343
+19:54:35: train iter: 3570 loss: 12.9301 loss_reg: 0.0384 seconds: 31.355
+19:55:07: train iter: 3580 loss: 13.1919 loss_reg: 0.0384 seconds: 31.347
+19:55:38: train iter: 3590 loss: 13.7333 loss_reg: 0.0384 seconds: 31.321
+19:56:09: train iter: 3600 loss: 12.9654 loss_reg: 0.0384 seconds: 31.328
+19:56:41: train iter: 3610 loss: 13.2920 loss_reg: 0.0384 seconds: 31.331
+19:57:12: train iter: 3620 loss: 13.0638 loss_reg: 0.0384 seconds: 31.324
+19:57:43: train iter: 3630 loss: 12.9865 loss_reg: 0.0384 seconds: 31.337
+19:58:15: train iter: 3640 loss: 13.0548 loss_reg: 0.0384 seconds: 31.329
+19:58:46: train iter: 3650 loss: 13.6583 loss_reg: 0.0384 seconds: 31.354
+19:59:17: train iter: 3660 loss: 13.1742 loss_reg: 0.0384 seconds: 31.327
+19:59:49: train iter: 3670 loss: 13.7201 loss_reg: 0.0384 seconds: 31.322
+20:00:20: train iter: 3680 loss: 12.6849 loss_reg: 0.0384 seconds: 31.346
+20:00:51: train iter: 3690 loss: 13.2007 loss_reg: 0.0384 seconds: 31.357
+20:01:23: train iter: 3700 loss: 13.0908 loss_reg: 0.0384 seconds: 31.340
+20:01:54: train iter: 3710 loss: 12.8987 loss_reg: 0.0384 seconds: 31.349
+20:02:25: train iter: 3720 loss: 13.7386 loss_reg: 0.0384 seconds: 31.312
+20:02:57: train iter: 3730 loss: 12.5301 loss_reg: 0.0384 seconds: 31.379
+20:03:28: train iter: 3740 loss: 12.3532 loss_reg: 0.0384 seconds: 31.340
+20:03:59: train iter: 3750 loss: 13.4843 loss_reg: 0.0384 seconds: 31.332
+20:04:31: train iter: 3760 loss: 12.8088 loss_reg: 0.0384 seconds: 31.344
+20:05:02: train iter: 3770 loss: 13.6764 loss_reg: 0.0384 seconds: 31.367
+20:05:33: train iter: 3780 loss: 13.0542 loss_reg: 0.0384 seconds: 31.306
+20:06:05: train iter: 3790 loss: 13.0792 loss_reg: 0.0384 seconds: 31.346
+20:06:36: train iter: 3800 loss: 13.3889 loss_reg: 0.0384 seconds: 31.327
+20:07:07: train iter: 3810 loss: 13.3588 loss_reg: 0.0384 seconds: 31.337
+20:07:39: train iter: 3820 loss: 13.2062 loss_reg: 0.0384 seconds: 31.341
+20:08:10: train iter: 3830 loss: 12.9917 loss_reg: 0.0384 seconds: 31.363
+20:08:41: train iter: 3840 loss: 13.0959 loss_reg: 0.0384 seconds: 31.328
+20:09:13: train iter: 3850 loss: 13.4664 loss_reg: 0.0384 seconds: 31.320
+20:09:44: train iter: 3860 loss: 13.0367 loss_reg: 0.0384 seconds: 31.350
+20:10:15: train iter: 3870 loss: 12.8443 loss_reg: 0.0384 seconds: 31.349
+20:10:47: train iter: 3880 loss: 13.3020 loss_reg: 0.0384 seconds: 31.314
+20:11:18: train iter: 3890 loss: 13.0757 loss_reg: 0.0384 seconds: 31.347
+20:11:49: train iter: 3900 loss: 12.8405 loss_reg: 0.0384 seconds: 31.325
+20:12:21: train iter: 3910 loss: 12.4554 loss_reg: 0.0384 seconds: 31.353
+20:12:52: train iter: 3920 loss: 12.5421 loss_reg: 0.0384 seconds: 31.338
+20:13:23: train iter: 3930 loss: 12.3366 loss_reg: 0.0384 seconds: 31.314
+20:13:55: train iter: 3940 loss: 12.6587 loss_reg: 0.0384 seconds: 31.329
+20:14:26: train iter: 3950 loss: 13.6868 loss_reg: 0.0384 seconds: 31.342
+20:14:57: train iter: 3960 loss: 13.3935 loss_reg: 0.0384 seconds: 31.323
+20:15:29: train iter: 3970 loss: 12.6405 loss_reg: 0.0384 seconds: 31.331
+20:16:00: train iter: 3980 loss: 13.1950 loss_reg: 0.0384 seconds: 31.325
+20:16:31: train iter: 3990 loss: 13.2000 loss_reg: 0.0384 seconds: 31.302
+20:17:03: train iter: 4000 loss: 11.9887 loss_reg: 0.0384 seconds: 31.299
+20:17:34: train iter: 4010 loss: 13.6011 loss_reg: 0.0384 seconds: 31.306
+20:18:05: train iter: 4020 loss: 12.6958 loss_reg: 0.0384 seconds: 31.308
+20:18:37: train iter: 4030 loss: 12.3184 loss_reg: 0.0384 seconds: 31.323
+20:19:08: train iter: 4040 loss: 12.6686 loss_reg: 0.0384 seconds: 31.328
+20:19:39: train iter: 4050 loss: 12.4772 loss_reg: 0.0384 seconds: 31.318
+20:20:11: train iter: 4060 loss: 13.2643 loss_reg: 0.0384 seconds: 31.308
+20:20:42: train iter: 4070 loss: 12.7766 loss_reg: 0.0384 seconds: 31.312
+20:21:13: train iter: 4080 loss: 12.9736 loss_reg: 0.0384 seconds: 31.376
+20:21:45: train iter: 4090 loss: 12.9072 loss_reg: 0.0384 seconds: 31.372
+20:22:16: train iter: 4100 loss: 13.1784 loss_reg: 0.0384 seconds: 31.307
+20:22:47: train iter: 4110 loss: 12.9203 loss_reg: 0.0384 seconds: 31.321
+20:23:19: train iter: 4120 loss: 12.7584 loss_reg: 0.0384 seconds: 31.328
+20:23:50: train iter: 4130 loss: 13.4351 loss_reg: 0.0384 seconds: 31.340
+20:24:21: train iter: 4140 loss: 12.9237 loss_reg: 0.0384 seconds: 31.352
+20:24:53: train iter: 4150 loss: 12.8590 loss_reg: 0.0384 seconds: 31.336
+20:25:24: train iter: 4160 loss: 12.6305 loss_reg: 0.0384 seconds: 31.358
+20:25:55: train iter: 4170 loss: 12.2649 loss_reg: 0.0384 seconds: 31.302
+20:26:27: train iter: 4180 loss: 12.9929 loss_reg: 0.0384 seconds: 31.354
+20:26:58: train iter: 4190 loss: 12.8787 loss_reg: 0.0384 seconds: 31.325
+20:27:29: train iter: 4200 loss: 12.4345 loss_reg: 0.0384 seconds: 31.346
+20:28:01: train iter: 4210 loss: 12.9648 loss_reg: 0.0384 seconds: 31.336
+20:28:32: train iter: 4220 loss: 13.2639 loss_reg: 0.0384 seconds: 31.331
+20:29:03: train iter: 4230 loss: 13.0351 loss_reg: 0.0384 seconds: 31.335
+20:29:35: train iter: 4240 loss: 13.1626 loss_reg: 0.0384 seconds: 31.343
+20:30:06: train iter: 4250 loss: 13.7220 loss_reg: 0.0384 seconds: 31.305
+20:30:37: train iter: 4260 loss: 12.2592 loss_reg: 0.0384 seconds: 31.327
+20:31:09: train iter: 4270 loss: 13.2472 loss_reg: 0.0384 seconds: 31.341
+20:31:40: train iter: 4280 loss: 12.9495 loss_reg: 0.0384 seconds: 31.344
+20:32:11: train iter: 4290 loss: 13.0210 loss_reg: 0.0384 seconds: 31.314
+20:32:43: train iter: 4300 loss: 12.3829 loss_reg: 0.0384 seconds: 31.335
+20:33:14: train iter: 4310 loss: 12.9772 loss_reg: 0.0384 seconds: 31.311
+20:33:45: train iter: 4320 loss: 12.6610 loss_reg: 0.0384 seconds: 31.328
+20:34:17: train iter: 4330 loss: 12.5025 loss_reg: 0.0384 seconds: 31.331
+20:34:48: train iter: 4340 loss: 13.0776 loss_reg: 0.0384 seconds: 31.327
+20:35:19: train iter: 4350 loss: 13.0648 loss_reg: 0.0384 seconds: 31.315
+20:35:51: train iter: 4360 loss: 12.5215 loss_reg: 0.0384 seconds: 31.330
+20:36:22: train iter: 4370 loss: 11.6708 loss_reg: 0.0384 seconds: 31.307
+20:36:53: train iter: 4380 loss: 12.7575 loss_reg: 0.0384 seconds: 31.326
+20:37:25: train iter: 4390 loss: 12.1952 loss_reg: 0.0384 seconds: 31.307
+20:37:56: train iter: 4400 loss: 12.7591 loss_reg: 0.0384 seconds: 31.318
+20:38:27: train iter: 4410 loss: 12.8346 loss_reg: 0.0384 seconds: 31.343
+20:38:59: train iter: 4420 loss: 12.9872 loss_reg: 0.0384 seconds: 31.339
+20:39:30: train iter: 4430 loss: 13.0355 loss_reg: 0.0384 seconds: 31.317
+20:40:01: train iter: 4440 loss: 12.5441 loss_reg: 0.0384 seconds: 31.324
+20:40:33: train iter: 4450 loss: 12.1874 loss_reg: 0.0384 seconds: 31.354
+20:41:04: train iter: 4460 loss: 12.6328 loss_reg: 0.0384 seconds: 31.342
+20:41:35: train iter: 4470 loss: 12.3404 loss_reg: 0.0384 seconds: 31.330
+20:42:07: train iter: 4480 loss: 12.0256 loss_reg: 0.0384 seconds: 31.319
+20:42:38: train iter: 4490 loss: 13.2520 loss_reg: 0.0384 seconds: 31.312
+20:43:09: train iter: 4500 loss: 13.2735 loss_reg: 0.0384 seconds: 31.302
+20:43:40: train iter: 4510 loss: 12.2776 loss_reg: 0.0384 seconds: 31.333
+20:44:12: train iter: 4520 loss: 12.1366 loss_reg: 0.0384 seconds: 31.315
+20:44:43: train iter: 4530 loss: 13.1851 loss_reg: 0.0384 seconds: 31.319
+20:45:14: train iter: 4540 loss: 13.1979 loss_reg: 0.0384 seconds: 31.316
+20:45:46: train iter: 4550 loss: 12.6531 loss_reg: 0.0384 seconds: 31.333
+20:46:17: train iter: 4560 loss: 13.2421 loss_reg: 0.0384 seconds: 31.317
+20:46:48: train iter: 4570 loss: 12.6595 loss_reg: 0.0384 seconds: 31.333
+20:47:20: train iter: 4580 loss: 12.0930 loss_reg: 0.0384 seconds: 31.359
+20:47:51: train iter: 4590 loss: 12.3907 loss_reg: 0.0384 seconds: 31.354
+20:48:22: train iter: 4600 loss: 11.8427 loss_reg: 0.0384 seconds: 31.333
+20:48:54: train iter: 4610 loss: 13.0280 loss_reg: 0.0384 seconds: 31.338
+20:49:25: train iter: 4620 loss: 12.5113 loss_reg: 0.0384 seconds: 31.332
+20:49:56: train iter: 4630 loss: 13.9531 loss_reg: 0.0384 seconds: 31.324
+20:50:28: train iter: 4640 loss: 12.5521 loss_reg: 0.0384 seconds: 31.316
+20:50:59: train iter: 4650 loss: 12.9833 loss_reg: 0.0384 seconds: 31.336
+20:51:30: train iter: 4660 loss: 12.7031 loss_reg: 0.0384 seconds: 31.346
+20:52:02: train iter: 4670 loss: 12.6002 loss_reg: 0.0384 seconds: 31.339
+20:52:33: train iter: 4680 loss: 12.4445 loss_reg: 0.0384 seconds: 31.339
+20:53:04: train iter: 4690 loss: 12.9492 loss_reg: 0.0384 seconds: 31.332
+20:53:36: train iter: 4700 loss: 12.6375 loss_reg: 0.0384 seconds: 31.348
+20:54:07: train iter: 4710 loss: 12.6672 loss_reg: 0.0384 seconds: 31.342
+20:54:38: train iter: 4720 loss: 12.3510 loss_reg: 0.0384 seconds: 31.335
+20:55:10: train iter: 4730 loss: 12.5189 loss_reg: 0.0384 seconds: 31.339
+20:55:41: train iter: 4740 loss: 13.0974 loss_reg: 0.0384 seconds: 31.332
+20:56:12: train iter: 4750 loss: 12.5654 loss_reg: 0.0384 seconds: 31.346
+20:56:44: train iter: 4760 loss: 11.8984 loss_reg: 0.0384 seconds: 31.336
+20:57:15: train iter: 4770 loss: 13.0557 loss_reg: 0.0384 seconds: 31.362
+20:57:47: train iter: 4780 loss: 12.8611 loss_reg: 0.0384 seconds: 31.338
+20:58:18: train iter: 4790 loss: 12.1805 loss_reg: 0.0384 seconds: 31.341
+20:58:49: train iter: 4800 loss: 11.9826 loss_reg: 0.0384 seconds: 31.356
+20:59:21: train iter: 4810 loss: 12.8650 loss_reg: 0.0384 seconds: 31.328
+20:59:52: train iter: 4820 loss: 12.5040 loss_reg: 0.0384 seconds: 31.329
+21:00:23: train iter: 4830 loss: 12.1355 loss_reg: 0.0384 seconds: 31.339
+21:00:55: train iter: 4840 loss: 11.9053 loss_reg: 0.0384 seconds: 31.335
+21:01:26: train iter: 4850 loss: 11.6313 loss_reg: 0.0384 seconds: 31.336
+21:01:57: train iter: 4860 loss: 12.8204 loss_reg: 0.0384 seconds: 31.360
+21:02:29: train iter: 4870 loss: 12.0116 loss_reg: 0.0384 seconds: 31.388
+21:03:00: train iter: 4880 loss: 12.1123 loss_reg: 0.0384 seconds: 31.351
+21:03:31: train iter: 4890 loss: 12.9708 loss_reg: 0.0384 seconds: 31.332
+21:04:03: train iter: 4900 loss: 12.6678 loss_reg: 0.0384 seconds: 31.333
+21:04:34: train iter: 4910 loss: 12.3740 loss_reg: 0.0384 seconds: 31.366
+21:05:05: train iter: 4920 loss: 12.1259 loss_reg: 0.0384 seconds: 31.341
+21:05:37: train iter: 4930 loss: 12.4998 loss_reg: 0.0384 seconds: 31.340
+21:06:08: train iter: 4940 loss: 12.9126 loss_reg: 0.0384 seconds: 31.314
+21:06:39: train iter: 4950 loss: 12.5480 loss_reg: 0.0384 seconds: 31.315
+21:07:11: train iter: 4960 loss: 11.5707 loss_reg: 0.0384 seconds: 31.346
+21:07:42: train iter: 4970 loss: 12.3212 loss_reg: 0.0384 seconds: 31.340
+21:08:13: train iter: 4980 loss: 12.6410 loss_reg: 0.0384 seconds: 31.316
+21:08:45: train iter: 4990 loss: 11.8152 loss_reg: 0.0384 seconds: 31.323
+Creating snapshot...
+Model saved in file conv_cv0/2022-04-05_16-47-51/weights/model-5000
+Testing  |--------------------------------------------------| 0.0%  completeatsai time test duration = 0.2366 seconds
+Testing  |XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX| 100.0%  complete
+ipe (0.16447060060113647, 0.0, 0.16447060060113647)
+pe (0.16447060060113647, 0.06969387022100748, 0.16586503245605355)
+outliers [0, 0, 0]
+atsai num training data 503
+21:09:14: test iter: 5000 loss: 10.2804 loss_reg: 0.0384 seconds: 15662.395
+21:09:18: train iter: 5000 loss: 12.5338 loss_reg: 0.0384 seconds: 32.919
+21:09:49: train iter: 5010 loss: 12.5465 loss_reg: 0.0384 seconds: 31.280
+21:10:20: train iter: 5020 loss: 12.1430 loss_reg: 0.0384 seconds: 31.275
+21:10:51: train iter: 5030 loss: 12.1991 loss_reg: 0.0384 seconds: 31.323
+21:11:23: train iter: 5040 loss: 12.4462 loss_reg: 0.0384 seconds: 31.333
+21:11:54: train iter: 5050 loss: 11.9914 loss_reg: 0.0384 seconds: 31.322
+21:12:25: train iter: 5060 loss: 12.3382 loss_reg: 0.0384 seconds: 31.316
+21:12:57: train iter: 5070 loss: 12.2394 loss_reg: 0.0384 seconds: 31.319
+21:13:28: train iter: 5080 loss: 12.8742 loss_reg: 0.0384 seconds: 31.324
+21:13:59: train iter: 5090 loss: 13.1208 loss_reg: 0.0384 seconds: 31.327
+21:14:31: train iter: 5100 loss: 12.0883 loss_reg: 0.0384 seconds: 31.326
+21:15:02: train iter: 5110 loss: 12.3301 loss_reg: 0.0384 seconds: 31.318
+21:15:33: train iter: 5120 loss: 11.8083 loss_reg: 0.0384 seconds: 31.328
+21:16:05: train iter: 5130 loss: 12.6164 loss_reg: 0.0384 seconds: 31.348
+21:16:36: train iter: 5140 loss: 12.7247 loss_reg: 0.0384 seconds: 31.344
+21:17:07: train iter: 5150 loss: 11.8951 loss_reg: 0.0384 seconds: 31.355
+21:17:39: train iter: 5160 loss: 12.0251 loss_reg: 0.0384 seconds: 31.334
+21:18:10: train iter: 5170 loss: 12.1681 loss_reg: 0.0384 seconds: 31.342
+21:18:41: train iter: 5180 loss: 12.8118 loss_reg: 0.0384 seconds: 31.384
+21:19:13: train iter: 5190 loss: 11.7574 loss_reg: 0.0384 seconds: 31.360
+21:19:44: train iter: 5200 loss: 12.3421 loss_reg: 0.0384 seconds: 31.356
+21:20:16: train iter: 5210 loss: 11.8663 loss_reg: 0.0384 seconds: 31.341
+21:20:47: train iter: 5220 loss: 12.1890 loss_reg: 0.0384 seconds: 31.327
+21:21:18: train iter: 5230 loss: 12.5542 loss_reg: 0.0384 seconds: 31.357
+21:21:50: train iter: 5240 loss: 12.2191 loss_reg: 0.0384 seconds: 31.364
+21:22:21: train iter: 5250 loss: 12.5625 loss_reg: 0.0384 seconds: 31.354
+21:22:52: train iter: 5260 loss: 12.0539 loss_reg: 0.0384 seconds: 31.358
+21:23:24: train iter: 5270 loss: 12.2713 loss_reg: 0.0384 seconds: 31.354
+21:23:55: train iter: 5280 loss: 12.3895 loss_reg: 0.0384 seconds: 31.329
+21:24:26: train iter: 5290 loss: 12.0276 loss_reg: 0.0384 seconds: 31.340
+21:24:58: train iter: 5300 loss: 12.7140 loss_reg: 0.0384 seconds: 31.328
+21:25:29: train iter: 5310 loss: 12.2913 loss_reg: 0.0384 seconds: 31.367
+21:26:00: train iter: 5320 loss: 12.0958 loss_reg: 0.0384 seconds: 31.332
+21:26:32: train iter: 5330 loss: 12.6434 loss_reg: 0.0384 seconds: 31.340
+21:27:03: train iter: 5340 loss: 12.5493 loss_reg: 0.0384 seconds: 31.330
+21:27:34: train iter: 5350 loss: 12.2975 loss_reg: 0.0384 seconds: 31.333
+21:28:06: train iter: 5360 loss: 12.2942 loss_reg: 0.0384 seconds: 31.341
+21:28:37: train iter: 5370 loss: 12.5068 loss_reg: 0.0384 seconds: 31.310
+21:29:08: train iter: 5380 loss: 12.3218 loss_reg: 0.0384 seconds: 31.337
+21:29:40: train iter: 5390 loss: 11.9878 loss_reg: 0.0384 seconds: 31.347
+21:30:11: train iter: 5400 loss: 11.8537 loss_reg: 0.0384 seconds: 31.329
+21:30:42: train iter: 5410 loss: 12.0774 loss_reg: 0.0384 seconds: 31.313
+21:31:14: train iter: 5420 loss: 11.9889 loss_reg: 0.0384 seconds: 31.380
+21:31:45: train iter: 5430 loss: 11.9332 loss_reg: 0.0384 seconds: 31.338
+21:32:16: train iter: 5440 loss: 12.1387 loss_reg: 0.0384 seconds: 31.336
+21:32:48: train iter: 5450 loss: 12.7157 loss_reg: 0.0384 seconds: 31.331
+21:33:19: train iter: 5460 loss: 11.4371 loss_reg: 0.0384 seconds: 31.371
+21:33:50: train iter: 5470 loss: 12.7343 loss_reg: 0.0384 seconds: 31.329
+21:34:22: train iter: 5480 loss: 12.9690 loss_reg: 0.0384 seconds: 31.320
+21:34:53: train iter: 5490 loss: 12.1449 loss_reg: 0.0384 seconds: 31.365
+21:35:24: train iter: 5500 loss: 12.0290 loss_reg: 0.0384 seconds: 31.318
+21:35:56: train iter: 5510 loss: 12.1416 loss_reg: 0.0384 seconds: 31.342
+21:36:27: train iter: 5520 loss: 12.1296 loss_reg: 0.0384 seconds: 31.368
+21:36:59: train iter: 5530 loss: 12.3482 loss_reg: 0.0384 seconds: 31.346
+21:37:30: train iter: 5540 loss: 12.0893 loss_reg: 0.0384 seconds: 31.344
+21:38:01: train iter: 5550 loss: 11.4985 loss_reg: 0.0384 seconds: 31.349
+21:38:33: train iter: 5560 loss: 12.1422 loss_reg: 0.0384 seconds: 31.356
+21:39:04: train iter: 5570 loss: 12.8209 loss_reg: 0.0384 seconds: 31.335
+21:39:35: train iter: 5580 loss: 11.5757 loss_reg: 0.0384 seconds: 31.369
+21:40:07: train iter: 5590 loss: 12.4792 loss_reg: 0.0384 seconds: 31.329
+21:40:38: train iter: 5600 loss: 11.2873 loss_reg: 0.0384 seconds: 31.350
+21:41:09: train iter: 5610 loss: 12.2062 loss_reg: 0.0384 seconds: 31.383
+21:41:41: train iter: 5620 loss: 12.1398 loss_reg: 0.0384 seconds: 31.353
+21:42:12: train iter: 5630 loss: 12.1422 loss_reg: 0.0384 seconds: 31.384
+21:42:43: train iter: 5640 loss: 11.2653 loss_reg: 0.0384 seconds: 31.345
+21:43:15: train iter: 5650 loss: 11.8212 loss_reg: 0.0384 seconds: 31.343
+21:43:46: train iter: 5660 loss: 12.6111 loss_reg: 0.0384 seconds: 31.338
+21:44:17: train iter: 5670 loss: 12.2581 loss_reg: 0.0384 seconds: 31.350
+21:44:49: train iter: 5680 loss: 12.5111 loss_reg: 0.0384 seconds: 31.349
+21:45:20: train iter: 5690 loss: 12.7582 loss_reg: 0.0384 seconds: 31.339
+21:45:51: train iter: 5700 loss: 12.2889 loss_reg: 0.0384 seconds: 31.355
+21:46:23: train iter: 5710 loss: 11.7700 loss_reg: 0.0384 seconds: 31.325
+21:46:54: train iter: 5720 loss: 11.4262 loss_reg: 0.0384 seconds: 31.345
+21:47:26: train iter: 5730 loss: 11.6141 loss_reg: 0.0384 seconds: 31.340
+21:47:57: train iter: 5740 loss: 12.9160 loss_reg: 0.0384 seconds: 31.361
+21:48:28: train iter: 5750 loss: 11.0026 loss_reg: 0.0384 seconds: 31.346
+21:49:00: train iter: 5760 loss: 12.8856 loss_reg: 0.0384 seconds: 31.357
+21:49:31: train iter: 5770 loss: 12.0900 loss_reg: 0.0384 seconds: 31.367
+21:50:02: train iter: 5780 loss: 11.8834 loss_reg: 0.0384 seconds: 31.356
+21:50:34: train iter: 5790 loss: 11.0782 loss_reg: 0.0384 seconds: 31.329
+21:51:05: train iter: 5800 loss: 12.5697 loss_reg: 0.0384 seconds: 31.324
+21:51:36: train iter: 5810 loss: 12.3206 loss_reg: 0.0384 seconds: 31.322
+21:52:08: train iter: 5820 loss: 11.9405 loss_reg: 0.0384 seconds: 31.322
+21:52:39: train iter: 5830 loss: 11.8567 loss_reg: 0.0384 seconds: 31.349
+21:53:10: train iter: 5840 loss: 12.0204 loss_reg: 0.0384 seconds: 31.354
+21:53:42: train iter: 5850 loss: 11.4076 loss_reg: 0.0384 seconds: 31.317
+21:54:13: train iter: 5860 loss: 12.6241 loss_reg: 0.0384 seconds: 31.318
+21:54:44: train iter: 5870 loss: 12.3638 loss_reg: 0.0384 seconds: 31.340
+21:55:16: train iter: 5880 loss: 11.3150 loss_reg: 0.0384 seconds: 31.320
+21:55:47: train iter: 5890 loss: 11.6715 loss_reg: 0.0384 seconds: 31.316
+21:56:18: train iter: 5900 loss: 11.4765 loss_reg: 0.0384 seconds: 31.332
+21:56:50: train iter: 5910 loss: 12.1454 loss_reg: 0.0384 seconds: 31.317
+21:57:21: train iter: 5920 loss: 12.0818 loss_reg: 0.0384 seconds: 31.326
+21:57:52: train iter: 5930 loss: 12.2521 loss_reg: 0.0384 seconds: 31.318
+21:58:24: train iter: 5940 loss: 11.9707 loss_reg: 0.0384 seconds: 31.385
+21:58:55: train iter: 5950 loss: 11.7217 loss_reg: 0.0384 seconds: 31.326
+21:59:26: train iter: 5960 loss: 12.1014 loss_reg: 0.0384 seconds: 31.316
+21:59:58: train iter: 5970 loss: 11.5402 loss_reg: 0.0384 seconds: 31.326
+22:00:29: train iter: 5980 loss: 11.5542 loss_reg: 0.0384 seconds: 31.333
+22:01:00: train iter: 5990 loss: 11.6203 loss_reg: 0.0384 seconds: 31.304
+22:01:32: train iter: 6000 loss: 12.3787 loss_reg: 0.0384 seconds: 31.334
+22:02:03: train iter: 6010 loss: 12.3641 loss_reg: 0.0384 seconds: 31.291
+22:02:34: train iter: 6020 loss: 12.0696 loss_reg: 0.0384 seconds: 31.321
+22:03:05: train iter: 6030 loss: 12.2610 loss_reg: 0.0384 seconds: 31.342
+22:03:37: train iter: 6040 loss: 11.7926 loss_reg: 0.0384 seconds: 31.344
+22:04:08: train iter: 6050 loss: 11.5906 loss_reg: 0.0384 seconds: 31.318
+22:04:39: train iter: 6060 loss: 11.7374 loss_reg: 0.0384 seconds: 31.325
+22:05:11: train iter: 6070 loss: 12.6534 loss_reg: 0.0384 seconds: 31.324
+22:05:42: train iter: 6080 loss: 12.4604 loss_reg: 0.0384 seconds: 31.360
+22:06:13: train iter: 6090 loss: 12.3890 loss_reg: 0.0384 seconds: 31.339
+22:06:45: train iter: 6100 loss: 11.7532 loss_reg: 0.0384 seconds: 31.319
+22:07:16: train iter: 6110 loss: 12.6261 loss_reg: 0.0384 seconds: 31.335
+22:07:47: train iter: 6120 loss: 11.7918 loss_reg: 0.0384 seconds: 31.323
+22:08:19: train iter: 6130 loss: 12.2722 loss_reg: 0.0384 seconds: 31.319
+22:08:50: train iter: 6140 loss: 12.0788 loss_reg: 0.0384 seconds: 31.359
+22:09:22: train iter: 6150 loss: 12.1424 loss_reg: 0.0384 seconds: 31.349
+22:09:53: train iter: 6160 loss: 12.2251 loss_reg: 0.0384 seconds: 31.339
+22:10:24: train iter: 6170 loss: 12.0149 loss_reg: 0.0384 seconds: 31.336
+22:10:56: train iter: 6180 loss: 11.4655 loss_reg: 0.0384 seconds: 31.337
+22:11:27: train iter: 6190 loss: 12.3378 loss_reg: 0.0384 seconds: 31.344
+22:11:58: train iter: 6200 loss: 12.1571 loss_reg: 0.0384 seconds: 31.358
+22:12:30: train iter: 6210 loss: 12.0549 loss_reg: 0.0384 seconds: 31.327
+22:13:01: train iter: 6220 loss: 12.0891 loss_reg: 0.0384 seconds: 31.326
+22:13:32: train iter: 6230 loss: 11.7868 loss_reg: 0.0384 seconds: 31.322
+22:14:04: train iter: 6240 loss: 11.7599 loss_reg: 0.0384 seconds: 31.315
+22:14:35: train iter: 6250 loss: 12.6283 loss_reg: 0.0384 seconds: 31.320
+22:15:06: train iter: 6260 loss: 11.8882 loss_reg: 0.0384 seconds: 31.301
+22:15:37: train iter: 6270 loss: 11.8314 loss_reg: 0.0384 seconds: 31.309
+22:16:09: train iter: 6280 loss: 11.1617 loss_reg: 0.0384 seconds: 31.329
+22:16:40: train iter: 6290 loss: 11.9553 loss_reg: 0.0384 seconds: 31.335
+22:17:11: train iter: 6300 loss: 11.4000 loss_reg: 0.0384 seconds: 31.335
+22:17:43: train iter: 6310 loss: 11.9614 loss_reg: 0.0384 seconds: 31.346
+22:18:14: train iter: 6320 loss: 11.8872 loss_reg: 0.0384 seconds: 31.346
+22:18:45: train iter: 6330 loss: 12.1638 loss_reg: 0.0384 seconds: 31.339
+22:19:17: train iter: 6340 loss: 11.2293 loss_reg: 0.0384 seconds: 31.321
+22:19:48: train iter: 6350 loss: 11.2594 loss_reg: 0.0384 seconds: 31.323
+22:20:19: train iter: 6360 loss: 12.2813 loss_reg: 0.0384 seconds: 31.337
+22:20:51: train iter: 6370 loss: 12.2537 loss_reg: 0.0384 seconds: 31.322
+22:21:22: train iter: 6380 loss: 11.3199 loss_reg: 0.0384 seconds: 31.323
+22:21:53: train iter: 6390 loss: 11.3848 loss_reg: 0.0384 seconds: 31.331
+22:22:25: train iter: 6400 loss: 11.9534 loss_reg: 0.0384 seconds: 31.322
+22:22:56: train iter: 6410 loss: 11.3969 loss_reg: 0.0384 seconds: 31.333
+22:23:27: train iter: 6420 loss: 11.7571 loss_reg: 0.0384 seconds: 31.336
+22:23:59: train iter: 6430 loss: 12.4854 loss_reg: 0.0384 seconds: 31.344
+22:24:30: train iter: 6440 loss: 12.2283 loss_reg: 0.0384 seconds: 31.319
+22:25:01: train iter: 6450 loss: 11.5212 loss_reg: 0.0384 seconds: 31.322
+22:25:33: train iter: 6460 loss: 12.5527 loss_reg: 0.0384 seconds: 31.352
+22:26:04: train iter: 6470 loss: 11.5674 loss_reg: 0.0384 seconds: 31.311
+22:26:35: train iter: 6480 loss: 12.2621 loss_reg: 0.0384 seconds: 31.313
+22:27:07: train iter: 6490 loss: 11.3156 loss_reg: 0.0384 seconds: 31.317
+22:27:38: train iter: 6500 loss: 11.7313 loss_reg: 0.0384 seconds: 31.326
+22:28:09: train iter: 6510 loss: 11.2977 loss_reg: 0.0384 seconds: 31.329
+22:28:41: train iter: 6520 loss: 12.7295 loss_reg: 0.0384 seconds: 31.347
+22:29:12: train iter: 6530 loss: 11.7608 loss_reg: 0.0384 seconds: 31.322
+22:29:43: train iter: 6540 loss: 11.2861 loss_reg: 0.0384 seconds: 31.327
+22:30:15: train iter: 6550 loss: 11.5503 loss_reg: 0.0384 seconds: 31.321
+22:30:46: train iter: 6560 loss: 12.3229 loss_reg: 0.0384 seconds: 31.308
+22:31:17: train iter: 6570 loss: 11.9882 loss_reg: 0.0384 seconds: 31.296
+22:31:49: train iter: 6580 loss: 11.3123 loss_reg: 0.0384 seconds: 31.302
+22:32:20: train iter: 6590 loss: 12.2038 loss_reg: 0.0384 seconds: 31.339
+22:32:51: train iter: 6600 loss: 11.6985 loss_reg: 0.0384 seconds: 31.322
+22:33:23: train iter: 6610 loss: 11.5022 loss_reg: 0.0384 seconds: 31.324
+22:33:54: train iter: 6620 loss: 12.7627 loss_reg: 0.0384 seconds: 31.360
+22:34:25: train iter: 6630 loss: 11.4661 loss_reg: 0.0384 seconds: 31.310
+22:34:57: train iter: 6640 loss: 11.9964 loss_reg: 0.0384 seconds: 31.332
+22:35:28: train iter: 6650 loss: 12.1387 loss_reg: 0.0384 seconds: 31.333
+22:35:59: train iter: 6660 loss: 12.2809 loss_reg: 0.0384 seconds: 31.341
+22:36:31: train iter: 6670 loss: 12.1079 loss_reg: 0.0384 seconds: 31.329
+22:37:02: train iter: 6680 loss: 11.8293 loss_reg: 0.0384 seconds: 31.346
+22:37:33: train iter: 6690 loss: 11.9981 loss_reg: 0.0384 seconds: 31.326
+22:38:05: train iter: 6700 loss: 11.9758 loss_reg: 0.0384 seconds: 31.357
+22:38:36: train iter: 6710 loss: 11.7265 loss_reg: 0.0384 seconds: 31.338
+22:39:07: train iter: 6720 loss: 11.6815 loss_reg: 0.0384 seconds: 31.325
+22:39:39: train iter: 6730 loss: 11.9925 loss_reg: 0.0384 seconds: 31.359
+22:40:10: train iter: 6740 loss: 12.3905 loss_reg: 0.0384 seconds: 31.355
+22:40:41: train iter: 6750 loss: 12.4623 loss_reg: 0.0384 seconds: 31.359
+22:41:13: train iter: 6760 loss: 11.1892 loss_reg: 0.0384 seconds: 31.330
+22:41:44: train iter: 6770 loss: 11.6215 loss_reg: 0.0384 seconds: 31.329
+22:42:15: train iter: 6780 loss: 10.9497 loss_reg: 0.0384 seconds: 31.329
+22:42:47: train iter: 6790 loss: 11.2503 loss_reg: 0.0384 seconds: 31.331
+22:43:18: train iter: 6800 loss: 11.4524 loss_reg: 0.0384 seconds: 31.357
+22:43:49: train iter: 6810 loss: 12.0372 loss_reg: 0.0384 seconds: 31.355
+22:44:21: train iter: 6820 loss: 11.4690 loss_reg: 0.0384 seconds: 31.351
+22:44:52: train iter: 6830 loss: 11.7710 loss_reg: 0.0384 seconds: 31.334
+22:45:23: train iter: 6840 loss: 11.5436 loss_reg: 0.0384 seconds: 31.332
+22:45:55: train iter: 6850 loss: 11.7749 loss_reg: 0.0384 seconds: 31.347
+22:46:26: train iter: 6860 loss: 11.4505 loss_reg: 0.0384 seconds: 31.327
+22:46:57: train iter: 6870 loss: 11.2323 loss_reg: 0.0384 seconds: 31.349
+22:47:29: train iter: 6880 loss: 11.1932 loss_reg: 0.0384 seconds: 31.337
+22:48:00: train iter: 6890 loss: 12.0977 loss_reg: 0.0384 seconds: 31.326
+22:48:31: train iter: 6900 loss: 13.1384 loss_reg: 0.0384 seconds: 31.323
+22:49:03: train iter: 6910 loss: 11.9524 loss_reg: 0.0384 seconds: 31.291
+22:49:34: train iter: 6920 loss: 11.6357 loss_reg: 0.0384 seconds: 31.333
+22:50:05: train iter: 6930 loss: 11.7719 loss_reg: 0.0384 seconds: 31.348
+22:50:37: train iter: 6940 loss: 12.1084 loss_reg: 0.0384 seconds: 31.314
+22:51:08: train iter: 6950 loss: 12.4557 loss_reg: 0.0384 seconds: 31.333
+22:51:39: train iter: 6960 loss: 11.9461 loss_reg: 0.0384 seconds: 31.347
+22:52:11: train iter: 6970 loss: 11.5739 loss_reg: 0.0384 seconds: 31.331
+22:52:42: train iter: 6980 loss: 11.3324 loss_reg: 0.0384 seconds: 31.331
+22:53:13: train iter: 6990 loss: 12.0137 loss_reg: 0.0384 seconds: 31.326
+22:53:45: train iter: 7000 loss: 12.1621 loss_reg: 0.0384 seconds: 31.349
+22:54:16: train iter: 7010 loss: 11.9903 loss_reg: 0.0384 seconds: 31.332
+22:54:47: train iter: 7020 loss: 12.2493 loss_reg: 0.0384 seconds: 31.380
+22:55:19: train iter: 7030 loss: 11.6115 loss_reg: 0.0384 seconds: 31.354
+22:55:50: train iter: 7040 loss: 11.8496 loss_reg: 0.0384 seconds: 31.349
+22:56:22: train iter: 7050 loss: 10.8633 loss_reg: 0.0384 seconds: 31.351
+22:56:53: train iter: 7060 loss: 11.6342 loss_reg: 0.0384 seconds: 31.369
+22:57:24: train iter: 7070 loss: 11.9754 loss_reg: 0.0384 seconds: 31.363
+22:57:56: train iter: 7080 loss: 11.2398 loss_reg: 0.0384 seconds: 31.344
+22:58:27: train iter: 7090 loss: 11.4151 loss_reg: 0.0384 seconds: 31.318
+22:58:58: train iter: 7100 loss: 11.2898 loss_reg: 0.0384 seconds: 31.333
+22:59:30: train iter: 7110 loss: 12.2310 loss_reg: 0.0384 seconds: 31.331
+23:00:01: train iter: 7120 loss: 11.5643 loss_reg: 0.0384 seconds: 31.321
+23:00:32: train iter: 7130 loss: 12.0264 loss_reg: 0.0384 seconds: 31.307
+23:01:04: train iter: 7140 loss: 12.3709 loss_reg: 0.0384 seconds: 31.351
+23:01:35: train iter: 7150 loss: 12.1478 loss_reg: 0.0384 seconds: 31.352
+23:02:06: train iter: 7160 loss: 12.2970 loss_reg: 0.0384 seconds: 31.343
+23:02:38: train iter: 7170 loss: 10.7896 loss_reg: 0.0384 seconds: 31.328
+23:03:09: train iter: 7180 loss: 11.2635 loss_reg: 0.0384 seconds: 31.323
+23:03:40: train iter: 7190 loss: 12.6211 loss_reg: 0.0384 seconds: 31.329
+23:04:12: train iter: 7200 loss: 11.5954 loss_reg: 0.0384 seconds: 31.306
+23:04:43: train iter: 7210 loss: 10.9357 loss_reg: 0.0384 seconds: 31.321
+23:05:14: train iter: 7220 loss: 11.7835 loss_reg: 0.0384 seconds: 31.328
+23:05:46: train iter: 7230 loss: 11.6210 loss_reg: 0.0384 seconds: 31.368
+23:06:17: train iter: 7240 loss: 11.6359 loss_reg: 0.0384 seconds: 31.327
+23:06:48: train iter: 7250 loss: 11.2304 loss_reg: 0.0384 seconds: 31.324
+23:07:20: train iter: 7260 loss: 10.9608 loss_reg: 0.0384 seconds: 31.328
+23:07:51: train iter: 7270 loss: 11.7287 loss_reg: 0.0384 seconds: 31.353
+23:08:22: train iter: 7280 loss: 11.8085 loss_reg: 0.0384 seconds: 31.321
+23:08:54: train iter: 7290 loss: 11.9542 loss_reg: 0.0384 seconds: 31.328
+23:09:25: train iter: 7300 loss: 11.5997 loss_reg: 0.0384 seconds: 31.320
+23:09:56: train iter: 7310 loss: 10.8455 loss_reg: 0.0384 seconds: 31.341
+23:10:28: train iter: 7320 loss: 11.7480 loss_reg: 0.0384 seconds: 31.342
+23:10:59: train iter: 7330 loss: 11.1681 loss_reg: 0.0384 seconds: 31.330
+23:11:30: train iter: 7340 loss: 12.0094 loss_reg: 0.0384 seconds: 31.313
+23:12:02: train iter: 7350 loss: 11.6973 loss_reg: 0.0384 seconds: 31.339
+23:12:33: train iter: 7360 loss: 12.3599 loss_reg: 0.0384 seconds: 31.306
+23:13:04: train iter: 7370 loss: 11.6416 loss_reg: 0.0384 seconds: 31.306
+23:13:35: train iter: 7380 loss: 10.9399 loss_reg: 0.0384 seconds: 31.329
+23:14:07: train iter: 7390 loss: 12.1315 loss_reg: 0.0384 seconds: 31.334
+23:14:38: train iter: 7400 loss: 11.3178 loss_reg: 0.0384 seconds: 31.330
+23:15:09: train iter: 7410 loss: 11.3978 loss_reg: 0.0384 seconds: 31.349
+23:15:41: train iter: 7420 loss: 12.0601 loss_reg: 0.0384 seconds: 31.325
+23:16:12: train iter: 7430 loss: 11.4116 loss_reg: 0.0384 seconds: 31.329
+23:16:43: train iter: 7440 loss: 11.8493 loss_reg: 0.0384 seconds: 31.347
+23:17:15: train iter: 7450 loss: 11.8924 loss_reg: 0.0384 seconds: 31.341
+23:17:46: train iter: 7460 loss: 11.3394 loss_reg: 0.0384 seconds: 31.316
+23:18:17: train iter: 7470 loss: 10.9142 loss_reg: 0.0384 seconds: 31.316
+23:18:49: train iter: 7480 loss: 11.7140 loss_reg: 0.0384 seconds: 31.343
+23:19:20: train iter: 7490 loss: 11.1211 loss_reg: 0.0384 seconds: 31.309
+23:19:51: train iter: 7500 loss: 11.0493 loss_reg: 0.0384 seconds: 31.315
+23:20:23: train iter: 7510 loss: 10.9860 loss_reg: 0.0384 seconds: 31.288
+23:20:54: train iter: 7520 loss: 12.7241 loss_reg: 0.0384 seconds: 31.327
+23:21:25: train iter: 7530 loss: 12.1166 loss_reg: 0.0384 seconds: 31.317
+23:21:57: train iter: 7540 loss: 11.7204 loss_reg: 0.0384 seconds: 31.339
+23:22:28: train iter: 7550 loss: 12.0623 loss_reg: 0.0384 seconds: 31.353
+23:22:59: train iter: 7560 loss: 10.9208 loss_reg: 0.0384 seconds: 31.340
+23:23:31: train iter: 7570 loss: 11.3977 loss_reg: 0.0384 seconds: 31.319
+23:24:02: train iter: 7580 loss: 10.8068 loss_reg: 0.0384 seconds: 31.310
+23:24:33: train iter: 7590 loss: 11.9178 loss_reg: 0.0384 seconds: 31.339
+23:25:05: train iter: 7600 loss: 11.6033 loss_reg: 0.0384 seconds: 31.328
+23:25:36: train iter: 7610 loss: 12.1905 loss_reg: 0.0384 seconds: 31.337
+23:26:07: train iter: 7620 loss: 11.7389 loss_reg: 0.0384 seconds: 31.382
+23:26:39: train iter: 7630 loss: 11.6050 loss_reg: 0.0384 seconds: 31.310
+23:27:10: train iter: 7640 loss: 11.5043 loss_reg: 0.0384 seconds: 31.360
+23:27:41: train iter: 7650 loss: 11.7198 loss_reg: 0.0384 seconds: 31.341
+23:28:13: train iter: 7660 loss: 11.6760 loss_reg: 0.0384 seconds: 31.391
+23:28:44: train iter: 7670 loss: 11.5523 loss_reg: 0.0384 seconds: 31.325
+23:29:15: train iter: 7680 loss: 11.1274 loss_reg: 0.0384 seconds: 31.319
+23:29:47: train iter: 7690 loss: 11.7944 loss_reg: 0.0384 seconds: 31.301
+23:30:18: train iter: 7700 loss: 11.3856 loss_reg: 0.0384 seconds: 31.313
+23:30:49: train iter: 7710 loss: 11.3416 loss_reg: 0.0384 seconds: 31.336
+23:31:21: train iter: 7720 loss: 11.3591 loss_reg: 0.0384 seconds: 31.304
+23:31:52: train iter: 7730 loss: 12.0373 loss_reg: 0.0384 seconds: 31.367
+23:32:23: train iter: 7740 loss: 11.4085 loss_reg: 0.0384 seconds: 31.334
+23:32:55: train iter: 7750 loss: 11.2269 loss_reg: 0.0384 seconds: 31.310
+23:33:26: train iter: 7760 loss: 11.9222 loss_reg: 0.0384 seconds: 31.319
+23:33:57: train iter: 7770 loss: 11.5718 loss_reg: 0.0384 seconds: 31.356
+23:34:29: train iter: 7780 loss: 11.6055 loss_reg: 0.0384 seconds: 31.355
+23:35:00: train iter: 7790 loss: 12.0878 loss_reg: 0.0384 seconds: 31.326
+23:35:31: train iter: 7800 loss: 11.8092 loss_reg: 0.0384 seconds: 31.343
+23:36:03: train iter: 7810 loss: 11.4532 loss_reg: 0.0384 seconds: 31.301
+23:36:34: train iter: 7820 loss: 11.4557 loss_reg: 0.0384 seconds: 31.322
+23:37:05: train iter: 7830 loss: 11.3009 loss_reg: 0.0384 seconds: 31.322
+23:37:37: train iter: 7840 loss: 11.0641 loss_reg: 0.0384 seconds: 31.306
+23:38:08: train iter: 7850 loss: 10.8391 loss_reg: 0.0384 seconds: 31.337
+23:38:39: train iter: 7860 loss: 11.5988 loss_reg: 0.0384 seconds: 31.347
+23:39:11: train iter: 7870 loss: 11.2278 loss_reg: 0.0384 seconds: 31.305
+23:39:42: train iter: 7880 loss: 12.8756 loss_reg: 0.0384 seconds: 31.336
+23:40:13: train iter: 7890 loss: 12.3617 loss_reg: 0.0384 seconds: 31.315
+23:40:45: train iter: 7900 loss: 11.2120 loss_reg: 0.0384 seconds: 31.355
+23:41:16: train iter: 7910 loss: 11.6032 loss_reg: 0.0384 seconds: 31.324
+23:41:47: train iter: 7920 loss: 11.8694 loss_reg: 0.0384 seconds: 31.332
+23:42:19: train iter: 7930 loss: 11.5275 loss_reg: 0.0384 seconds: 31.322
+23:42:50: train iter: 7940 loss: 11.0715 loss_reg: 0.0384 seconds: 31.311
+23:43:21: train iter: 7950 loss: 11.2147 loss_reg: 0.0384 seconds: 31.332
+23:43:53: train iter: 7960 loss: 11.5069 loss_reg: 0.0384 seconds: 31.330
+23:44:24: train iter: 7970 loss: 10.9339 loss_reg: 0.0384 seconds: 31.341
+23:44:55: train iter: 7980 loss: 11.2031 loss_reg: 0.0384 seconds: 31.339
+23:45:27: train iter: 7990 loss: 11.8610 loss_reg: 0.0384 seconds: 31.344
+23:45:58: train iter: 8000 loss: 10.9441 loss_reg: 0.0384 seconds: 31.325
+23:46:29: train iter: 8010 loss: 11.6899 loss_reg: 0.0384 seconds: 31.348
+23:47:01: train iter: 8020 loss: 11.0073 loss_reg: 0.0384 seconds: 31.320
+23:47:32: train iter: 8030 loss: 11.5034 loss_reg: 0.0384 seconds: 31.329
+23:48:03: train iter: 8040 loss: 11.7702 loss_reg: 0.0384 seconds: 31.310
+23:48:35: train iter: 8050 loss: 11.8908 loss_reg: 0.0384 seconds: 31.336
+23:49:06: train iter: 8060 loss: 12.1144 loss_reg: 0.0384 seconds: 31.336
+23:49:37: train iter: 8070 loss: 11.1208 loss_reg: 0.0384 seconds: 31.330
+23:50:09: train iter: 8080 loss: 10.6896 loss_reg: 0.0384 seconds: 31.327
+23:50:40: train iter: 8090 loss: 11.5963 loss_reg: 0.0384 seconds: 31.323
+23:51:11: train iter: 8100 loss: 11.6098 loss_reg: 0.0384 seconds: 31.341
+23:51:43: train iter: 8110 loss: 10.8437 loss_reg: 0.0384 seconds: 31.307
+23:52:14: train iter: 8120 loss: 10.8732 loss_reg: 0.0384 seconds: 31.340
+23:52:45: train iter: 8130 loss: 10.4582 loss_reg: 0.0384 seconds: 31.332
+23:53:17: train iter: 8140 loss: 11.1391 loss_reg: 0.0384 seconds: 31.340
+23:53:48: train iter: 8150 loss: 11.4148 loss_reg: 0.0384 seconds: 31.320
+23:54:19: train iter: 8160 loss: 11.8972 loss_reg: 0.0384 seconds: 31.372
+23:54:51: train iter: 8170 loss: 11.8888 loss_reg: 0.0384 seconds: 31.343
+23:55:22: train iter: 8180 loss: 10.8464 loss_reg: 0.0384 seconds: 31.365
+23:55:53: train iter: 8190 loss: 11.5077 loss_reg: 0.0384 seconds: 31.307
+23:56:25: train iter: 8200 loss: 11.0245 loss_reg: 0.0384 seconds: 31.341
+23:56:56: train iter: 8210 loss: 11.6177 loss_reg: 0.0384 seconds: 31.331
+23:57:27: train iter: 8220 loss: 11.5385 loss_reg: 0.0384 seconds: 31.331
+23:57:59: train iter: 8230 loss: 11.4374 loss_reg: 0.0384 seconds: 31.328
+23:58:30: train iter: 8240 loss: 11.8850 loss_reg: 0.0384 seconds: 31.320
+23:59:01: train iter: 8250 loss: 11.5588 loss_reg: 0.0384 seconds: 31.337
+23:59:33: train iter: 8260 loss: 11.0479 loss_reg: 0.0384 seconds: 31.309
+00:00:04: train iter: 8270 loss: 11.7000 loss_reg: 0.0384 seconds: 31.327
+00:00:35: train iter: 8280 loss: 11.3782 loss_reg: 0.0384 seconds: 31.320
+00:01:07: train iter: 8290 loss: 11.6993 loss_reg: 0.0384 seconds: 31.352
+00:01:38: train iter: 8300 loss: 11.2113 loss_reg: 0.0384 seconds: 31.369
+00:02:09: train iter: 8310 loss: 11.2870 loss_reg: 0.0384 seconds: 31.345
+00:02:41: train iter: 8320 loss: 11.5948 loss_reg: 0.0384 seconds: 31.361
+00:03:12: train iter: 8330 loss: 11.5694 loss_reg: 0.0384 seconds: 31.305
+00:03:43: train iter: 8340 loss: 11.1629 loss_reg: 0.0384 seconds: 31.349
+00:04:15: train iter: 8350 loss: 11.0806 loss_reg: 0.0384 seconds: 31.318
+00:04:46: train iter: 8360 loss: 11.0982 loss_reg: 0.0384 seconds: 31.350
+00:05:17: train iter: 8370 loss: 11.5708 loss_reg: 0.0384 seconds: 31.329
+00:05:49: train iter: 8380 loss: 11.0712 loss_reg: 0.0384 seconds: 31.326
+00:06:20: train iter: 8390 loss: 10.9268 loss_reg: 0.0384 seconds: 31.345
+00:06:51: train iter: 8400 loss: 11.9529 loss_reg: 0.0384 seconds: 31.321
+00:07:23: train iter: 8410 loss: 11.2107 loss_reg: 0.0384 seconds: 31.319
+00:07:54: train iter: 8420 loss: 11.2206 loss_reg: 0.0384 seconds: 31.324
+00:08:25: train iter: 8430 loss: 11.4305 loss_reg: 0.0384 seconds: 31.322
+00:08:57: train iter: 8440 loss: 10.7834 loss_reg: 0.0384 seconds: 31.325
+00:09:28: train iter: 8450 loss: 11.6072 loss_reg: 0.0384 seconds: 31.308
+00:09:59: train iter: 8460 loss: 11.0210 loss_reg: 0.0384 seconds: 31.337
+00:10:31: train iter: 8470 loss: 11.0751 loss_reg: 0.0384 seconds: 31.366
+00:11:02: train iter: 8480 loss: 12.0719 loss_reg: 0.0384 seconds: 31.291
+00:11:33: train iter: 8490 loss: 10.7690 loss_reg: 0.0384 seconds: 31.335
+00:12:05: train iter: 8500 loss: 11.2979 loss_reg: 0.0384 seconds: 31.325
+00:12:36: train iter: 8510 loss: 10.7345 loss_reg: 0.0384 seconds: 31.339
+00:13:07: train iter: 8520 loss: 11.5921 loss_reg: 0.0384 seconds: 31.319
+00:13:39: train iter: 8530 loss: 11.2211 loss_reg: 0.0384 seconds: 31.341
+00:14:10: train iter: 8540 loss: 11.1449 loss_reg: 0.0384 seconds: 31.339
+00:14:41: train iter: 8550 loss: 11.5192 loss_reg: 0.0384 seconds: 31.364
+00:15:13: train iter: 8560 loss: 11.2266 loss_reg: 0.0384 seconds: 31.346
+00:15:44: train iter: 8570 loss: 11.1199 loss_reg: 0.0384 seconds: 31.356
+00:16:15: train iter: 8580 loss: 12.7713 loss_reg: 0.0384 seconds: 31.370
+00:16:47: train iter: 8590 loss: 10.6343 loss_reg: 0.0384 seconds: 31.349
+00:17:18: train iter: 8600 loss: 11.5544 loss_reg: 0.0384 seconds: 31.372
+00:17:49: train iter: 8610 loss: 10.7400 loss_reg: 0.0384 seconds: 31.310
+00:18:21: train iter: 8620 loss: 11.3656 loss_reg: 0.0384 seconds: 31.315
+00:18:52: train iter: 8630 loss: 11.6860 loss_reg: 0.0384 seconds: 31.310
+00:19:23: train iter: 8640 loss: 10.7306 loss_reg: 0.0384 seconds: 31.359
+00:19:55: train iter: 8650 loss: 11.7999 loss_reg: 0.0384 seconds: 31.349
+00:20:26: train iter: 8660 loss: 11.3130 loss_reg: 0.0384 seconds: 31.330
+00:20:57: train iter: 8670 loss: 11.4274 loss_reg: 0.0384 seconds: 31.336
+00:21:29: train iter: 8680 loss: 11.3695 loss_reg: 0.0384 seconds: 31.359
+00:22:00: train iter: 8690 loss: 11.1911 loss_reg: 0.0384 seconds: 31.339
+00:22:31: train iter: 8700 loss: 11.1036 loss_reg: 0.0384 seconds: 31.328
+00:23:03: train iter: 8710 loss: 11.4761 loss_reg: 0.0384 seconds: 31.355
+00:23:34: train iter: 8720 loss: 10.9233 loss_reg: 0.0384 seconds: 31.353
+00:24:05: train iter: 8730 loss: 11.1487 loss_reg: 0.0384 seconds: 31.306
+00:24:37: train iter: 8740 loss: 11.8202 loss_reg: 0.0384 seconds: 31.349
+00:25:08: train iter: 8750 loss: 11.5459 loss_reg: 0.0384 seconds: 31.323
+00:25:39: train iter: 8760 loss: 10.4533 loss_reg: 0.0384 seconds: 31.337
+00:26:11: train iter: 8770 loss: 11.0759 loss_reg: 0.0384 seconds: 31.348
+00:26:42: train iter: 8780 loss: 11.6832 loss_reg: 0.0384 seconds: 31.345
+00:27:14: train iter: 8790 loss: 11.9867 loss_reg: 0.0384 seconds: 31.346
+00:27:45: train iter: 8800 loss: 11.8027 loss_reg: 0.0384 seconds: 31.312
+00:28:16: train iter: 8810 loss: 10.9443 loss_reg: 0.0384 seconds: 31.318
+00:28:47: train iter: 8820 loss: 11.4217 loss_reg: 0.0384 seconds: 31.317
+00:29:19: train iter: 8830 loss: 11.1531 loss_reg: 0.0384 seconds: 31.319
+00:29:50: train iter: 8840 loss: 10.7669 loss_reg: 0.0384 seconds: 31.377
+00:30:21: train iter: 8850 loss: 11.7157 loss_reg: 0.0384 seconds: 31.313
+00:30:53: train iter: 8860 loss: 11.4428 loss_reg: 0.0384 seconds: 31.350
+00:31:24: train iter: 8870 loss: 11.3873 loss_reg: 0.0384 seconds: 31.305
+00:31:55: train iter: 8880 loss: 11.7637 loss_reg: 0.0384 seconds: 31.326
+00:32:27: train iter: 8890 loss: 10.7277 loss_reg: 0.0384 seconds: 31.301
+00:32:58: train iter: 8900 loss: 10.7184 loss_reg: 0.0384 seconds: 31.324
+00:33:29: train iter: 8910 loss: 11.7662 loss_reg: 0.0384 seconds: 31.340
+00:34:01: train iter: 8920 loss: 11.6187 loss_reg: 0.0384 seconds: 31.318
+00:34:32: train iter: 8930 loss: 10.6689 loss_reg: 0.0384 seconds: 31.323
+00:35:03: train iter: 8940 loss: 10.8062 loss_reg: 0.0384 seconds: 31.361
+00:35:35: train iter: 8950 loss: 11.3357 loss_reg: 0.0384 seconds: 31.303
+00:36:06: train iter: 8960 loss: 11.4093 loss_reg: 0.0384 seconds: 31.334
+00:36:37: train iter: 8970 loss: 11.5162 loss_reg: 0.0384 seconds: 31.313
+00:37:09: train iter: 8980 loss: 11.4539 loss_reg: 0.0384 seconds: 31.349
+00:37:40: train iter: 8990 loss: 10.9816 loss_reg: 0.0384 seconds: 31.303
+00:38:11: train iter: 9000 loss: 10.9648 loss_reg: 0.0384 seconds: 31.347
+00:38:43: train iter: 9010 loss: 11.5346 loss_reg: 0.0384 seconds: 31.338
+00:39:14: train iter: 9020 loss: 10.2976 loss_reg: 0.0384 seconds: 31.317
+00:39:45: train iter: 9030 loss: 11.7799 loss_reg: 0.0384 seconds: 31.357
+00:40:17: train iter: 9040 loss: 10.8936 loss_reg: 0.0384 seconds: 31.333
+00:40:48: train iter: 9050 loss: 10.9292 loss_reg: 0.0384 seconds: 31.344
+00:41:19: train iter: 9060 loss: 11.6411 loss_reg: 0.0384 seconds: 31.339
+00:41:51: train iter: 9070 loss: 11.3256 loss_reg: 0.0384 seconds: 31.339
+00:42:22: train iter: 9080 loss: 10.7759 loss_reg: 0.0384 seconds: 31.320
+00:42:53: train iter: 9090 loss: 11.6401 loss_reg: 0.0384 seconds: 31.327
+00:43:25: train iter: 9100 loss: 11.2239 loss_reg: 0.0384 seconds: 31.323
+00:43:56: train iter: 9110 loss: 11.3781 loss_reg: 0.0384 seconds: 31.360
+00:44:27: train iter: 9120 loss: 11.2741 loss_reg: 0.0384 seconds: 31.355
+00:44:59: train iter: 9130 loss: 11.4647 loss_reg: 0.0384 seconds: 31.339
+00:45:30: train iter: 9140 loss: 10.8776 loss_reg: 0.0384 seconds: 31.336
+00:46:01: train iter: 9150 loss: 11.6515 loss_reg: 0.0384 seconds: 31.389
+00:46:33: train iter: 9160 loss: 11.2168 loss_reg: 0.0384 seconds: 31.298
+00:47:04: train iter: 9170 loss: 11.3839 loss_reg: 0.0384 seconds: 31.344
+00:47:35: train iter: 9180 loss: 10.9548 loss_reg: 0.0384 seconds: 31.350
+00:48:07: train iter: 9190 loss: 11.6837 loss_reg: 0.0384 seconds: 31.304
+00:48:38: train iter: 9200 loss: 11.6787 loss_reg: 0.0384 seconds: 31.332
+00:49:09: train iter: 9210 loss: 11.0276 loss_reg: 0.0384 seconds: 31.336
+00:49:41: train iter: 9220 loss: 10.8762 loss_reg: 0.0384 seconds: 31.317
+00:50:12: train iter: 9230 loss: 10.7878 loss_reg: 0.0384 seconds: 31.303
+00:50:43: train iter: 9240 loss: 11.4762 loss_reg: 0.0384 seconds: 31.321
+00:51:15: train iter: 9250 loss: 11.2021 loss_reg: 0.0384 seconds: 31.333
+00:51:46: train iter: 9260 loss: 11.5913 loss_reg: 0.0384 seconds: 31.325
+00:52:17: train iter: 9270 loss: 11.3342 loss_reg: 0.0384 seconds: 31.328
+00:52:49: train iter: 9280 loss: 11.5206 loss_reg: 0.0384 seconds: 31.340
+00:53:20: train iter: 9290 loss: 11.3740 loss_reg: 0.0384 seconds: 31.352
+00:53:51: train iter: 9300 loss: 10.3015 loss_reg: 0.0384 seconds: 31.320
+00:54:23: train iter: 9310 loss: 10.9275 loss_reg: 0.0384 seconds: 31.304
+00:54:54: train iter: 9320 loss: 10.9191 loss_reg: 0.0384 seconds: 31.346
+00:55:25: train iter: 9330 loss: 11.9021 loss_reg: 0.0384 seconds: 31.368
+00:55:57: train iter: 9340 loss: 11.0130 loss_reg: 0.0384 seconds: 31.351
+00:56:28: train iter: 9350 loss: 11.0269 loss_reg: 0.0384 seconds: 31.319
+00:56:59: train iter: 9360 loss: 10.0920 loss_reg: 0.0384 seconds: 31.313
+00:57:31: train iter: 9370 loss: 11.3024 loss_reg: 0.0384 seconds: 31.335
+00:58:02: train iter: 9380 loss: 10.6572 loss_reg: 0.0384 seconds: 31.324
+00:58:33: train iter: 9390 loss: 10.9419 loss_reg: 0.0384 seconds: 31.322
+00:59:05: train iter: 9400 loss: 11.9177 loss_reg: 0.0384 seconds: 31.325
+00:59:36: train iter: 9410 loss: 10.7716 loss_reg: 0.0384 seconds: 31.302
+01:00:07: train iter: 9420 loss: 11.3167 loss_reg: 0.0384 seconds: 31.351
+01:00:39: train iter: 9430 loss: 11.3186 loss_reg: 0.0384 seconds: 31.331
+01:01:10: train iter: 9440 loss: 11.2623 loss_reg: 0.0384 seconds: 31.339
+01:01:41: train iter: 9450 loss: 10.6719 loss_reg: 0.0384 seconds: 31.338
+01:02:13: train iter: 9460 loss: 11.0803 loss_reg: 0.0384 seconds: 31.332
+01:02:44: train iter: 9470 loss: 11.4572 loss_reg: 0.0384 seconds: 31.311
+01:03:15: train iter: 9480 loss: 11.4310 loss_reg: 0.0384 seconds: 31.316
+01:03:47: train iter: 9490 loss: 11.6296 loss_reg: 0.0384 seconds: 31.330
+01:04:18: train iter: 9500 loss: 11.5141 loss_reg: 0.0384 seconds: 31.325
+01:04:49: train iter: 9510 loss: 11.3024 loss_reg: 0.0384 seconds: 31.314
+01:05:21: train iter: 9520 loss: 11.4339 loss_reg: 0.0384 seconds: 31.313
+01:05:52: train iter: 9530 loss: 11.1018 loss_reg: 0.0384 seconds: 31.302
+01:06:23: train iter: 9540 loss: 11.3111 loss_reg: 0.0384 seconds: 31.319
+01:06:55: train iter: 9550 loss: 11.4281 loss_reg: 0.0384 seconds: 31.302
+01:07:26: train iter: 9560 loss: 11.5940 loss_reg: 0.0384 seconds: 31.317
+01:07:57: train iter: 9570 loss: 11.4808 loss_reg: 0.0384 seconds: 31.333
+01:08:29: train iter: 9580 loss: 10.7774 loss_reg: 0.0384 seconds: 31.326
+01:09:00: train iter: 9590 loss: 10.5680 loss_reg: 0.0384 seconds: 31.301
+01:09:31: train iter: 9600 loss: 11.2067 loss_reg: 0.0384 seconds: 31.313
+01:10:02: train iter: 9610 loss: 11.4723 loss_reg: 0.0384 seconds: 31.294
+01:10:34: train iter: 9620 loss: 10.6169 loss_reg: 0.0384 seconds: 31.314
+01:11:05: train iter: 9630 loss: 11.7947 loss_reg: 0.0384 seconds: 31.307
+01:11:36: train iter: 9640 loss: 11.1810 loss_reg: 0.0384 seconds: 31.310
+01:12:08: train iter: 9650 loss: 11.2684 loss_reg: 0.0384 seconds: 31.316
+01:12:39: train iter: 9660 loss: 11.5824 loss_reg: 0.0384 seconds: 31.298
+01:13:10: train iter: 9670 loss: 10.2212 loss_reg: 0.0384 seconds: 31.325
+01:13:42: train iter: 9680 loss: 11.1519 loss_reg: 0.0384 seconds: 31.328
+01:14:13: train iter: 9690 loss: 11.5948 loss_reg: 0.0384 seconds: 31.320
+01:14:44: train iter: 9700 loss: 10.1005 loss_reg: 0.0384 seconds: 31.322
+01:15:16: train iter: 9710 loss: 10.9385 loss_reg: 0.0384 seconds: 31.338
+01:15:47: train iter: 9720 loss: 11.9269 loss_reg: 0.0384 seconds: 31.330
+01:16:18: train iter: 9730 loss: 11.2004 loss_reg: 0.0384 seconds: 31.335
+01:16:50: train iter: 9740 loss: 11.4264 loss_reg: 0.0384 seconds: 31.311
+01:17:21: train iter: 9750 loss: 10.9311 loss_reg: 0.0384 seconds: 31.340
+01:17:52: train iter: 9760 loss: 10.8738 loss_reg: 0.0384 seconds: 31.332
+01:18:24: train iter: 9770 loss: 11.4711 loss_reg: 0.0384 seconds: 31.352
+01:18:55: train iter: 9780 loss: 11.6211 loss_reg: 0.0384 seconds: 31.342
+01:19:26: train iter: 9790 loss: 12.0176 loss_reg: 0.0384 seconds: 31.382
+01:19:58: train iter: 9800 loss: 11.4716 loss_reg: 0.0384 seconds: 31.346
+01:20:29: train iter: 9810 loss: 10.7690 loss_reg: 0.0384 seconds: 31.353
+01:21:00: train iter: 9820 loss: 10.9302 loss_reg: 0.0384 seconds: 31.328
+01:21:32: train iter: 9830 loss: 10.7483 loss_reg: 0.0384 seconds: 31.335
+01:22:03: train iter: 9840 loss: 11.7370 loss_reg: 0.0384 seconds: 31.317
+01:22:34: train iter: 9850 loss: 10.8572 loss_reg: 0.0384 seconds: 31.359
+01:23:06: train iter: 9860 loss: 11.3544 loss_reg: 0.0384 seconds: 31.337
+01:23:37: train iter: 9870 loss: 10.7265 loss_reg: 0.0384 seconds: 31.362
+01:24:08: train iter: 9880 loss: 11.1089 loss_reg: 0.0384 seconds: 31.327
+01:24:40: train iter: 9890 loss: 10.7238 loss_reg: 0.0384 seconds: 31.317
+01:25:11: train iter: 9900 loss: 10.3834 loss_reg: 0.0384 seconds: 31.329
+01:25:42: train iter: 9910 loss: 10.9445 loss_reg: 0.0384 seconds: 31.353
+01:26:14: train iter: 9920 loss: 10.9581 loss_reg: 0.0384 seconds: 31.341
+01:26:45: train iter: 9930 loss: 11.3138 loss_reg: 0.0384 seconds: 31.341
+01:27:16: train iter: 9940 loss: 11.1072 loss_reg: 0.0384 seconds: 31.371
+01:27:48: train iter: 9950 loss: 10.7735 loss_reg: 0.0384 seconds: 31.353
+01:28:19: train iter: 9960 loss: 10.6984 loss_reg: 0.0384 seconds: 31.322
+01:28:50: train iter: 9970 loss: 10.7325 loss_reg: 0.0384 seconds: 31.322
+01:29:22: train iter: 9980 loss: 10.8368 loss_reg: 0.0384 seconds: 31.325
+01:29:53: train iter: 9990 loss: 11.2197 loss_reg: 0.0384 seconds: 31.361
+Creating snapshot...
+Model saved in file conv_cv0/2022-04-05_16-47-51/weights/model-10000
+Testing  |--------------------------------------------------| 0.0%  completeatsai time test duration = 0.2635 seconds
+Testing  |XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX| 100.0%  complete
+ipe (0.15244546166257597, 0.0, 0.15244546166257597)
+pe (0.15244546166257597, 0.05847085165672604, 0.1581684688302276)
+outliers [0, 0, 0]
+atsai num training data 503
+01:30:23: test iter: 10000 loss: 9.0690 loss_reg: 0.0384 seconds: 15668.103
+01:30:26: train iter: 10000 loss: 10.7829 loss_reg: 0.0384 seconds: 32.542
+01:30:57: train iter: 10010 loss: 11.2535 loss_reg: 0.0384 seconds: 31.307
+01:31:28: train iter: 10020 loss: 11.1865 loss_reg: 0.0384 seconds: 31.308
+01:32:00: train iter: 10030 loss: 11.0637 loss_reg: 0.0384 seconds: 31.305
+01:32:31: train iter: 10040 loss: 11.4023 loss_reg: 0.0384 seconds: 31.310
+01:33:02: train iter: 10050 loss: 11.5585 loss_reg: 0.0384 seconds: 31.313
+01:33:34: train iter: 10060 loss: 10.8840 loss_reg: 0.0384 seconds: 31.303
+01:34:05: train iter: 10070 loss: 10.9453 loss_reg: 0.0384 seconds: 31.324
+01:34:36: train iter: 10080 loss: 11.0977 loss_reg: 0.0384 seconds: 31.318
+01:35:08: train iter: 10090 loss: 11.1924 loss_reg: 0.0384 seconds: 31.334
+01:35:39: train iter: 10100 loss: 11.3102 loss_reg: 0.0384 seconds: 31.323
+01:36:10: train iter: 10110 loss: 11.0972 loss_reg: 0.0384 seconds: 31.306
+01:36:41: train iter: 10120 loss: 11.0954 loss_reg: 0.0384 seconds: 31.307
+01:37:13: train iter: 10130 loss: 11.0576 loss_reg: 0.0384 seconds: 31.329
+01:37:44: train iter: 10140 loss: 11.5679 loss_reg: 0.0384 seconds: 31.316
+01:38:15: train iter: 10150 loss: 11.4596 loss_reg: 0.0384 seconds: 31.303
+01:38:47: train iter: 10160 loss: 11.4469 loss_reg: 0.0384 seconds: 31.323
+01:39:18: train iter: 10170 loss: 10.8987 loss_reg: 0.0384 seconds: 31.313
+01:39:49: train iter: 10180 loss: 10.5387 loss_reg: 0.0384 seconds: 31.326
+01:40:21: train iter: 10190 loss: 10.9869 loss_reg: 0.0384 seconds: 31.323
+01:40:52: train iter: 10200 loss: 11.2731 loss_reg: 0.0384 seconds: 31.309
+01:41:23: train iter: 10210 loss: 11.4949 loss_reg: 0.0384 seconds: 31.302
+01:41:55: train iter: 10220 loss: 10.8489 loss_reg: 0.0384 seconds: 31.325
+01:42:26: train iter: 10230 loss: 11.1892 loss_reg: 0.0384 seconds: 31.322
+01:42:57: train iter: 10240 loss: 11.2455 loss_reg: 0.0384 seconds: 31.317
+01:43:29: train iter: 10250 loss: 10.7456 loss_reg: 0.0384 seconds: 31.320
+01:44:00: train iter: 10260 loss: 10.7767 loss_reg: 0.0384 seconds: 31.340
+01:44:31: train iter: 10270 loss: 11.3715 loss_reg: 0.0384 seconds: 31.335
+01:45:03: train iter: 10280 loss: 11.6351 loss_reg: 0.0384 seconds: 31.360
+01:45:34: train iter: 10290 loss: 10.6490 loss_reg: 0.0384 seconds: 31.353
+01:46:05: train iter: 10300 loss: 11.1034 loss_reg: 0.0384 seconds: 31.327
+01:46:37: train iter: 10310 loss: 11.6831 loss_reg: 0.0384 seconds: 31.312
+01:47:08: train iter: 10320 loss: 10.6669 loss_reg: 0.0384 seconds: 31.293
+01:47:39: train iter: 10330 loss: 10.9479 loss_reg: 0.0384 seconds: 31.346
+01:48:11: train iter: 10340 loss: 11.6351 loss_reg: 0.0384 seconds: 31.307
+01:48:42: train iter: 10350 loss: 11.5502 loss_reg: 0.0384 seconds: 31.324
+01:49:13: train iter: 10360 loss: 11.0850 loss_reg: 0.0384 seconds: 31.328
+01:49:45: train iter: 10370 loss: 11.2000 loss_reg: 0.0384 seconds: 31.305
+01:50:16: train iter: 10380 loss: 10.7214 loss_reg: 0.0384 seconds: 31.342
+01:50:47: train iter: 10390 loss: 11.3691 loss_reg: 0.0384 seconds: 31.295
+01:51:18: train iter: 10400 loss: 11.7181 loss_reg: 0.0384 seconds: 31.311
+01:51:50: train iter: 10410 loss: 10.7847 loss_reg: 0.0384 seconds: 31.298
+01:52:21: train iter: 10420 loss: 10.6859 loss_reg: 0.0384 seconds: 31.331
+01:52:52: train iter: 10430 loss: 11.6725 loss_reg: 0.0384 seconds: 31.303
+01:53:24: train iter: 10440 loss: 9.8712 loss_reg: 0.0384 seconds: 31.310
+01:53:55: train iter: 10450 loss: 11.1211 loss_reg: 0.0384 seconds: 31.339
+01:54:26: train iter: 10460 loss: 11.0123 loss_reg: 0.0384 seconds: 31.317
+01:54:58: train iter: 10470 loss: 10.5921 loss_reg: 0.0384 seconds: 31.302
+01:55:29: train iter: 10480 loss: 10.9394 loss_reg: 0.0384 seconds: 31.301
+01:56:00: train iter: 10490 loss: 11.2173 loss_reg: 0.0384 seconds: 31.305
+01:56:32: train iter: 10500 loss: 11.2099 loss_reg: 0.0384 seconds: 31.309
+01:57:03: train iter: 10510 loss: 11.4822 loss_reg: 0.0384 seconds: 31.315
+01:57:34: train iter: 10520 loss: 10.7549 loss_reg: 0.0384 seconds: 31.289
+01:58:06: train iter: 10530 loss: 11.3299 loss_reg: 0.0384 seconds: 31.303
+01:58:37: train iter: 10540 loss: 11.3429 loss_reg: 0.0384 seconds: 31.315
+01:59:08: train iter: 10550 loss: 11.0169 loss_reg: 0.0384 seconds: 31.306
+01:59:39: train iter: 10560 loss: 10.9743 loss_reg: 0.0384 seconds: 31.308
+02:00:11: train iter: 10570 loss: 10.7643 loss_reg: 0.0384 seconds: 31.329
+02:00:42: train iter: 10580 loss: 10.6667 loss_reg: 0.0384 seconds: 31.300
+02:01:13: train iter: 10590 loss: 10.9017 loss_reg: 0.0384 seconds: 31.303
+02:01:45: train iter: 10600 loss: 11.4610 loss_reg: 0.0384 seconds: 31.336
+02:02:16: train iter: 10610 loss: 11.3742 loss_reg: 0.0384 seconds: 31.323
+02:02:47: train iter: 10620 loss: 10.8088 loss_reg: 0.0384 seconds: 31.303
+02:03:19: train iter: 10630 loss: 10.9560 loss_reg: 0.0384 seconds: 31.312
+02:03:50: train iter: 10640 loss: 11.8037 loss_reg: 0.0384 seconds: 31.310
+02:04:21: train iter: 10650 loss: 10.9932 loss_reg: 0.0384 seconds: 31.322
+02:04:53: train iter: 10660 loss: 10.5503 loss_reg: 0.0384 seconds: 31.321
+02:05:24: train iter: 10670 loss: 10.5135 loss_reg: 0.0384 seconds: 31.306
+02:05:55: train iter: 10680 loss: 11.3834 loss_reg: 0.0384 seconds: 31.327
+02:06:27: train iter: 10690 loss: 11.2487 loss_reg: 0.0384 seconds: 31.325
+02:06:58: train iter: 10700 loss: 10.4776 loss_reg: 0.0384 seconds: 31.308
+02:07:29: train iter: 10710 loss: 11.3822 loss_reg: 0.0384 seconds: 31.327
+02:08:01: train iter: 10720 loss: 11.0115 loss_reg: 0.0384 seconds: 31.327
+02:08:32: train iter: 10730 loss: 11.0149 loss_reg: 0.0384 seconds: 31.319
+02:09:03: train iter: 10740 loss: 11.1227 loss_reg: 0.0384 seconds: 31.320
+02:09:34: train iter: 10750 loss: 11.3831 loss_reg: 0.0384 seconds: 31.308
+02:10:06: train iter: 10760 loss: 10.7716 loss_reg: 0.0384 seconds: 31.340
+02:10:37: train iter: 10770 loss: 11.4596 loss_reg: 0.0384 seconds: 31.336
+02:11:08: train iter: 10780 loss: 10.8716 loss_reg: 0.0384 seconds: 31.322
+02:11:40: train iter: 10790 loss: 10.9940 loss_reg: 0.0384 seconds: 31.315
+02:12:11: train iter: 10800 loss: 10.3166 loss_reg: 0.0384 seconds: 31.317
+02:12:42: train iter: 10810 loss: 11.0714 loss_reg: 0.0384 seconds: 31.325
+02:13:14: train iter: 10820 loss: 10.9762 loss_reg: 0.0384 seconds: 31.307
+02:13:45: train iter: 10830 loss: 10.6001 loss_reg: 0.0384 seconds: 31.330
+02:14:16: train iter: 10840 loss: 10.1929 loss_reg: 0.0384 seconds: 31.344
+02:14:48: train iter: 10850 loss: 10.4741 loss_reg: 0.0384 seconds: 31.360
+02:15:19: train iter: 10860 loss: 10.5938 loss_reg: 0.0384 seconds: 31.340
+02:15:50: train iter: 10870 loss: 11.0505 loss_reg: 0.0384 seconds: 31.348
+02:16:22: train iter: 10880 loss: 11.4469 loss_reg: 0.0384 seconds: 31.337
+02:16:53: train iter: 10890 loss: 10.4479 loss_reg: 0.0384 seconds: 31.324
+02:17:24: train iter: 10900 loss: 10.4777 loss_reg: 0.0384 seconds: 31.326
+02:17:56: train iter: 10910 loss: 10.8507 loss_reg: 0.0384 seconds: 31.336
+02:18:27: train iter: 10920 loss: 11.5223 loss_reg: 0.0384 seconds: 31.316
+02:18:58: train iter: 10930 loss: 10.9484 loss_reg: 0.0384 seconds: 31.331
+02:19:30: train iter: 10940 loss: 10.5910 loss_reg: 0.0384 seconds: 31.299
+02:20:01: train iter: 10950 loss: 11.3594 loss_reg: 0.0384 seconds: 31.325
+02:20:32: train iter: 10960 loss: 10.5180 loss_reg: 0.0384 seconds: 31.306
+02:21:04: train iter: 10970 loss: 10.6206 loss_reg: 0.0384 seconds: 31.318
+02:21:35: train iter: 10980 loss: 11.1496 loss_reg: 0.0384 seconds: 31.364
+02:22:06: train iter: 10990 loss: 11.5070 loss_reg: 0.0384 seconds: 31.314
+02:22:38: train iter: 11000 loss: 10.3358 loss_reg: 0.0384 seconds: 31.310
+02:23:09: train iter: 11010 loss: 10.9844 loss_reg: 0.0384 seconds: 31.330
+02:23:40: train iter: 11020 loss: 10.4286 loss_reg: 0.0384 seconds: 31.289
+02:24:12: train iter: 11030 loss: 11.0799 loss_reg: 0.0384 seconds: 31.304
+02:24:43: train iter: 11040 loss: 10.1833 loss_reg: 0.0384 seconds: 31.319
+02:25:14: train iter: 11050 loss: 11.1789 loss_reg: 0.0384 seconds: 31.341
+02:25:46: train iter: 11060 loss: 10.7031 loss_reg: 0.0384 seconds: 31.346
+02:26:17: train iter: 11070 loss: 10.0646 loss_reg: 0.0384 seconds: 31.318
+02:26:48: train iter: 11080 loss: 10.5332 loss_reg: 0.0384 seconds: 31.300
+02:27:20: train iter: 11090 loss: 10.7588 loss_reg: 0.0384 seconds: 31.302
+02:27:51: train iter: 11100 loss: 10.9324 loss_reg: 0.0384 seconds: 31.314
+02:28:22: train iter: 11110 loss: 11.1971 loss_reg: 0.0384 seconds: 31.294
+02:28:53: train iter: 11120 loss: 11.3550 loss_reg: 0.0384 seconds: 31.295
+02:29:25: train iter: 11130 loss: 11.1219 loss_reg: 0.0384 seconds: 31.301
+02:29:56: train iter: 11140 loss: 10.7494 loss_reg: 0.0384 seconds: 31.315
+02:30:27: train iter: 11150 loss: 10.9208 loss_reg: 0.0384 seconds: 31.301
+02:30:59: train iter: 11160 loss: 10.2984 loss_reg: 0.0384 seconds: 31.306
+02:31:30: train iter: 11170 loss: 10.9819 loss_reg: 0.0384 seconds: 31.287
+02:32:01: train iter: 11180 loss: 11.3253 loss_reg: 0.0384 seconds: 31.283
+02:32:33: train iter: 11190 loss: 11.1722 loss_reg: 0.0384 seconds: 31.296
+02:33:04: train iter: 11200 loss: 11.3686 loss_reg: 0.0384 seconds: 31.274
+02:33:35: train iter: 11210 loss: 10.6527 loss_reg: 0.0384 seconds: 31.282
+02:34:06: train iter: 11220 loss: 11.5314 loss_reg: 0.0384 seconds: 31.326
+02:34:38: train iter: 11230 loss: 10.6551 loss_reg: 0.0384 seconds: 31.318
+02:35:09: train iter: 11240 loss: 10.7657 loss_reg: 0.0384 seconds: 31.327
+02:35:40: train iter: 11250 loss: 10.4329 loss_reg: 0.0384 seconds: 31.319
+02:36:12: train iter: 11260 loss: 11.2363 loss_reg: 0.0384 seconds: 31.311
+02:36:43: train iter: 11270 loss: 11.6755 loss_reg: 0.0384 seconds: 31.305
+02:37:14: train iter: 11280 loss: 10.8949 loss_reg: 0.0384 seconds: 31.296
+02:37:46: train iter: 11290 loss: 10.7687 loss_reg: 0.0384 seconds: 31.284
+02:38:17: train iter: 11300 loss: 11.0790 loss_reg: 0.0384 seconds: 31.306
+02:38:48: train iter: 11310 loss: 11.0549 loss_reg: 0.0384 seconds: 31.284
+02:39:19: train iter: 11320 loss: 11.6872 loss_reg: 0.0384 seconds: 31.277
+02:39:51: train iter: 11330 loss: 11.0360 loss_reg: 0.0384 seconds: 31.301
+02:40:22: train iter: 11340 loss: 11.0591 loss_reg: 0.0384 seconds: 31.333
+02:40:53: train iter: 11350 loss: 11.0689 loss_reg: 0.0384 seconds: 31.313
+02:41:25: train iter: 11360 loss: 10.9119 loss_reg: 0.0384 seconds: 31.326
+02:41:56: train iter: 11370 loss: 11.2282 loss_reg: 0.0384 seconds: 31.306
+02:42:27: train iter: 11380 loss: 10.7099 loss_reg: 0.0384 seconds: 31.307
+02:42:59: train iter: 11390 loss: 11.1755 loss_reg: 0.0384 seconds: 31.307
+02:43:30: train iter: 11400 loss: 10.7185 loss_reg: 0.0384 seconds: 31.319
+02:44:01: train iter: 11410 loss: 11.1501 loss_reg: 0.0384 seconds: 31.302
+02:44:33: train iter: 11420 loss: 10.3197 loss_reg: 0.0384 seconds: 31.299
+02:45:04: train iter: 11430 loss: 11.1185 loss_reg: 0.0384 seconds: 31.294
+02:45:35: train iter: 11440 loss: 11.7020 loss_reg: 0.0384 seconds: 31.312
+02:46:06: train iter: 11450 loss: 10.7547 loss_reg: 0.0384 seconds: 31.305
+02:46:38: train iter: 11460 loss: 10.8556 loss_reg: 0.0384 seconds: 31.329
+02:47:09: train iter: 11470 loss: 10.0002 loss_reg: 0.0384 seconds: 31.283
+02:47:40: train iter: 11480 loss: 10.5017 loss_reg: 0.0384 seconds: 31.302
+02:48:12: train iter: 11490 loss: 11.2678 loss_reg: 0.0384 seconds: 31.316
+02:48:43: train iter: 11500 loss: 10.4833 loss_reg: 0.0384 seconds: 31.294
+02:49:14: train iter: 11510 loss: 11.6423 loss_reg: 0.0384 seconds: 31.304
+02:49:46: train iter: 11520 loss: 11.0998 loss_reg: 0.0384 seconds: 31.311
+02:50:17: train iter: 11530 loss: 10.9847 loss_reg: 0.0384 seconds: 31.304
+02:50:48: train iter: 11540 loss: 10.6195 loss_reg: 0.0384 seconds: 31.323
+02:51:20: train iter: 11550 loss: 11.5854 loss_reg: 0.0384 seconds: 31.337
+02:51:51: train iter: 11560 loss: 10.9111 loss_reg: 0.0384 seconds: 31.315
+02:52:22: train iter: 11570 loss: 11.0600 loss_reg: 0.0384 seconds: 31.295
+02:52:54: train iter: 11580 loss: 11.5861 loss_reg: 0.0384 seconds: 31.325
+02:53:25: train iter: 11590 loss: 10.2311 loss_reg: 0.0384 seconds: 31.318
+02:53:56: train iter: 11600 loss: 10.6003 loss_reg: 0.0384 seconds: 31.344
+02:54:27: train iter: 11610 loss: 10.7716 loss_reg: 0.0384 seconds: 31.314
+02:54:59: train iter: 11620 loss: 10.7009 loss_reg: 0.0384 seconds: 31.318
+02:55:30: train iter: 11630 loss: 10.2993 loss_reg: 0.0384 seconds: 31.295
+02:56:01: train iter: 11640 loss: 10.6397 loss_reg: 0.0384 seconds: 31.314
+02:56:33: train iter: 11650 loss: 11.1595 loss_reg: 0.0384 seconds: 31.350
+02:57:04: train iter: 11660 loss: 11.5804 loss_reg: 0.0384 seconds: 31.304
+02:57:35: train iter: 11670 loss: 10.7837 loss_reg: 0.0384 seconds: 31.336
+02:58:07: train iter: 11680 loss: 11.2257 loss_reg: 0.0384 seconds: 31.331
+02:58:38: train iter: 11690 loss: 10.6732 loss_reg: 0.0384 seconds: 31.337
+02:59:09: train iter: 11700 loss: 10.7973 loss_reg: 0.0384 seconds: 31.299
+02:59:41: train iter: 11710 loss: 10.9691 loss_reg: 0.0384 seconds: 31.324
+03:00:12: train iter: 11720 loss: 10.3033 loss_reg: 0.0384 seconds: 31.297
+03:00:43: train iter: 11730 loss: 11.0845 loss_reg: 0.0384 seconds: 31.362
+03:01:15: train iter: 11740 loss: 11.4446 loss_reg: 0.0384 seconds: 31.304
+03:01:46: train iter: 11750 loss: 10.9884 loss_reg: 0.0384 seconds: 31.315
+03:02:17: train iter: 11760 loss: 11.2508 loss_reg: 0.0384 seconds: 31.292
+03:02:49: train iter: 11770 loss: 10.9025 loss_reg: 0.0384 seconds: 31.332
+03:03:20: train iter: 11780 loss: 11.3194 loss_reg: 0.0384 seconds: 31.323
+03:03:51: train iter: 11790 loss: 10.6696 loss_reg: 0.0384 seconds: 31.310
+03:04:23: train iter: 11800 loss: 10.8773 loss_reg: 0.0384 seconds: 31.291
+03:04:54: train iter: 11810 loss: 10.8852 loss_reg: 0.0384 seconds: 31.309
+03:05:25: train iter: 11820 loss: 11.1253 loss_reg: 0.0384 seconds: 31.307
+03:05:56: train iter: 11830 loss: 10.8954 loss_reg: 0.0384 seconds: 31.305
+03:06:28: train iter: 11840 loss: 10.5554 loss_reg: 0.0384 seconds: 31.314
+03:06:59: train iter: 11850 loss: 11.0364 loss_reg: 0.0384 seconds: 31.315
+03:07:30: train iter: 11860 loss: 10.5786 loss_reg: 0.0384 seconds: 31.317
+03:08:02: train iter: 11870 loss: 11.2513 loss_reg: 0.0384 seconds: 31.294
+03:08:33: train iter: 11880 loss: 11.0740 loss_reg: 0.0384 seconds: 31.307
+03:09:04: train iter: 11890 loss: 10.8333 loss_reg: 0.0384 seconds: 31.314
+03:09:36: train iter: 11900 loss: 10.7879 loss_reg: 0.0384 seconds: 31.293
+03:10:07: train iter: 11910 loss: 11.0684 loss_reg: 0.0384 seconds: 31.312
+03:10:38: train iter: 11920 loss: 10.8639 loss_reg: 0.0384 seconds: 31.292
+03:11:10: train iter: 11930 loss: 11.2097 loss_reg: 0.0384 seconds: 31.318
+03:11:41: train iter: 11940 loss: 10.8865 loss_reg: 0.0384 seconds: 31.308
+03:12:12: train iter: 11950 loss: 11.4407 loss_reg: 0.0384 seconds: 31.295
+03:12:43: train iter: 11960 loss: 10.4860 loss_reg: 0.0384 seconds: 31.289
+03:13:15: train iter: 11970 loss: 11.1741 loss_reg: 0.0384 seconds: 31.301
+03:13:46: train iter: 11980 loss: 11.0225 loss_reg: 0.0384 seconds: 31.334
+03:14:17: train iter: 11990 loss: 10.7139 loss_reg: 0.0384 seconds: 31.307
+03:14:49: train iter: 12000 loss: 11.4225 loss_reg: 0.0384 seconds: 31.334
+03:15:20: train iter: 12010 loss: 11.1151 loss_reg: 0.0384 seconds: 31.314
+03:15:51: train iter: 12020 loss: 11.2168 loss_reg: 0.0384 seconds: 31.320
+03:16:23: train iter: 12030 loss: 10.5881 loss_reg: 0.0384 seconds: 31.325
+03:16:54: train iter: 12040 loss: 10.0374 loss_reg: 0.0384 seconds: 31.321
+03:17:25: train iter: 12050 loss: 10.6184 loss_reg: 0.0384 seconds: 31.328
+03:17:57: train iter: 12060 loss: 10.8468 loss_reg: 0.0384 seconds: 31.309
+03:18:28: train iter: 12070 loss: 10.7972 loss_reg: 0.0384 seconds: 31.326
+03:18:59: train iter: 12080 loss: 10.4856 loss_reg: 0.0384 seconds: 31.326
+03:19:31: train iter: 12090 loss: 11.3705 loss_reg: 0.0384 seconds: 31.330
+03:20:02: train iter: 12100 loss: 10.5989 loss_reg: 0.0384 seconds: 31.328
+03:20:33: train iter: 12110 loss: 10.2293 loss_reg: 0.0384 seconds: 31.290
+03:21:05: train iter: 12120 loss: 10.9309 loss_reg: 0.0384 seconds: 31.325
+03:21:36: train iter: 12130 loss: 10.3031 loss_reg: 0.0384 seconds: 31.327
+03:22:07: train iter: 12140 loss: 10.2481 loss_reg: 0.0384 seconds: 31.296
+03:22:38: train iter: 12150 loss: 10.2965 loss_reg: 0.0384 seconds: 31.304
+03:23:10: train iter: 12160 loss: 10.7979 loss_reg: 0.0384 seconds: 31.288
+03:23:41: train iter: 12170 loss: 10.7523 loss_reg: 0.0384 seconds: 31.316
+03:24:12: train iter: 12180 loss: 10.1059 loss_reg: 0.0384 seconds: 31.323
+03:24:44: train iter: 12190 loss: 11.3731 loss_reg: 0.0384 seconds: 31.320
+03:25:15: train iter: 12200 loss: 10.6789 loss_reg: 0.0384 seconds: 31.315
+03:25:46: train iter: 12210 loss: 10.5602 loss_reg: 0.0384 seconds: 31.304
+03:26:18: train iter: 12220 loss: 11.0062 loss_reg: 0.0384 seconds: 31.311
+03:26:49: train iter: 12230 loss: 10.3364 loss_reg: 0.0384 seconds: 31.336
+03:27:20: train iter: 12240 loss: 10.4340 loss_reg: 0.0384 seconds: 31.308
+03:27:52: train iter: 12250 loss: 11.7136 loss_reg: 0.0384 seconds: 31.311
+03:28:23: train iter: 12260 loss: 9.9710 loss_reg: 0.0384 seconds: 31.343
+03:28:54: train iter: 12270 loss: 10.7476 loss_reg: 0.0384 seconds: 31.304
+03:29:26: train iter: 12280 loss: 10.8958 loss_reg: 0.0384 seconds: 31.316
+03:29:57: train iter: 12290 loss: 11.0550 loss_reg: 0.0384 seconds: 31.290
+03:30:28: train iter: 12300 loss: 10.7406 loss_reg: 0.0384 seconds: 31.306
+03:31:00: train iter: 12310 loss: 10.8608 loss_reg: 0.0384 seconds: 31.314
+03:31:31: train iter: 12320 loss: 10.4863 loss_reg: 0.0384 seconds: 31.315
+03:32:02: train iter: 12330 loss: 10.2547 loss_reg: 0.0384 seconds: 31.309
+03:32:33: train iter: 12340 loss: 10.3684 loss_reg: 0.0384 seconds: 31.289
+03:33:05: train iter: 12350 loss: 9.8401 loss_reg: 0.0384 seconds: 31.336
+03:33:36: train iter: 12360 loss: 10.9396 loss_reg: 0.0384 seconds: 31.330
+03:34:07: train iter: 12370 loss: 10.1175 loss_reg: 0.0384 seconds: 31.301
+03:34:39: train iter: 12380 loss: 10.5271 loss_reg: 0.0384 seconds: 31.327
+03:35:10: train iter: 12390 loss: 10.2038 loss_reg: 0.0384 seconds: 31.327
+03:35:41: train iter: 12400 loss: 10.9617 loss_reg: 0.0384 seconds: 31.326
+03:36:13: train iter: 12410 loss: 10.5846 loss_reg: 0.0384 seconds: 31.311
+03:36:44: train iter: 12420 loss: 10.2633 loss_reg: 0.0384 seconds: 31.336
+03:37:15: train iter: 12430 loss: 10.5349 loss_reg: 0.0384 seconds: 31.320
+03:37:47: train iter: 12440 loss: 10.6554 loss_reg: 0.0384 seconds: 31.328
+03:38:18: train iter: 12450 loss: 10.3965 loss_reg: 0.0384 seconds: 31.357
+03:38:49: train iter: 12460 loss: 10.8679 loss_reg: 0.0384 seconds: 31.316
+03:39:21: train iter: 12470 loss: 11.3018 loss_reg: 0.0384 seconds: 31.303
+03:39:52: train iter: 12480 loss: 11.0414 loss_reg: 0.0384 seconds: 31.279
+03:40:23: train iter: 12490 loss: 10.2920 loss_reg: 0.0384 seconds: 31.324
+03:40:55: train iter: 12500 loss: 10.6271 loss_reg: 0.0384 seconds: 31.345
+03:41:26: train iter: 12510 loss: 10.5833 loss_reg: 0.0384 seconds: 31.319
+03:41:57: train iter: 12520 loss: 10.6334 loss_reg: 0.0384 seconds: 31.301
+03:42:29: train iter: 12530 loss: 9.9589 loss_reg: 0.0384 seconds: 31.322
+03:43:00: train iter: 12540 loss: 11.3272 loss_reg: 0.0384 seconds: 31.304
+03:43:31: train iter: 12550 loss: 10.7023 loss_reg: 0.0384 seconds: 31.304
+03:44:02: train iter: 12560 loss: 11.1489 loss_reg: 0.0384 seconds: 31.301
+03:44:34: train iter: 12570 loss: 11.3526 loss_reg: 0.0384 seconds: 31.324
+03:45:05: train iter: 12580 loss: 10.7518 loss_reg: 0.0384 seconds: 31.317
+03:45:36: train iter: 12590 loss: 10.7019 loss_reg: 0.0384 seconds: 31.327
+03:46:08: train iter: 12600 loss: 11.2667 loss_reg: 0.0384 seconds: 31.321
+03:46:39: train iter: 12610 loss: 11.1530 loss_reg: 0.0384 seconds: 31.330
+03:47:10: train iter: 12620 loss: 11.1646 loss_reg: 0.0384 seconds: 31.301
+03:47:42: train iter: 12630 loss: 10.6441 loss_reg: 0.0384 seconds: 31.306
+03:48:13: train iter: 12640 loss: 10.7100 loss_reg: 0.0384 seconds: 31.296
+03:48:44: train iter: 12650 loss: 11.0577 loss_reg: 0.0384 seconds: 31.341
+03:49:16: train iter: 12660 loss: 11.1206 loss_reg: 0.0384 seconds: 31.336
+03:49:47: train iter: 12670 loss: 11.1473 loss_reg: 0.0384 seconds: 31.299
+03:50:18: train iter: 12680 loss: 11.0369 loss_reg: 0.0384 seconds: 31.291
+03:50:50: train iter: 12690 loss: 10.3709 loss_reg: 0.0384 seconds: 31.291
+03:51:21: train iter: 12700 loss: 10.4565 loss_reg: 0.0384 seconds: 31.287
+03:51:52: train iter: 12710 loss: 10.9217 loss_reg: 0.0384 seconds: 31.321
+03:52:23: train iter: 12720 loss: 10.0622 loss_reg: 0.0384 seconds: 31.323
+03:52:55: train iter: 12730 loss: 10.2401 loss_reg: 0.0384 seconds: 31.302
+03:53:26: train iter: 12740 loss: 10.4139 loss_reg: 0.0384 seconds: 31.314
+03:53:57: train iter: 12750 loss: 10.5649 loss_reg: 0.0384 seconds: 31.331
+03:54:29: train iter: 12760 loss: 10.2266 loss_reg: 0.0384 seconds: 31.353
+03:55:00: train iter: 12770 loss: 10.4792 loss_reg: 0.0384 seconds: 31.338
+03:55:31: train iter: 12780 loss: 10.5883 loss_reg: 0.0384 seconds: 31.317
+03:56:03: train iter: 12790 loss: 10.1909 loss_reg: 0.0384 seconds: 31.309
+03:56:34: train iter: 12800 loss: 10.8387 loss_reg: 0.0384 seconds: 31.325
+03:57:05: train iter: 12810 loss: 10.8769 loss_reg: 0.0384 seconds: 31.316
+03:57:37: train iter: 12820 loss: 11.0268 loss_reg: 0.0384 seconds: 31.322
+03:58:08: train iter: 12830 loss: 10.0250 loss_reg: 0.0384 seconds: 31.291
+03:58:39: train iter: 12840 loss: 10.7733 loss_reg: 0.0384 seconds: 31.317
+03:59:11: train iter: 12850 loss: 10.5578 loss_reg: 0.0384 seconds: 31.342
+03:59:42: train iter: 12860 loss: 10.8611 loss_reg: 0.0384 seconds: 31.331
+04:00:13: train iter: 12870 loss: 11.4075 loss_reg: 0.0384 seconds: 31.308
+04:00:45: train iter: 12880 loss: 10.9641 loss_reg: 0.0384 seconds: 31.306
+04:01:16: train iter: 12890 loss: 10.7311 loss_reg: 0.0384 seconds: 31.311
+04:01:47: train iter: 12900 loss: 10.6369 loss_reg: 0.0384 seconds: 31.322
+04:02:19: train iter: 12910 loss: 11.3405 loss_reg: 0.0384 seconds: 31.306
+04:02:50: train iter: 12920 loss: 10.9994 loss_reg: 0.0384 seconds: 31.307
+04:03:21: train iter: 12930 loss: 10.8210 loss_reg: 0.0384 seconds: 31.341
+04:03:52: train iter: 12940 loss: 10.4642 loss_reg: 0.0384 seconds: 31.295
+04:04:24: train iter: 12950 loss: 10.6730 loss_reg: 0.0384 seconds: 31.311
+04:04:55: train iter: 12960 loss: 10.6146 loss_reg: 0.0384 seconds: 31.330
+04:05:26: train iter: 12970 loss: 10.4153 loss_reg: 0.0384 seconds: 31.323
+04:05:58: train iter: 12980 loss: 10.4133 loss_reg: 0.0384 seconds: 31.309
+04:06:29: train iter: 12990 loss: 10.7851 loss_reg: 0.0384 seconds: 31.320
+04:07:00: train iter: 13000 loss: 10.6757 loss_reg: 0.0384 seconds: 31.297
+04:07:32: train iter: 13010 loss: 10.8059 loss_reg: 0.0384 seconds: 31.335
+04:08:03: train iter: 13020 loss: 10.6140 loss_reg: 0.0384 seconds: 31.334
+04:08:34: train iter: 13030 loss: 10.4492 loss_reg: 0.0384 seconds: 31.305
+04:09:06: train iter: 13040 loss: 11.3508 loss_reg: 0.0384 seconds: 31.299
+04:09:37: train iter: 13050 loss: 10.3462 loss_reg: 0.0384 seconds: 31.339
+04:10:08: train iter: 13060 loss: 10.8241 loss_reg: 0.0384 seconds: 31.317
+04:10:40: train iter: 13070 loss: 10.2659 loss_reg: 0.0384 seconds: 31.347
+04:11:11: train iter: 13080 loss: 11.2009 loss_reg: 0.0384 seconds: 31.280
+04:11:42: train iter: 13090 loss: 10.4849 loss_reg: 0.0384 seconds: 31.304
+04:12:14: train iter: 13100 loss: 10.1527 loss_reg: 0.0384 seconds: 31.282
+04:12:45: train iter: 13110 loss: 10.3217 loss_reg: 0.0384 seconds: 31.298
+04:13:16: train iter: 13120 loss: 10.4207 loss_reg: 0.0384 seconds: 31.306
+04:13:47: train iter: 13130 loss: 10.4940 loss_reg: 0.0384 seconds: 31.316
+04:14:19: train iter: 13140 loss: 10.2838 loss_reg: 0.0384 seconds: 31.317
+04:14:50: train iter: 13150 loss: 10.2240 loss_reg: 0.0384 seconds: 31.321
+04:15:21: train iter: 13160 loss: 10.6639 loss_reg: 0.0384 seconds: 31.291
+04:15:53: train iter: 13170 loss: 10.6954 loss_reg: 0.0384 seconds: 31.303
+04:16:24: train iter: 13180 loss: 11.8145 loss_reg: 0.0384 seconds: 31.340
+04:16:55: train iter: 13190 loss: 10.7505 loss_reg: 0.0384 seconds: 31.323
+04:17:27: train iter: 13200 loss: 10.8020 loss_reg: 0.0384 seconds: 31.289
+04:17:58: train iter: 13210 loss: 10.8281 loss_reg: 0.0384 seconds: 31.303
+04:18:29: train iter: 13220 loss: 11.1381 loss_reg: 0.0384 seconds: 31.292
+04:19:01: train iter: 13230 loss: 10.2466 loss_reg: 0.0384 seconds: 31.317
+04:19:32: train iter: 13240 loss: 10.7228 loss_reg: 0.0384 seconds: 31.320
+04:20:03: train iter: 13250 loss: 10.2480 loss_reg: 0.0384 seconds: 31.326
+04:20:35: train iter: 13260 loss: 10.9283 loss_reg: 0.0384 seconds: 31.315
+04:21:06: train iter: 13270 loss: 9.9316 loss_reg: 0.0384 seconds: 31.294
+04:21:37: train iter: 13280 loss: 10.5205 loss_reg: 0.0384 seconds: 31.297
+04:22:08: train iter: 13290 loss: 10.5789 loss_reg: 0.0384 seconds: 31.337
+04:22:40: train iter: 13300 loss: 10.1255 loss_reg: 0.0384 seconds: 31.328
+04:23:11: train iter: 13310 loss: 10.4540 loss_reg: 0.0384 seconds: 31.305
+04:23:42: train iter: 13320 loss: 10.3046 loss_reg: 0.0384 seconds: 31.331
+04:24:14: train iter: 13330 loss: 10.5424 loss_reg: 0.0384 seconds: 31.300
+04:24:45: train iter: 13340 loss: 10.4087 loss_reg: 0.0384 seconds: 31.311
+04:25:16: train iter: 13350 loss: 10.1492 loss_reg: 0.0384 seconds: 31.330
+04:25:48: train iter: 13360 loss: 10.9972 loss_reg: 0.0384 seconds: 31.322
+04:26:19: train iter: 13370 loss: 10.5150 loss_reg: 0.0384 seconds: 31.331
+04:26:50: train iter: 13380 loss: 10.4535 loss_reg: 0.0384 seconds: 31.330
+04:27:22: train iter: 13390 loss: 10.6466 loss_reg: 0.0384 seconds: 31.322
+04:27:53: train iter: 13400 loss: 10.7302 loss_reg: 0.0384 seconds: 31.296
+04:28:24: train iter: 13410 loss: 10.5028 loss_reg: 0.0384 seconds: 31.304
+04:28:56: train iter: 13420 loss: 8.9893 loss_reg: 0.0384 seconds: 31.314
+04:29:27: train iter: 13430 loss: 10.4116 loss_reg: 0.0384 seconds: 31.342
+04:29:58: train iter: 13440 loss: 10.5787 loss_reg: 0.0384 seconds: 31.321
+04:30:30: train iter: 13450 loss: 11.7619 loss_reg: 0.0384 seconds: 31.330
+04:31:01: train iter: 13460 loss: 10.7123 loss_reg: 0.0384 seconds: 31.287
+04:31:32: train iter: 13470 loss: 11.2062 loss_reg: 0.0384 seconds: 31.313
+04:32:04: train iter: 13480 loss: 11.0694 loss_reg: 0.0384 seconds: 31.334
+04:32:35: train iter: 13490 loss: 10.4748 loss_reg: 0.0384 seconds: 31.327
+04:33:06: train iter: 13500 loss: 10.3031 loss_reg: 0.0384 seconds: 31.291
+04:33:37: train iter: 13510 loss: 10.5594 loss_reg: 0.0384 seconds: 31.302
+04:34:09: train iter: 13520 loss: 10.5777 loss_reg: 0.0384 seconds: 31.312
+04:34:40: train iter: 13530 loss: 10.4649 loss_reg: 0.0384 seconds: 31.311
+04:35:11: train iter: 13540 loss: 10.6283 loss_reg: 0.0384 seconds: 31.315
+04:35:43: train iter: 13550 loss: 10.7746 loss_reg: 0.0384 seconds: 31.304
+04:36:14: train iter: 13560 loss: 11.2026 loss_reg: 0.0384 seconds: 31.303
+04:36:45: train iter: 13570 loss: 10.5799 loss_reg: 0.0384 seconds: 31.322
+04:37:17: train iter: 13580 loss: 10.5389 loss_reg: 0.0384 seconds: 31.354
+04:37:48: train iter: 13590 loss: 11.4890 loss_reg: 0.0384 seconds: 31.311
+04:38:19: train iter: 13600 loss: 10.6353 loss_reg: 0.0384 seconds: 31.315
+04:38:51: train iter: 13610 loss: 10.2592 loss_reg: 0.0384 seconds: 31.311
+04:39:22: train iter: 13620 loss: 10.5011 loss_reg: 0.0384 seconds: 31.318
+04:39:53: train iter: 13630 loss: 10.7200 loss_reg: 0.0384 seconds: 31.314
+04:40:25: train iter: 13640 loss: 10.6753 loss_reg: 0.0384 seconds: 31.324
+04:40:56: train iter: 13650 loss: 10.7913 loss_reg: 0.0384 seconds: 31.329
+04:41:27: train iter: 13660 loss: 10.1185 loss_reg: 0.0384 seconds: 31.323
+04:41:59: train iter: 13670 loss: 11.4169 loss_reg: 0.0384 seconds: 31.348
+04:42:30: train iter: 13680 loss: 10.9688 loss_reg: 0.0384 seconds: 31.310
+04:43:01: train iter: 13690 loss: 11.1316 loss_reg: 0.0384 seconds: 31.341
+04:43:33: train iter: 13700 loss: 10.1103 loss_reg: 0.0384 seconds: 31.350
+04:44:04: train iter: 13710 loss: 10.7203 loss_reg: 0.0384 seconds: 31.340
+04:44:35: train iter: 13720 loss: 10.2435 loss_reg: 0.0384 seconds: 31.304
+04:45:07: train iter: 13730 loss: 10.9061 loss_reg: 0.0384 seconds: 31.332
+04:45:38: train iter: 13740 loss: 10.1706 loss_reg: 0.0384 seconds: 31.344
+04:46:09: train iter: 13750 loss: 10.3117 loss_reg: 0.0384 seconds: 31.312
+04:46:40: train iter: 13760 loss: 11.0397 loss_reg: 0.0384 seconds: 31.314
+04:47:12: train iter: 13770 loss: 10.4738 loss_reg: 0.0384 seconds: 31.319
+04:47:43: train iter: 13780 loss: 10.3158 loss_reg: 0.0384 seconds: 31.325
+04:48:14: train iter: 13790 loss: 10.4358 loss_reg: 0.0384 seconds: 31.303
+04:48:46: train iter: 13800 loss: 11.4729 loss_reg: 0.0384 seconds: 31.295
+04:49:17: train iter: 13810 loss: 10.5529 loss_reg: 0.0384 seconds: 31.329
+04:49:48: train iter: 13820 loss: 10.8496 loss_reg: 0.0384 seconds: 31.330
+04:50:20: train iter: 13830 loss: 10.9557 loss_reg: 0.0384 seconds: 31.294
+04:50:51: train iter: 13840 loss: 10.8531 loss_reg: 0.0384 seconds: 31.307
+04:51:22: train iter: 13850 loss: 11.1801 loss_reg: 0.0384 seconds: 31.316
+04:51:54: train iter: 13860 loss: 9.6954 loss_reg: 0.0384 seconds: 31.315
+04:52:25: train iter: 13870 loss: 10.9616 loss_reg: 0.0384 seconds: 31.313
+04:52:56: train iter: 13880 loss: 10.6757 loss_reg: 0.0384 seconds: 31.326
+04:53:28: train iter: 13890 loss: 11.0361 loss_reg: 0.0384 seconds: 31.311
+04:53:59: train iter: 13900 loss: 10.4498 loss_reg: 0.0384 seconds: 31.306
+04:54:30: train iter: 13910 loss: 10.4477 loss_reg: 0.0384 seconds: 31.316
+04:55:02: train iter: 13920 loss: 9.9938 loss_reg: 0.0384 seconds: 31.295
+04:55:33: train iter: 13930 loss: 10.7846 loss_reg: 0.0384 seconds: 31.298
+04:56:04: train iter: 13940 loss: 10.8362 loss_reg: 0.0384 seconds: 31.317
+04:56:35: train iter: 13950 loss: 10.2542 loss_reg: 0.0384 seconds: 31.303
+04:57:07: train iter: 13960 loss: 10.7330 loss_reg: 0.0384 seconds: 31.305
+04:57:38: train iter: 13970 loss: 9.9586 loss_reg: 0.0384 seconds: 31.285
+04:58:09: train iter: 13980 loss: 10.7185 loss_reg: 0.0384 seconds: 31.283
+04:58:41: train iter: 13990 loss: 10.5851 loss_reg: 0.0384 seconds: 31.314
+04:59:12: train iter: 14000 loss: 10.9722 loss_reg: 0.0384 seconds: 31.328
+04:59:43: train iter: 14010 loss: 10.6643 loss_reg: 0.0384 seconds: 31.337
+05:00:15: train iter: 14020 loss: 10.9638 loss_reg: 0.0384 seconds: 31.309
+05:00:46: train iter: 14030 loss: 10.7739 loss_reg: 0.0384 seconds: 31.318
+05:01:17: train iter: 14040 loss: 10.1694 loss_reg: 0.0384 seconds: 31.321
+05:01:49: train iter: 14050 loss: 11.0361 loss_reg: 0.0384 seconds: 31.350
+05:02:20: train iter: 14060 loss: 11.5128 loss_reg: 0.0384 seconds: 31.290
+05:02:51: train iter: 14070 loss: 10.7153 loss_reg: 0.0384 seconds: 31.332
+05:03:23: train iter: 14080 loss: 10.8702 loss_reg: 0.0384 seconds: 31.325
+05:03:54: train iter: 14090 loss: 10.6138 loss_reg: 0.0384 seconds: 31.321
+05:04:25: train iter: 14100 loss: 10.5828 loss_reg: 0.0384 seconds: 31.296
+05:04:56: train iter: 14110 loss: 10.2788 loss_reg: 0.0384 seconds: 31.306
+05:05:28: train iter: 14120 loss: 10.2583 loss_reg: 0.0384 seconds: 31.312
+05:05:59: train iter: 14130 loss: 10.4544 loss_reg: 0.0384 seconds: 31.300
+05:06:30: train iter: 14140 loss: 10.4668 loss_reg: 0.0384 seconds: 31.307
+05:07:02: train iter: 14150 loss: 10.1263 loss_reg: 0.0384 seconds: 31.304
+05:07:33: train iter: 14160 loss: 10.6734 loss_reg: 0.0384 seconds: 31.317
+05:08:04: train iter: 14170 loss: 10.0911 loss_reg: 0.0384 seconds: 31.314
+05:08:36: train iter: 14180 loss: 10.8179 loss_reg: 0.0384 seconds: 31.317
+05:09:07: train iter: 14190 loss: 10.3807 loss_reg: 0.0384 seconds: 31.313
+05:09:38: train iter: 14200 loss: 10.4341 loss_reg: 0.0384 seconds: 31.320
+05:10:10: train iter: 14210 loss: 10.4336 loss_reg: 0.0384 seconds: 31.319
+05:10:41: train iter: 14220 loss: 10.3787 loss_reg: 0.0384 seconds: 31.298
+05:11:12: train iter: 14230 loss: 10.3719 loss_reg: 0.0384 seconds: 31.321
+05:11:43: train iter: 14240 loss: 10.3278 loss_reg: 0.0384 seconds: 31.296
+05:12:15: train iter: 14250 loss: 10.2319 loss_reg: 0.0384 seconds: 31.327
+05:12:46: train iter: 14260 loss: 10.3321 loss_reg: 0.0384 seconds: 31.323
+05:13:17: train iter: 14270 loss: 10.0854 loss_reg: 0.0384 seconds: 31.280
+05:13:49: train iter: 14280 loss: 10.5680 loss_reg: 0.0384 seconds: 31.304
+05:14:20: train iter: 14290 loss: 10.1679 loss_reg: 0.0384 seconds: 31.310
+05:14:51: train iter: 14300 loss: 11.1749 loss_reg: 0.0384 seconds: 31.323
+05:15:23: train iter: 14310 loss: 9.3616 loss_reg: 0.0384 seconds: 31.312
+05:15:54: train iter: 14320 loss: 10.3267 loss_reg: 0.0384 seconds: 31.321
+05:16:25: train iter: 14330 loss: 10.1731 loss_reg: 0.0384 seconds: 31.345
+05:16:57: train iter: 14340 loss: 9.6983 loss_reg: 0.0384 seconds: 31.298
+05:17:28: train iter: 14350 loss: 10.7938 loss_reg: 0.0384 seconds: 31.299
+05:17:59: train iter: 14360 loss: 10.8908 loss_reg: 0.0384 seconds: 31.293
+05:18:31: train iter: 14370 loss: 10.8918 loss_reg: 0.0384 seconds: 31.324
+05:19:02: train iter: 14380 loss: 10.4848 loss_reg: 0.0384 seconds: 31.352
+05:19:33: train iter: 14390 loss: 10.0780 loss_reg: 0.0384 seconds: 31.329
+05:20:05: train iter: 14400 loss: 10.4443 loss_reg: 0.0384 seconds: 31.308
+05:20:36: train iter: 14410 loss: 10.7027 loss_reg: 0.0384 seconds: 31.286
+05:21:07: train iter: 14420 loss: 10.3153 loss_reg: 0.0384 seconds: 31.310
+05:21:38: train iter: 14430 loss: 11.7182 loss_reg: 0.0384 seconds: 31.306
+05:22:10: train iter: 14440 loss: 10.9872 loss_reg: 0.0384 seconds: 31.326
+05:22:41: train iter: 14450 loss: 10.6265 loss_reg: 0.0384 seconds: 31.308
+05:23:12: train iter: 14460 loss: 10.3796 loss_reg: 0.0384 seconds: 31.356
+05:23:44: train iter: 14470 loss: 10.8529 loss_reg: 0.0384 seconds: 31.319
+05:24:15: train iter: 14480 loss: 10.4128 loss_reg: 0.0384 seconds: 31.303
+05:24:46: train iter: 14490 loss: 10.0025 loss_reg: 0.0384 seconds: 31.297
+05:25:18: train iter: 14500 loss: 10.5393 loss_reg: 0.0384 seconds: 31.309
+05:25:49: train iter: 14510 loss: 10.1635 loss_reg: 0.0384 seconds: 31.305
+05:26:20: train iter: 14520 loss: 11.0783 loss_reg: 0.0384 seconds: 31.298
+05:26:52: train iter: 14530 loss: 11.0202 loss_reg: 0.0384 seconds: 31.328
+05:27:23: train iter: 14540 loss: 10.2400 loss_reg: 0.0384 seconds: 31.282
+05:27:54: train iter: 14550 loss: 10.6813 loss_reg: 0.0384 seconds: 31.271
+05:28:25: train iter: 14560 loss: 10.3434 loss_reg: 0.0384 seconds: 31.292
+05:28:57: train iter: 14570 loss: 9.9589 loss_reg: 0.0384 seconds: 31.309
+05:29:28: train iter: 14580 loss: 10.2508 loss_reg: 0.0384 seconds: 31.320
+05:29:59: train iter: 14590 loss: 10.4556 loss_reg: 0.0384 seconds: 31.271
+05:30:31: train iter: 14600 loss: 10.4333 loss_reg: 0.0384 seconds: 31.302
+05:31:02: train iter: 14610 loss: 10.3500 loss_reg: 0.0384 seconds: 31.279
+05:31:33: train iter: 14620 loss: 10.5348 loss_reg: 0.0384 seconds: 31.303
+05:32:05: train iter: 14630 loss: 10.5217 loss_reg: 0.0384 seconds: 31.311
+05:32:36: train iter: 14640 loss: 10.2059 loss_reg: 0.0384 seconds: 31.286
+05:33:07: train iter: 14650 loss: 11.1970 loss_reg: 0.0384 seconds: 31.296
+05:33:38: train iter: 14660 loss: 10.2200 loss_reg: 0.0384 seconds: 31.313
+05:34:10: train iter: 14670 loss: 10.2567 loss_reg: 0.0384 seconds: 31.261
+05:34:41: train iter: 14680 loss: 10.7962 loss_reg: 0.0384 seconds: 31.304
+05:35:12: train iter: 14690 loss: 10.4014 loss_reg: 0.0384 seconds: 31.263
+05:35:44: train iter: 14700 loss: 10.6705 loss_reg: 0.0384 seconds: 31.284
+05:36:15: train iter: 14710 loss: 10.7423 loss_reg: 0.0384 seconds: 31.286
+05:36:46: train iter: 14720 loss: 10.4720 loss_reg: 0.0384 seconds: 31.263
+05:37:17: train iter: 14730 loss: 10.0990 loss_reg: 0.0384 seconds: 31.263
+05:37:49: train iter: 14740 loss: 10.3734 loss_reg: 0.0384 seconds: 31.282
+05:38:20: train iter: 14750 loss: 11.4749 loss_reg: 0.0384 seconds: 31.287
+05:38:51: train iter: 14760 loss: 10.2545 loss_reg: 0.0384 seconds: 31.289
+05:39:23: train iter: 14770 loss: 10.2765 loss_reg: 0.0384 seconds: 31.283
+05:39:54: train iter: 14780 loss: 10.9183 loss_reg: 0.0384 seconds: 31.297
+05:40:25: train iter: 14790 loss: 10.0307 loss_reg: 0.0384 seconds: 31.314
+05:40:56: train iter: 14800 loss: 9.8235 loss_reg: 0.0384 seconds: 31.293
+05:41:28: train iter: 14810 loss: 11.7435 loss_reg: 0.0384 seconds: 31.306
+05:41:59: train iter: 14820 loss: 9.2361 loss_reg: 0.0384 seconds: 31.298
+05:42:30: train iter: 14830 loss: 10.2096 loss_reg: 0.0384 seconds: 31.289
+05:43:02: train iter: 14840 loss: 10.2719 loss_reg: 0.0384 seconds: 31.288
+05:43:33: train iter: 14850 loss: 10.8543 loss_reg: 0.0384 seconds: 31.312
+05:44:04: train iter: 14860 loss: 10.5195 loss_reg: 0.0384 seconds: 31.309
+05:44:36: train iter: 14870 loss: 10.8480 loss_reg: 0.0384 seconds: 31.334
+05:45:07: train iter: 14880 loss: 10.6312 loss_reg: 0.0384 seconds: 31.314
+05:45:38: train iter: 14890 loss: 9.8292 loss_reg: 0.0384 seconds: 31.279
+05:46:09: train iter: 14900 loss: 10.5384 loss_reg: 0.0384 seconds: 31.321
+05:46:41: train iter: 14910 loss: 11.2136 loss_reg: 0.0384 seconds: 31.288
+05:47:12: train iter: 14920 loss: 10.1965 loss_reg: 0.0384 seconds: 31.286
+05:47:43: train iter: 14930 loss: 10.8405 loss_reg: 0.0384 seconds: 31.330
+05:48:15: train iter: 14940 loss: 10.5670 loss_reg: 0.0384 seconds: 31.300
+05:48:46: train iter: 14950 loss: 10.0694 loss_reg: 0.0384 seconds: 31.327
+05:49:17: train iter: 14960 loss: 10.2971 loss_reg: 0.0384 seconds: 31.302
+05:49:49: train iter: 14970 loss: 10.3315 loss_reg: 0.0384 seconds: 31.327
+05:50:20: train iter: 14980 loss: 10.2701 loss_reg: 0.0384 seconds: 31.307
+05:50:51: train iter: 14990 loss: 10.1007 loss_reg: 0.0384 seconds: 31.309
+Creating snapshot...
+Model saved in file conv_cv0/2022-04-05_16-47-51/weights/model-15000
+Testing  |--------------------------------------------------| 0.0%  completeatsai time test duration = 0.2305 seconds
+Testing  |XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX| 100.0%  complete
+ipe (0.15899479486159024, 0.0, 0.15899479486159024)
+pe (0.15899479486159024, 0.08088652476798226, 0.13219688109153538)
+outliers [0, 0, 0]
+atsai num training data 503
+05:51:21: test iter: 15000 loss: 8.8323 loss_reg: 0.0384 seconds: 15658.049
+05:51:24: train iter: 15000 loss: 10.4335 loss_reg: 0.0384 seconds: 32.485
+05:51:55: train iter: 15010 loss: 9.7842 loss_reg: 0.0384 seconds: 31.254
+05:52:26: train iter: 15020 loss: 10.5454 loss_reg: 0.0384 seconds: 31.267
+05:52:58: train iter: 15030 loss: 10.7351 loss_reg: 0.0384 seconds: 31.263
+05:53:29: train iter: 15040 loss: 10.6275 loss_reg: 0.0384 seconds: 31.256
+05:54:00: train iter: 15050 loss: 10.4951 loss_reg: 0.0384 seconds: 31.299
+05:54:31: train iter: 15060 loss: 10.5690 loss_reg: 0.0384 seconds: 31.306
+05:55:03: train iter: 15070 loss: 10.0933 loss_reg: 0.0384 seconds: 31.288
+05:55:34: train iter: 15080 loss: 10.0465 loss_reg: 0.0384 seconds: 31.290
+05:56:05: train iter: 15090 loss: 10.3137 loss_reg: 0.0384 seconds: 31.299
+05:56:37: train iter: 15100 loss: 10.8864 loss_reg: 0.0384 seconds: 31.293
+05:57:08: train iter: 15110 loss: 10.8303 loss_reg: 0.0384 seconds: 31.280
+05:57:39: train iter: 15120 loss: 10.5840 loss_reg: 0.0384 seconds: 31.274
+05:58:10: train iter: 15130 loss: 10.4954 loss_reg: 0.0384 seconds: 31.272
+05:58:42: train iter: 15140 loss: 10.2121 loss_reg: 0.0384 seconds: 31.286
+05:59:13: train iter: 15150 loss: 10.8952 loss_reg: 0.0384 seconds: 31.282
+05:59:44: train iter: 15160 loss: 10.3000 loss_reg: 0.0384 seconds: 31.296
+06:00:16: train iter: 15170 loss: 10.7302 loss_reg: 0.0384 seconds: 31.286
+06:00:47: train iter: 15180 loss: 10.5180 loss_reg: 0.0384 seconds: 31.292
+06:01:18: train iter: 15190 loss: 10.1678 loss_reg: 0.0384 seconds: 31.284
+06:01:49: train iter: 15200 loss: 10.1690 loss_reg: 0.0384 seconds: 31.304
+06:02:21: train iter: 15210 loss: 10.7346 loss_reg: 0.0384 seconds: 31.307
+06:02:52: train iter: 15220 loss: 10.7886 loss_reg: 0.0384 seconds: 31.311
+06:03:23: train iter: 15230 loss: 10.0378 loss_reg: 0.0384 seconds: 31.278
+06:03:55: train iter: 15240 loss: 10.5228 loss_reg: 0.0384 seconds: 31.308
+06:04:26: train iter: 15250 loss: 9.9987 loss_reg: 0.0384 seconds: 31.304
+06:04:57: train iter: 15260 loss: 11.3532 loss_reg: 0.0384 seconds: 31.313
+06:05:29: train iter: 15270 loss: 10.2607 loss_reg: 0.0384 seconds: 31.299
+06:06:00: train iter: 15280 loss: 10.8404 loss_reg: 0.0384 seconds: 31.323
+06:06:31: train iter: 15290 loss: 10.3233 loss_reg: 0.0384 seconds: 31.294
+06:07:02: train iter: 15300 loss: 10.1192 loss_reg: 0.0384 seconds: 31.320
+06:07:34: train iter: 15310 loss: 10.3776 loss_reg: 0.0384 seconds: 31.307
+06:08:05: train iter: 15320 loss: 9.8057 loss_reg: 0.0384 seconds: 31.305
+06:08:36: train iter: 15330 loss: 11.1567 loss_reg: 0.0384 seconds: 31.313
+06:09:08: train iter: 15340 loss: 9.9358 loss_reg: 0.0384 seconds: 31.303
+06:09:39: train iter: 15350 loss: 10.6541 loss_reg: 0.0384 seconds: 31.292
+06:10:10: train iter: 15360 loss: 10.5001 loss_reg: 0.0384 seconds: 31.296
+06:10:42: train iter: 15370 loss: 9.4104 loss_reg: 0.0384 seconds: 31.291
+06:11:13: train iter: 15380 loss: 10.4865 loss_reg: 0.0384 seconds: 31.297
+06:11:44: train iter: 15390 loss: 10.1580 loss_reg: 0.0384 seconds: 31.292
+06:12:15: train iter: 15400 loss: 9.8524 loss_reg: 0.0384 seconds: 31.289
+06:12:47: train iter: 15410 loss: 10.6870 loss_reg: 0.0384 seconds: 31.300
+06:13:18: train iter: 15420 loss: 10.2646 loss_reg: 0.0384 seconds: 31.285
+06:13:49: train iter: 15430 loss: 10.5987 loss_reg: 0.0384 seconds: 31.282
+06:14:21: train iter: 15440 loss: 9.7869 loss_reg: 0.0384 seconds: 31.282
+06:14:52: train iter: 15450 loss: 10.9175 loss_reg: 0.0384 seconds: 31.283
+06:15:23: train iter: 15460 loss: 10.9228 loss_reg: 0.0384 seconds: 31.304
+06:15:55: train iter: 15470 loss: 10.2260 loss_reg: 0.0384 seconds: 31.300
+06:16:26: train iter: 15480 loss: 10.1177 loss_reg: 0.0384 seconds: 31.292
+06:16:57: train iter: 15490 loss: 9.9496 loss_reg: 0.0384 seconds: 31.273
+06:17:28: train iter: 15500 loss: 9.8406 loss_reg: 0.0384 seconds: 31.305
+06:18:00: train iter: 15510 loss: 10.1594 loss_reg: 0.0384 seconds: 31.264
+06:18:31: train iter: 15520 loss: 11.4161 loss_reg: 0.0384 seconds: 31.317
+06:19:02: train iter: 15530 loss: 10.6861 loss_reg: 0.0384 seconds: 31.294
+06:19:34: train iter: 15540 loss: 10.9622 loss_reg: 0.0384 seconds: 31.321
+06:20:05: train iter: 15550 loss: 9.6723 loss_reg: 0.0384 seconds: 31.299
+06:20:36: train iter: 15560 loss: 11.0754 loss_reg: 0.0384 seconds: 31.329
+06:21:08: train iter: 15570 loss: 10.0662 loss_reg: 0.0384 seconds: 31.318
+06:21:39: train iter: 15580 loss: 10.3170 loss_reg: 0.0384 seconds: 31.290
+06:22:10: train iter: 15590 loss: 10.3009 loss_reg: 0.0384 seconds: 31.316
+06:22:41: train iter: 15600 loss: 9.7193 loss_reg: 0.0384 seconds: 31.297
+06:23:13: train iter: 15610 loss: 10.7000 loss_reg: 0.0384 seconds: 31.298
+06:23:44: train iter: 15620 loss: 10.3141 loss_reg: 0.0384 seconds: 31.294
+06:24:15: train iter: 15630 loss: 10.0214 loss_reg: 0.0384 seconds: 31.300
+06:24:47: train iter: 15640 loss: 10.2505 loss_reg: 0.0384 seconds: 31.293
+06:25:18: train iter: 15650 loss: 10.5753 loss_reg: 0.0384 seconds: 31.312
+06:25:49: train iter: 15660 loss: 10.7644 loss_reg: 0.0384 seconds: 31.298
+06:26:21: train iter: 15670 loss: 9.7511 loss_reg: 0.0384 seconds: 31.301
+06:26:52: train iter: 15680 loss: 10.8174 loss_reg: 0.0384 seconds: 31.305
+06:27:23: train iter: 15690 loss: 10.5196 loss_reg: 0.0384 seconds: 31.295
+06:27:54: train iter: 15700 loss: 10.4676 loss_reg: 0.0384 seconds: 31.297
+06:28:26: train iter: 15710 loss: 10.0878 loss_reg: 0.0384 seconds: 31.307
+06:28:57: train iter: 15720 loss: 11.0750 loss_reg: 0.0384 seconds: 31.300
+06:29:28: train iter: 15730 loss: 10.3923 loss_reg: 0.0384 seconds: 31.319
+06:30:00: train iter: 15740 loss: 10.2997 loss_reg: 0.0384 seconds: 31.290
+06:30:31: train iter: 15750 loss: 10.3584 loss_reg: 0.0384 seconds: 31.269
+06:31:02: train iter: 15760 loss: 10.5270 loss_reg: 0.0384 seconds: 31.300
+06:31:33: train iter: 15770 loss: 10.4534 loss_reg: 0.0384 seconds: 31.265
+06:32:05: train iter: 15780 loss: 10.9717 loss_reg: 0.0384 seconds: 31.301
+06:32:36: train iter: 15790 loss: 10.5072 loss_reg: 0.0384 seconds: 31.309
+06:33:07: train iter: 15800 loss: 10.2282 loss_reg: 0.0384 seconds: 31.278
+06:33:39: train iter: 15810 loss: 9.9629 loss_reg: 0.0384 seconds: 31.293
+06:34:10: train iter: 15820 loss: 10.9302 loss_reg: 0.0384 seconds: 31.294
+06:34:41: train iter: 15830 loss: 10.7541 loss_reg: 0.0384 seconds: 31.284
+06:35:13: train iter: 15840 loss: 9.8254 loss_reg: 0.0384 seconds: 31.264
+06:35:44: train iter: 15850 loss: 10.6528 loss_reg: 0.0384 seconds: 31.264
+06:36:15: train iter: 15860 loss: 9.9507 loss_reg: 0.0384 seconds: 31.287
+06:36:46: train iter: 15870 loss: 9.8213 loss_reg: 0.0384 seconds: 31.292
+06:37:18: train iter: 15880 loss: 10.2744 loss_reg: 0.0384 seconds: 31.296
+06:37:49: train iter: 15890 loss: 11.0134 loss_reg: 0.0384 seconds: 31.298
+06:38:20: train iter: 15900 loss: 10.5866 loss_reg: 0.0384 seconds: 31.315
+06:38:52: train iter: 15910 loss: 10.4871 loss_reg: 0.0384 seconds: 31.289
+06:39:23: train iter: 15920 loss: 10.1845 loss_reg: 0.0384 seconds: 31.283
+06:39:54: train iter: 15930 loss: 9.9528 loss_reg: 0.0384 seconds: 31.280
+06:40:25: train iter: 15940 loss: 10.0584 loss_reg: 0.0384 seconds: 31.261
+06:40:57: train iter: 15950 loss: 10.2161 loss_reg: 0.0384 seconds: 31.276
+06:41:28: train iter: 15960 loss: 10.7337 loss_reg: 0.0384 seconds: 31.279
+06:41:59: train iter: 15970 loss: 11.0060 loss_reg: 0.0384 seconds: 31.289
+06:42:31: train iter: 15980 loss: 10.2163 loss_reg: 0.0384 seconds: 31.296
+06:43:02: train iter: 15990 loss: 10.5112 loss_reg: 0.0384 seconds: 31.264
+06:43:33: train iter: 16000 loss: 10.9038 loss_reg: 0.0384 seconds: 31.272
+06:44:04: train iter: 16010 loss: 10.9210 loss_reg: 0.0384 seconds: 31.286
+06:44:36: train iter: 16020 loss: 10.3797 loss_reg: 0.0384 seconds: 31.288
+06:45:07: train iter: 16030 loss: 10.6576 loss_reg: 0.0384 seconds: 31.311
+06:45:38: train iter: 16040 loss: 10.9239 loss_reg: 0.0384 seconds: 31.274
+06:46:10: train iter: 16050 loss: 11.0300 loss_reg: 0.0384 seconds: 31.307
+06:46:41: train iter: 16060 loss: 10.3519 loss_reg: 0.0384 seconds: 31.305
+06:47:12: train iter: 16070 loss: 10.2716 loss_reg: 0.0384 seconds: 31.301
+06:47:43: train iter: 16080 loss: 10.1287 loss_reg: 0.0384 seconds: 31.308
+06:48:15: train iter: 16090 loss: 10.2894 loss_reg: 0.0384 seconds: 31.320
+06:48:46: train iter: 16100 loss: 10.4191 loss_reg: 0.0384 seconds: 31.310
+06:49:17: train iter: 16110 loss: 10.1667 loss_reg: 0.0384 seconds: 31.303
+06:49:49: train iter: 16120 loss: 10.2849 loss_reg: 0.0384 seconds: 31.303
+06:50:20: train iter: 16130 loss: 10.5910 loss_reg: 0.0384 seconds: 31.277
+06:50:51: train iter: 16140 loss: 11.4162 loss_reg: 0.0384 seconds: 31.333
+06:51:23: train iter: 16150 loss: 10.2771 loss_reg: 0.0384 seconds: 31.306
+06:51:54: train iter: 16160 loss: 10.1927 loss_reg: 0.0384 seconds: 31.321
+06:52:25: train iter: 16170 loss: 10.5857 loss_reg: 0.0384 seconds: 31.305
+06:52:57: train iter: 16180 loss: 9.6028 loss_reg: 0.0384 seconds: 31.297
+06:53:28: train iter: 16190 loss: 10.7850 loss_reg: 0.0384 seconds: 31.298
+06:53:59: train iter: 16200 loss: 10.5726 loss_reg: 0.0384 seconds: 31.304
+06:54:30: train iter: 16210 loss: 10.5373 loss_reg: 0.0384 seconds: 31.304
+06:55:02: train iter: 16220 loss: 10.5753 loss_reg: 0.0384 seconds: 31.305
+06:55:33: train iter: 16230 loss: 10.3941 loss_reg: 0.0384 seconds: 31.323
+06:56:04: train iter: 16240 loss: 10.5226 loss_reg: 0.0384 seconds: 31.302
+06:56:36: train iter: 16250 loss: 10.2590 loss_reg: 0.0384 seconds: 31.298
+06:57:07: train iter: 16260 loss: 10.3205 loss_reg: 0.0384 seconds: 31.319
+06:57:38: train iter: 16270 loss: 10.4284 loss_reg: 0.0384 seconds: 31.303
+06:58:10: train iter: 16280 loss: 10.8203 loss_reg: 0.0384 seconds: 31.276
+06:58:41: train iter: 16290 loss: 10.9873 loss_reg: 0.0384 seconds: 31.286
+06:59:12: train iter: 16300 loss: 10.7444 loss_reg: 0.0384 seconds: 31.293
+06:59:43: train iter: 16310 loss: 10.6242 loss_reg: 0.0384 seconds: 31.283
+07:00:15: train iter: 16320 loss: 10.1669 loss_reg: 0.0384 seconds: 31.283
+07:00:46: train iter: 16330 loss: 9.7503 loss_reg: 0.0384 seconds: 31.247
+07:01:17: train iter: 16340 loss: 10.1441 loss_reg: 0.0384 seconds: 31.297
+07:01:49: train iter: 16350 loss: 10.2884 loss_reg: 0.0384 seconds: 31.272
+07:02:20: train iter: 16360 loss: 10.2110 loss_reg: 0.0384 seconds: 31.280
+07:02:51: train iter: 16370 loss: 9.8018 loss_reg: 0.0384 seconds: 31.276
+07:03:22: train iter: 16380 loss: 10.7331 loss_reg: 0.0384 seconds: 31.280
+07:03:54: train iter: 16390 loss: 10.9269 loss_reg: 0.0384 seconds: 31.286
+07:04:25: train iter: 16400 loss: 10.5249 loss_reg: 0.0384 seconds: 31.291
+07:04:56: train iter: 16410 loss: 10.6292 loss_reg: 0.0384 seconds: 31.272
+07:05:28: train iter: 16420 loss: 10.8566 loss_reg: 0.0384 seconds: 31.277
+07:05:59: train iter: 16430 loss: 10.6055 loss_reg: 0.0384 seconds: 31.263
+07:06:30: train iter: 16440 loss: 10.5226 loss_reg: 0.0384 seconds: 31.288
+07:07:01: train iter: 16450 loss: 10.4695 loss_reg: 0.0384 seconds: 31.253
+07:07:33: train iter: 16460 loss: 10.3298 loss_reg: 0.0384 seconds: 31.297
+07:08:04: train iter: 16470 loss: 10.2099 loss_reg: 0.0384 seconds: 31.289
+07:08:35: train iter: 16480 loss: 10.3605 loss_reg: 0.0384 seconds: 31.290
+07:09:06: train iter: 16490 loss: 9.4602 loss_reg: 0.0384 seconds: 31.283
+07:09:38: train iter: 16500 loss: 10.9680 loss_reg: 0.0384 seconds: 31.265
+07:10:09: train iter: 16510 loss: 9.5388 loss_reg: 0.0384 seconds: 31.283
+07:10:40: train iter: 16520 loss: 10.6849 loss_reg: 0.0384 seconds: 31.271
+07:11:12: train iter: 16530 loss: 9.9918 loss_reg: 0.0384 seconds: 31.298
+07:11:43: train iter: 16540 loss: 10.1362 loss_reg: 0.0384 seconds: 31.286
+07:12:14: train iter: 16550 loss: 10.1191 loss_reg: 0.0384 seconds: 31.301
+07:12:45: train iter: 16560 loss: 10.3569 loss_reg: 0.0384 seconds: 31.280
+07:13:17: train iter: 16570 loss: 10.4631 loss_reg: 0.0384 seconds: 31.298
+07:13:48: train iter: 16580 loss: 10.4825 loss_reg: 0.0384 seconds: 31.282
+07:14:19: train iter: 16590 loss: 10.4875 loss_reg: 0.0384 seconds: 31.308
+07:14:51: train iter: 16600 loss: 9.8605 loss_reg: 0.0384 seconds: 31.277
+07:15:22: train iter: 16610 loss: 11.0920 loss_reg: 0.0384 seconds: 31.330
+07:15:53: train iter: 16620 loss: 9.7871 loss_reg: 0.0384 seconds: 31.308
+07:16:25: train iter: 16630 loss: 9.6302 loss_reg: 0.0384 seconds: 31.292
+07:16:56: train iter: 16640 loss: 10.2426 loss_reg: 0.0384 seconds: 31.312
+07:17:27: train iter: 16650 loss: 10.1458 loss_reg: 0.0384 seconds: 31.277
+07:17:58: train iter: 16660 loss: 10.5192 loss_reg: 0.0384 seconds: 31.317
+07:18:30: train iter: 16670 loss: 9.8798 loss_reg: 0.0384 seconds: 31.323
+07:19:01: train iter: 16680 loss: 10.0880 loss_reg: 0.0384 seconds: 31.326
+07:19:32: train iter: 16690 loss: 10.1865 loss_reg: 0.0384 seconds: 31.309
+07:20:04: train iter: 16700 loss: 11.1609 loss_reg: 0.0384 seconds: 31.301
+07:20:35: train iter: 16710 loss: 10.2515 loss_reg: 0.0384 seconds: 31.285
+07:21:06: train iter: 16720 loss: 9.6216 loss_reg: 0.0384 seconds: 31.286
+07:21:38: train iter: 16730 loss: 9.6829 loss_reg: 0.0384 seconds: 31.284
+07:22:09: train iter: 16740 loss: 9.6191 loss_reg: 0.0384 seconds: 31.288
+07:22:40: train iter: 16750 loss: 10.7607 loss_reg: 0.0384 seconds: 31.291
+07:23:11: train iter: 16760 loss: 10.0758 loss_reg: 0.0384 seconds: 31.265
+07:23:43: train iter: 16770 loss: 10.0987 loss_reg: 0.0384 seconds: 31.286
+07:24:14: train iter: 16780 loss: 10.1752 loss_reg: 0.0384 seconds: 31.291
+07:24:45: train iter: 16790 loss: 10.3699 loss_reg: 0.0384 seconds: 31.302
+07:25:17: train iter: 16800 loss: 10.9583 loss_reg: 0.0384 seconds: 31.305
+07:25:48: train iter: 16810 loss: 10.2538 loss_reg: 0.0384 seconds: 31.268
+07:26:19: train iter: 16820 loss: 10.4403 loss_reg: 0.0384 seconds: 31.302
+07:26:50: train iter: 16830 loss: 10.1315 loss_reg: 0.0384 seconds: 31.292
+07:27:22: train iter: 16840 loss: 9.6748 loss_reg: 0.0384 seconds: 31.294
+07:27:53: train iter: 16850 loss: 10.5353 loss_reg: 0.0384 seconds: 31.283
+07:28:24: train iter: 16860 loss: 9.8750 loss_reg: 0.0384 seconds: 31.305
+07:28:56: train iter: 16870 loss: 10.4091 loss_reg: 0.0384 seconds: 31.271
+07:29:27: train iter: 16880 loss: 10.0186 loss_reg: 0.0384 seconds: 31.293
+07:29:58: train iter: 16890 loss: 9.9710 loss_reg: 0.0384 seconds: 31.301
+07:30:29: train iter: 16900 loss: 10.7576 loss_reg: 0.0384 seconds: 31.269
+07:31:01: train iter: 16910 loss: 10.3103 loss_reg: 0.0384 seconds: 31.295
+07:31:32: train iter: 16920 loss: 10.3034 loss_reg: 0.0384 seconds: 31.285
+07:32:03: train iter: 16930 loss: 10.3757 loss_reg: 0.0384 seconds: 31.302
+07:32:35: train iter: 16940 loss: 10.5029 loss_reg: 0.0384 seconds: 31.312
+07:33:06: train iter: 16950 loss: 10.5440 loss_reg: 0.0384 seconds: 31.304
+07:33:37: train iter: 16960 loss: 10.6719 loss_reg: 0.0384 seconds: 31.303
+07:34:09: train iter: 16970 loss: 10.4348 loss_reg: 0.0384 seconds: 31.311
+07:34:40: train iter: 16980 loss: 9.4202 loss_reg: 0.0384 seconds: 31.306
+07:35:11: train iter: 16990 loss: 10.9792 loss_reg: 0.0384 seconds: 31.324
+07:35:43: train iter: 17000 loss: 10.6162 loss_reg: 0.0384 seconds: 31.293
+07:36:14: train iter: 17010 loss: 9.9445 loss_reg: 0.0384 seconds: 31.295
+07:36:45: train iter: 17020 loss: 10.2047 loss_reg: 0.0384 seconds: 31.286
+07:37:16: train iter: 17030 loss: 9.9072 loss_reg: 0.0384 seconds: 31.299
+07:37:48: train iter: 17040 loss: 10.0581 loss_reg: 0.0384 seconds: 31.287
+07:38:19: train iter: 17050 loss: 10.2716 loss_reg: 0.0384 seconds: 31.289
+07:38:50: train iter: 17060 loss: 10.9054 loss_reg: 0.0384 seconds: 31.303
+07:39:22: train iter: 17070 loss: 10.5536 loss_reg: 0.0384 seconds: 31.268
+07:39:53: train iter: 17080 loss: 10.1383 loss_reg: 0.0384 seconds: 31.317
+07:40:24: train iter: 17090 loss: 9.4988 loss_reg: 0.0384 seconds: 31.279
+07:40:55: train iter: 17100 loss: 10.3878 loss_reg: 0.0384 seconds: 31.315
+07:41:27: train iter: 17110 loss: 10.8547 loss_reg: 0.0384 seconds: 31.304
+07:41:58: train iter: 17120 loss: 10.2188 loss_reg: 0.0384 seconds: 31.286
+07:42:29: train iter: 17130 loss: 9.9939 loss_reg: 0.0384 seconds: 31.250
+07:43:01: train iter: 17140 loss: 9.9788 loss_reg: 0.0384 seconds: 31.274
+07:43:32: train iter: 17150 loss: 9.8935 loss_reg: 0.0384 seconds: 31.258
+07:44:03: train iter: 17160 loss: 10.6218 loss_reg: 0.0384 seconds: 31.289
+07:44:34: train iter: 17170 loss: 10.0129 loss_reg: 0.0384 seconds: 31.274
+07:45:06: train iter: 17180 loss: 9.6323 loss_reg: 0.0384 seconds: 31.275
+07:45:37: train iter: 17190 loss: 11.2213 loss_reg: 0.0384 seconds: 31.284
+07:46:08: train iter: 17200 loss: 9.8165 loss_reg: 0.0384 seconds: 31.279
+07:46:40: train iter: 17210 loss: 10.3174 loss_reg: 0.0384 seconds: 31.311
+07:47:11: train iter: 17220 loss: 9.7527 loss_reg: 0.0384 seconds: 31.287
+07:47:42: train iter: 17230 loss: 10.5480 loss_reg: 0.0384 seconds: 31.296
+07:48:13: train iter: 17240 loss: 10.0894 loss_reg: 0.0384 seconds: 31.319
+07:48:45: train iter: 17250 loss: 10.2800 loss_reg: 0.0384 seconds: 31.308
+07:49:16: train iter: 17260 loss: 10.2850 loss_reg: 0.0384 seconds: 31.318
+07:49:47: train iter: 17270 loss: 10.0776 loss_reg: 0.0384 seconds: 31.303
+07:50:19: train iter: 17280 loss: 10.3454 loss_reg: 0.0384 seconds: 31.297
+07:50:50: train iter: 17290 loss: 10.6506 loss_reg: 0.0384 seconds: 31.287
+07:51:21: train iter: 17300 loss: 9.5060 loss_reg: 0.0384 seconds: 31.296
+07:51:53: train iter: 17310 loss: 9.6985 loss_reg: 0.0384 seconds: 31.296
+07:52:24: train iter: 17320 loss: 9.8756 loss_reg: 0.0384 seconds: 31.317
+07:52:55: train iter: 17330 loss: 9.9461 loss_reg: 0.0384 seconds: 31.315
+07:53:27: train iter: 17340 loss: 10.6659 loss_reg: 0.0384 seconds: 31.307
+07:53:58: train iter: 17350 loss: 10.4394 loss_reg: 0.0384 seconds: 31.328
+07:54:29: train iter: 17360 loss: 11.0869 loss_reg: 0.0384 seconds: 31.290
+07:55:00: train iter: 17370 loss: 10.1654 loss_reg: 0.0384 seconds: 31.307
+07:55:32: train iter: 17380 loss: 10.0527 loss_reg: 0.0384 seconds: 31.283
+07:56:03: train iter: 17390 loss: 10.5056 loss_reg: 0.0384 seconds: 31.293
+07:56:34: train iter: 17400 loss: 10.4505 loss_reg: 0.0384 seconds: 31.273
+07:57:06: train iter: 17410 loss: 10.0250 loss_reg: 0.0384 seconds: 31.301
+07:57:37: train iter: 17420 loss: 10.5100 loss_reg: 0.0384 seconds: 31.291
+07:58:08: train iter: 17430 loss: 10.3440 loss_reg: 0.0384 seconds: 31.329
+07:58:39: train iter: 17440 loss: 10.4042 loss_reg: 0.0384 seconds: 31.269
+07:59:11: train iter: 17450 loss: 10.7683 loss_reg: 0.0384 seconds: 31.285
+07:59:42: train iter: 17460 loss: 10.7106 loss_reg: 0.0384 seconds: 31.304
+08:00:13: train iter: 17470 loss: 10.4022 loss_reg: 0.0384 seconds: 31.301
+08:00:45: train iter: 17480 loss: 9.9257 loss_reg: 0.0384 seconds: 31.320
+08:01:16: train iter: 17490 loss: 10.0619 loss_reg: 0.0384 seconds: 31.296
+08:01:47: train iter: 17500 loss: 9.9304 loss_reg: 0.0384 seconds: 31.305
+08:02:19: train iter: 17510 loss: 9.6140 loss_reg: 0.0384 seconds: 31.322
+08:02:50: train iter: 17520 loss: 10.1161 loss_reg: 0.0384 seconds: 31.316
+08:03:21: train iter: 17530 loss: 10.5760 loss_reg: 0.0384 seconds: 31.292
+08:03:53: train iter: 17540 loss: 10.5980 loss_reg: 0.0384 seconds: 31.292
+08:04:24: train iter: 17550 loss: 10.1122 loss_reg: 0.0384 seconds: 31.272
+08:04:55: train iter: 17560 loss: 10.8863 loss_reg: 0.0384 seconds: 31.322
+08:05:26: train iter: 17570 loss: 10.8973 loss_reg: 0.0384 seconds: 31.298
+08:05:58: train iter: 17580 loss: 10.2577 loss_reg: 0.0384 seconds: 31.333
+08:06:29: train iter: 17590 loss: 9.5943 loss_reg: 0.0384 seconds: 31.317
+08:07:00: train iter: 17600 loss: 10.9400 loss_reg: 0.0384 seconds: 31.310
+08:07:32: train iter: 17610 loss: 10.0990 loss_reg: 0.0384 seconds: 31.331
+08:08:03: train iter: 17620 loss: 10.2407 loss_reg: 0.0384 seconds: 31.326
+08:08:34: train iter: 17630 loss: 10.1805 loss_reg: 0.0384 seconds: 31.314
+08:09:06: train iter: 17640 loss: 9.7367 loss_reg: 0.0384 seconds: 31.300
+08:09:37: train iter: 17650 loss: 10.1084 loss_reg: 0.0384 seconds: 31.323
+08:10:08: train iter: 17660 loss: 10.2242 loss_reg: 0.0384 seconds: 31.335
+08:10:40: train iter: 17670 loss: 10.3080 loss_reg: 0.0384 seconds: 31.321
+08:11:11: train iter: 17680 loss: 10.7484 loss_reg: 0.0384 seconds: 31.300
+08:11:42: train iter: 17690 loss: 10.3498 loss_reg: 0.0384 seconds: 31.311
+08:12:14: train iter: 17700 loss: 9.8128 loss_reg: 0.0384 seconds: 31.333
+08:12:45: train iter: 17710 loss: 10.8348 loss_reg: 0.0384 seconds: 31.287
+08:13:16: train iter: 17720 loss: 10.3212 loss_reg: 0.0384 seconds: 31.302
+08:13:47: train iter: 17730 loss: 9.9032 loss_reg: 0.0384 seconds: 31.297
+08:14:19: train iter: 17740 loss: 10.4638 loss_reg: 0.0384 seconds: 31.270
+08:14:50: train iter: 17750 loss: 10.0538 loss_reg: 0.0384 seconds: 31.276
+08:15:21: train iter: 17760 loss: 11.0995 loss_reg: 0.0384 seconds: 31.302
+08:15:53: train iter: 17770 loss: 10.5272 loss_reg: 0.0384 seconds: 31.283
+08:16:24: train iter: 17780 loss: 10.6621 loss_reg: 0.0384 seconds: 31.284
+08:16:55: train iter: 17790 loss: 10.3460 loss_reg: 0.0384 seconds: 31.299
+08:17:26: train iter: 17800 loss: 9.8249 loss_reg: 0.0384 seconds: 31.307
+08:17:58: train iter: 17810 loss: 10.2547 loss_reg: 0.0384 seconds: 31.304
+08:18:29: train iter: 17820 loss: 10.6663 loss_reg: 0.0384 seconds: 31.333
+08:19:00: train iter: 17830 loss: 10.6910 loss_reg: 0.0384 seconds: 31.283
+08:19:32: train iter: 17840 loss: 10.2267 loss_reg: 0.0384 seconds: 31.302
+08:20:03: train iter: 17850 loss: 9.5105 loss_reg: 0.0384 seconds: 31.298
+08:20:34: train iter: 17860 loss: 9.7449 loss_reg: 0.0384 seconds: 31.260
+08:21:06: train iter: 17870 loss: 9.8960 loss_reg: 0.0384 seconds: 31.272
+08:21:37: train iter: 17880 loss: 10.7267 loss_reg: 0.0384 seconds: 31.303
+08:22:08: train iter: 17890 loss: 10.8811 loss_reg: 0.0384 seconds: 31.312
+08:22:39: train iter: 17900 loss: 10.1973 loss_reg: 0.0384 seconds: 31.301
+08:23:11: train iter: 17910 loss: 10.1194 loss_reg: 0.0384 seconds: 31.288
+08:23:42: train iter: 17920 loss: 10.6327 loss_reg: 0.0384 seconds: 31.303
+08:24:13: train iter: 17930 loss: 9.9593 loss_reg: 0.0384 seconds: 31.313
+08:24:45: train iter: 17940 loss: 9.9302 loss_reg: 0.0384 seconds: 31.282
+08:25:16: train iter: 17950 loss: 10.0868 loss_reg: 0.0384 seconds: 31.299
+08:25:47: train iter: 17960 loss: 10.1371 loss_reg: 0.0384 seconds: 31.312
+08:26:19: train iter: 17970 loss: 10.0563 loss_reg: 0.0384 seconds: 31.282
+08:26:50: train iter: 17980 loss: 10.2101 loss_reg: 0.0384 seconds: 31.292
+08:27:21: train iter: 17990 loss: 10.5307 loss_reg: 0.0384 seconds: 31.290
+08:27:52: train iter: 18000 loss: 10.9642 loss_reg: 0.0384 seconds: 31.327
+08:28:24: train iter: 18010 loss: 10.3861 loss_reg: 0.0384 seconds: 31.281
+08:28:55: train iter: 18020 loss: 9.6437 loss_reg: 0.0384 seconds: 31.302
+08:29:26: train iter: 18030 loss: 10.2583 loss_reg: 0.0384 seconds: 31.297
+08:29:58: train iter: 18040 loss: 9.9031 loss_reg: 0.0384 seconds: 31.271
+08:30:29: train iter: 18050 loss: 9.3923 loss_reg: 0.0384 seconds: 31.295
+08:31:00: train iter: 18060 loss: 10.8121 loss_reg: 0.0384 seconds: 31.279
+08:31:32: train iter: 18070 loss: 10.2285 loss_reg: 0.0384 seconds: 31.315
+08:32:03: train iter: 18080 loss: 10.2194 loss_reg: 0.0384 seconds: 31.278
+08:32:34: train iter: 18090 loss: 9.9940 loss_reg: 0.0384 seconds: 31.320
+08:33:05: train iter: 18100 loss: 10.7149 loss_reg: 0.0384 seconds: 31.297
+08:33:37: train iter: 18110 loss: 9.8413 loss_reg: 0.0384 seconds: 31.312
+08:34:08: train iter: 18120 loss: 10.2572 loss_reg: 0.0384 seconds: 31.336
+08:34:39: train iter: 18130 loss: 10.2883 loss_reg: 0.0384 seconds: 31.314
+08:35:11: train iter: 18140 loss: 10.5700 loss_reg: 0.0384 seconds: 31.305
+08:35:42: train iter: 18150 loss: 10.5483 loss_reg: 0.0384 seconds: 31.308
+08:36:13: train iter: 18160 loss: 10.4212 loss_reg: 0.0384 seconds: 31.310
+08:36:45: train iter: 18170 loss: 10.1036 loss_reg: 0.0384 seconds: 31.295
+08:37:16: train iter: 18180 loss: 9.8597 loss_reg: 0.0384 seconds: 31.282
+08:37:47: train iter: 18190 loss: 9.7968 loss_reg: 0.0384 seconds: 31.282
+08:38:18: train iter: 18200 loss: 10.1341 loss_reg: 0.0384 seconds: 31.308
+08:38:50: train iter: 18210 loss: 9.7192 loss_reg: 0.0384 seconds: 31.298
+08:39:21: train iter: 18220 loss: 9.8531 loss_reg: 0.0384 seconds: 31.300
+08:39:52: train iter: 18230 loss: 10.1007 loss_reg: 0.0384 seconds: 31.313
+08:40:24: train iter: 18240 loss: 9.9097 loss_reg: 0.0384 seconds: 31.290
+08:40:55: train iter: 18250 loss: 9.8362 loss_reg: 0.0384 seconds: 31.313
+08:41:26: train iter: 18260 loss: 10.0457 loss_reg: 0.0384 seconds: 31.308
+08:41:58: train iter: 18270 loss: 10.5660 loss_reg: 0.0384 seconds: 31.301
+08:42:29: train iter: 18280 loss: 9.7281 loss_reg: 0.0384 seconds: 31.305
+08:43:00: train iter: 18290 loss: 10.8323 loss_reg: 0.0384 seconds: 31.295
+08:43:32: train iter: 18300 loss: 9.9787 loss_reg: 0.0384 seconds: 31.322
+08:44:03: train iter: 18310 loss: 10.1419 loss_reg: 0.0384 seconds: 31.302
+08:44:34: train iter: 18320 loss: 10.0733 loss_reg: 0.0384 seconds: 31.316
+08:45:05: train iter: 18330 loss: 9.7543 loss_reg: 0.0384 seconds: 31.318
+08:45:37: train iter: 18340 loss: 10.4929 loss_reg: 0.0384 seconds: 31.311
+08:46:08: train iter: 18350 loss: 10.7402 loss_reg: 0.0384 seconds: 31.282
+08:46:39: train iter: 18360 loss: 9.9767 loss_reg: 0.0384 seconds: 31.293
+08:47:11: train iter: 18370 loss: 9.5302 loss_reg: 0.0384 seconds: 31.294
+08:47:42: train iter: 18380 loss: 10.0427 loss_reg: 0.0384 seconds: 31.341
+08:48:13: train iter: 18390 loss: 9.5690 loss_reg: 0.0384 seconds: 31.295
+08:48:45: train iter: 18400 loss: 9.9333 loss_reg: 0.0384 seconds: 31.329
+08:49:16: train iter: 18410 loss: 10.7629 loss_reg: 0.0384 seconds: 31.309
+08:49:47: train iter: 18420 loss: 9.8144 loss_reg: 0.0384 seconds: 31.313
+08:50:19: train iter: 18430 loss: 10.4071 loss_reg: 0.0384 seconds: 31.339
+08:50:50: train iter: 18440 loss: 10.6978 loss_reg: 0.0384 seconds: 31.288
+08:51:21: train iter: 18450 loss: 10.9385 loss_reg: 0.0384 seconds: 31.287
+08:51:52: train iter: 18460 loss: 10.0578 loss_reg: 0.0384 seconds: 31.289
+08:52:24: train iter: 18470 loss: 10.8008 loss_reg: 0.0384 seconds: 31.323
+08:52:55: train iter: 18480 loss: 10.1824 loss_reg: 0.0384 seconds: 31.296
+08:53:26: train iter: 18490 loss: 10.4215 loss_reg: 0.0384 seconds: 31.263
+08:53:58: train iter: 18500 loss: 9.2761 loss_reg: 0.0384 seconds: 31.310
+08:54:29: train iter: 18510 loss: 9.8955 loss_reg: 0.0384 seconds: 31.303
+08:55:00: train iter: 18520 loss: 10.2209 loss_reg: 0.0384 seconds: 31.282
+08:55:31: train iter: 18530 loss: 10.0901 loss_reg: 0.0384 seconds: 31.276
+08:56:03: train iter: 18540 loss: 11.0353 loss_reg: 0.0384 seconds: 31.298
+08:56:34: train iter: 18550 loss: 10.1953 loss_reg: 0.0384 seconds: 31.317
+08:57:05: train iter: 18560 loss: 8.9003 loss_reg: 0.0384 seconds: 31.293
+08:57:37: train iter: 18570 loss: 10.7342 loss_reg: 0.0384 seconds: 31.301
+08:58:08: train iter: 18580 loss: 9.7862 loss_reg: 0.0384 seconds: 31.300
+08:58:39: train iter: 18590 loss: 9.6082 loss_reg: 0.0384 seconds: 31.320
+08:59:11: train iter: 18600 loss: 10.3401 loss_reg: 0.0384 seconds: 31.278
+08:59:42: train iter: 18610 loss: 10.3768 loss_reg: 0.0384 seconds: 31.310
+09:00:13: train iter: 18620 loss: 10.1045 loss_reg: 0.0384 seconds: 31.302
+09:00:44: train iter: 18630 loss: 10.3149 loss_reg: 0.0384 seconds: 31.271
+09:01:16: train iter: 18640 loss: 9.8344 loss_reg: 0.0384 seconds: 31.280
+09:01:47: train iter: 18650 loss: 10.2804 loss_reg: 0.0384 seconds: 31.335
+09:02:18: train iter: 18660 loss: 10.1368 loss_reg: 0.0384 seconds: 31.296
+09:02:50: train iter: 18670 loss: 9.5142 loss_reg: 0.0384 seconds: 31.298
+09:03:21: train iter: 18680 loss: 9.9369 loss_reg: 0.0384 seconds: 31.305
+09:03:52: train iter: 18690 loss: 9.4166 loss_reg: 0.0384 seconds: 31.273
+09:04:24: train iter: 18700 loss: 10.1150 loss_reg: 0.0384 seconds: 31.303
+09:04:55: train iter: 18710 loss: 10.1690 loss_reg: 0.0384 seconds: 31.296
+09:05:26: train iter: 18720 loss: 9.8597 loss_reg: 0.0384 seconds: 31.292
+09:05:57: train iter: 18730 loss: 10.4333 loss_reg: 0.0384 seconds: 31.301
+09:06:29: train iter: 18740 loss: 10.3703 loss_reg: 0.0384 seconds: 31.305
+09:07:00: train iter: 18750 loss: 10.1811 loss_reg: 0.0384 seconds: 31.297
+09:07:31: train iter: 18760 loss: 10.0915 loss_reg: 0.0384 seconds: 31.326
+09:08:03: train iter: 18770 loss: 9.9584 loss_reg: 0.0384 seconds: 31.304
+09:08:34: train iter: 18780 loss: 9.8781 loss_reg: 0.0384 seconds: 31.284
+09:09:05: train iter: 18790 loss: 10.0341 loss_reg: 0.0384 seconds: 31.325
+09:09:37: train iter: 18800 loss: 10.0034 loss_reg: 0.0384 seconds: 31.327
+09:10:08: train iter: 18810 loss: 9.8130 loss_reg: 0.0384 seconds: 31.307
+09:10:39: train iter: 18820 loss: 9.9504 loss_reg: 0.0384 seconds: 31.287
+09:11:11: train iter: 18830 loss: 9.7737 loss_reg: 0.0384 seconds: 31.291
+09:11:42: train iter: 18840 loss: 10.6089 loss_reg: 0.0384 seconds: 31.287
+09:12:13: train iter: 18850 loss: 10.2761 loss_reg: 0.0384 seconds: 31.281
+09:12:44: train iter: 18860 loss: 10.1265 loss_reg: 0.0384 seconds: 31.323
+09:13:16: train iter: 18870 loss: 10.5040 loss_reg: 0.0384 seconds: 31.281
+09:13:47: train iter: 18880 loss: 10.7859 loss_reg: 0.0384 seconds: 31.270
+09:14:18: train iter: 18890 loss: 9.8767 loss_reg: 0.0384 seconds: 31.295
+09:14:50: train iter: 18900 loss: 10.0351 loss_reg: 0.0384 seconds: 31.302
+09:15:21: train iter: 18910 loss: 10.2685 loss_reg: 0.0384 seconds: 31.307
+09:15:52: train iter: 18920 loss: 10.7113 loss_reg: 0.0384 seconds: 31.297
+09:16:23: train iter: 18930 loss: 9.9783 loss_reg: 0.0384 seconds: 31.305
+09:16:55: train iter: 18940 loss: 10.8496 loss_reg: 0.0384 seconds: 31.263
+09:17:26: train iter: 18950 loss: 10.7415 loss_reg: 0.0384 seconds: 31.313
+09:17:57: train iter: 18960 loss: 10.1325 loss_reg: 0.0384 seconds: 31.306
+09:18:29: train iter: 18970 loss: 10.2025 loss_reg: 0.0384 seconds: 31.288
+09:19:00: train iter: 18980 loss: 10.6553 loss_reg: 0.0384 seconds: 31.315
+09:19:31: train iter: 18990 loss: 9.8321 loss_reg: 0.0384 seconds: 31.276
+09:20:03: train iter: 19000 loss: 9.9231 loss_reg: 0.0384 seconds: 31.277
+09:20:34: train iter: 19010 loss: 10.5567 loss_reg: 0.0384 seconds: 31.346
+09:21:05: train iter: 19020 loss: 9.9167 loss_reg: 0.0384 seconds: 31.306
+09:21:36: train iter: 19030 loss: 9.7237 loss_reg: 0.0384 seconds: 31.294
+09:22:08: train iter: 19040 loss: 10.6466 loss_reg: 0.0384 seconds: 31.286
+09:22:39: train iter: 19050 loss: 10.0409 loss_reg: 0.0384 seconds: 31.295
+09:23:10: train iter: 19060 loss: 10.4074 loss_reg: 0.0384 seconds: 31.325
+09:23:42: train iter: 19070 loss: 10.0567 loss_reg: 0.0384 seconds: 31.272
+09:24:13: train iter: 19080 loss: 10.5937 loss_reg: 0.0384 seconds: 31.295
+09:24:44: train iter: 19090 loss: 10.5307 loss_reg: 0.0384 seconds: 31.316
+09:25:16: train iter: 19100 loss: 9.6957 loss_reg: 0.0384 seconds: 31.308
+09:25:47: train iter: 19110 loss: 10.0725 loss_reg: 0.0384 seconds: 31.306
+09:26:18: train iter: 19120 loss: 10.2857 loss_reg: 0.0384 seconds: 31.307
+09:26:49: train iter: 19130 loss: 9.8605 loss_reg: 0.0384 seconds: 31.311
+09:27:21: train iter: 19140 loss: 10.0381 loss_reg: 0.0384 seconds: 31.311
+09:27:52: train iter: 19150 loss: 9.3126 loss_reg: 0.0384 seconds: 31.293
+09:28:23: train iter: 19160 loss: 10.0125 loss_reg: 0.0384 seconds: 31.300
+09:28:55: train iter: 19170 loss: 10.0210 loss_reg: 0.0384 seconds: 31.286
+09:29:26: train iter: 19180 loss: 10.0835 loss_reg: 0.0384 seconds: 31.304
+09:29:57: train iter: 19190 loss: 9.7024 loss_reg: 0.0384 seconds: 31.301
+09:30:29: train iter: 19200 loss: 9.9531 loss_reg: 0.0384 seconds: 31.306
+09:31:00: train iter: 19210 loss: 11.0061 loss_reg: 0.0384 seconds: 31.309
+09:31:31: train iter: 19220 loss: 9.8755 loss_reg: 0.0384 seconds: 31.294
+09:32:03: train iter: 19230 loss: 10.2649 loss_reg: 0.0384 seconds: 31.315
+09:32:34: train iter: 19240 loss: 10.3553 loss_reg: 0.0384 seconds: 31.288
+09:33:05: train iter: 19250 loss: 9.9309 loss_reg: 0.0384 seconds: 31.291
+09:33:36: train iter: 19260 loss: 10.4190 loss_reg: 0.0384 seconds: 31.283
+09:34:08: train iter: 19270 loss: 9.6953 loss_reg: 0.0384 seconds: 31.285
+09:34:39: train iter: 19280 loss: 10.0366 loss_reg: 0.0384 seconds: 31.282
+09:35:10: train iter: 19290 loss: 9.7179 loss_reg: 0.0384 seconds: 31.309
+09:35:42: train iter: 19300 loss: 10.0058 loss_reg: 0.0384 seconds: 31.317
+09:36:13: train iter: 19310 loss: 9.5672 loss_reg: 0.0384 seconds: 31.297
+09:36:44: train iter: 19320 loss: 10.0969 loss_reg: 0.0384 seconds: 31.320
+09:37:16: train iter: 19330 loss: 9.8146 loss_reg: 0.0384 seconds: 31.320
+09:37:47: train iter: 19340 loss: 10.5724 loss_reg: 0.0384 seconds: 31.310
+09:38:18: train iter: 19350 loss: 9.8307 loss_reg: 0.0384 seconds: 31.340
+09:38:49: train iter: 19360 loss: 9.9933 loss_reg: 0.0384 seconds: 31.306
+09:39:21: train iter: 19370 loss: 9.6249 loss_reg: 0.0384 seconds: 31.332
+09:39:52: train iter: 19380 loss: 10.5151 loss_reg: 0.0384 seconds: 31.309
+09:40:23: train iter: 19390 loss: 10.5000 loss_reg: 0.0384 seconds: 31.277
+09:40:55: train iter: 19400 loss: 10.3046 loss_reg: 0.0384 seconds: 31.315
+09:41:26: train iter: 19410 loss: 10.1344 loss_reg: 0.0384 seconds: 31.302
+09:41:57: train iter: 19420 loss: 10.2129 loss_reg: 0.0384 seconds: 31.299
+09:42:29: train iter: 19430 loss: 10.2632 loss_reg: 0.0384 seconds: 31.302
+09:43:00: train iter: 19440 loss: 9.8282 loss_reg: 0.0384 seconds: 31.310
+09:43:31: train iter: 19450 loss: 10.1548 loss_reg: 0.0384 seconds: 31.291
+09:44:02: train iter: 19460 loss: 10.2116 loss_reg: 0.0384 seconds: 31.285
+09:44:34: train iter: 19470 loss: 9.7253 loss_reg: 0.0384 seconds: 31.288
+09:45:05: train iter: 19480 loss: 9.9397 loss_reg: 0.0384 seconds: 31.286
+09:45:36: train iter: 19490 loss: 9.7542 loss_reg: 0.0384 seconds: 31.306
+09:46:08: train iter: 19500 loss: 9.4942 loss_reg: 0.0384 seconds: 31.308
+09:46:39: train iter: 19510 loss: 10.2763 loss_reg: 0.0384 seconds: 31.291
+09:47:10: train iter: 19520 loss: 9.7629 loss_reg: 0.0384 seconds: 31.338
+09:47:42: train iter: 19530 loss: 10.0704 loss_reg: 0.0384 seconds: 31.302
+09:48:13: train iter: 19540 loss: 10.6038 loss_reg: 0.0384 seconds: 31.319
+09:48:44: train iter: 19550 loss: 10.1264 loss_reg: 0.0384 seconds: 31.313
+09:49:16: train iter: 19560 loss: 10.3626 loss_reg: 0.0384 seconds: 31.310
+09:49:47: train iter: 19570 loss: 10.6134 loss_reg: 0.0384 seconds: 31.308
+09:50:18: train iter: 19580 loss: 9.8936 loss_reg: 0.0384 seconds: 31.282
+09:50:49: train iter: 19590 loss: 10.5538 loss_reg: 0.0384 seconds: 31.304
+09:51:21: train iter: 19600 loss: 10.2672 loss_reg: 0.0384 seconds: 31.330
+09:51:52: train iter: 19610 loss: 9.9691 loss_reg: 0.0384 seconds: 31.283
+09:52:23: train iter: 19620 loss: 10.1376 loss_reg: 0.0384 seconds: 31.298
+09:52:55: train iter: 19630 loss: 9.9812 loss_reg: 0.0384 seconds: 31.280
+09:53:26: train iter: 19640 loss: 9.9644 loss_reg: 0.0384 seconds: 31.289
+09:53:57: train iter: 19650 loss: 10.4371 loss_reg: 0.0384 seconds: 31.323
+09:54:29: train iter: 19660 loss: 10.6687 loss_reg: 0.0384 seconds: 31.279
+09:55:00: train iter: 19670 loss: 10.3604 loss_reg: 0.0384 seconds: 31.296
+09:55:31: train iter: 19680 loss: 9.7512 loss_reg: 0.0384 seconds: 31.310
+09:56:02: train iter: 19690 loss: 9.9998 loss_reg: 0.0384 seconds: 31.336
+09:56:34: train iter: 19700 loss: 10.2397 loss_reg: 0.0384 seconds: 31.311
+09:57:05: train iter: 19710 loss: 9.8464 loss_reg: 0.0384 seconds: 31.308
+09:57:36: train iter: 19720 loss: 10.1539 loss_reg: 0.0384 seconds: 31.281
+09:58:08: train iter: 19730 loss: 9.6646 loss_reg: 0.0384 seconds: 31.308
+09:58:39: train iter: 19740 loss: 10.0058 loss_reg: 0.0384 seconds: 31.315
+09:59:10: train iter: 19750 loss: 10.5374 loss_reg: 0.0384 seconds: 31.313
+09:59:42: train iter: 19760 loss: 9.7735 loss_reg: 0.0384 seconds: 31.316
+10:00:13: train iter: 19770 loss: 9.7671 loss_reg: 0.0384 seconds: 31.285
+10:00:44: train iter: 19780 loss: 9.3850 loss_reg: 0.0384 seconds: 31.330
+10:01:16: train iter: 19790 loss: 10.2410 loss_reg: 0.0384 seconds: 31.302
+10:01:47: train iter: 19800 loss: 10.0275 loss_reg: 0.0384 seconds: 31.301
+10:02:18: train iter: 19810 loss: 10.6774 loss_reg: 0.0384 seconds: 31.285
+10:02:49: train iter: 19820 loss: 9.9075 loss_reg: 0.0384 seconds: 31.274
+10:03:21: train iter: 19830 loss: 10.0815 loss_reg: 0.0384 seconds: 31.306
+10:03:52: train iter: 19840 loss: 10.6807 loss_reg: 0.0384 seconds: 31.280
+10:04:23: train iter: 19850 loss: 9.4472 loss_reg: 0.0384 seconds: 31.274
+10:04:55: train iter: 19860 loss: 10.2877 loss_reg: 0.0384 seconds: 31.292
+10:05:26: train iter: 19870 loss: 10.2934 loss_reg: 0.0384 seconds: 31.321
+10:05:57: train iter: 19880 loss: 10.6019 loss_reg: 0.0384 seconds: 31.322
+10:06:28: train iter: 19890 loss: 9.6681 loss_reg: 0.0384 seconds: 31.273
+10:07:00: train iter: 19900 loss: 9.7443 loss_reg: 0.0384 seconds: 31.264
+10:07:31: train iter: 19910 loss: 9.3803 loss_reg: 0.0384 seconds: 31.318
+10:08:02: train iter: 19920 loss: 10.5923 loss_reg: 0.0384 seconds: 31.302
+10:08:34: train iter: 19930 loss: 10.2402 loss_reg: 0.0384 seconds: 31.292
+10:09:05: train iter: 19940 loss: 9.5315 loss_reg: 0.0384 seconds: 31.302
+10:09:36: train iter: 19950 loss: 9.2340 loss_reg: 0.0384 seconds: 31.274
+10:10:08: train iter: 19960 loss: 10.2414 loss_reg: 0.0384 seconds: 31.312
+10:10:39: train iter: 19970 loss: 9.1490 loss_reg: 0.0384 seconds: 31.302
+10:11:10: train iter: 19980 loss: 10.2607 loss_reg: 0.0384 seconds: 31.292
+10:11:41: train iter: 19990 loss: 9.7026 loss_reg: 0.0384 seconds: 31.273
+Creating snapshot...
+Model saved in file conv_cv0/2022-04-05_16-47-51/weights/model-20000
+Testing  |--------------------------------------------------| 0.0%  completeatsai time test duration = 0.2317 seconds
+Testing  |XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX| 100.0%  complete
+ipe (0.16245881052181096, 0.0, 0.16245881052181096)
+pe (0.16245881052181096, 0.0686848825198369, 0.13915909164706697)
+outliers [0, 0, 0]
+atsai num training data 503
+10:12:11: test iter: 20000 loss: 7.9830 loss_reg: 0.0384 seconds: 15650.140
+Data generator thread stop
+Data generator thread stop
+Data generator thread stop
+Data generator thread stop
+Data generator thread stop
+Data generator thread stop
+Data generator thread stop
+Data generator thread stop

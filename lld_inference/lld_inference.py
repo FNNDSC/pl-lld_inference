@@ -9,6 +9,7 @@
 #
 
 from chrisapp.base import ChrisApp
+from LLDcode.main import MainLoop
 
 
 Gstr_title = r"""
@@ -126,6 +127,7 @@ class Lld_inference(ChrisApp):
         """
         print(Gstr_title)
         print('Version: %s' % self.get_version())
+        MainLoop.run(options.inputdir,options.outputdir)
 
     def show_man_page(self):
         """
