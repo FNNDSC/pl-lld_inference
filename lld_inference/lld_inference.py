@@ -8,6 +8,7 @@
 #                        dev@babyMRI.org
 #
 
+import os
 from chrisapp.base import ChrisApp
 from LLDcode.main import MainLoop
 
@@ -135,16 +136,12 @@ class Lld_inference(ChrisApp):
             print("%20s: %-40s" % (k, v))
         print("")
         
+        dataset_path = options.inputdir 
         
-        st_glob = ""
-        if len(options.inputDirFilter):
-            str_glob = '%s/%s' % (options.inputdir, options.inputDirFilter)
-        
-        if len(str_glob):
-            dir_hits = glob.glob(str_glob, recursive = True)
-            
-            
-        if len(dir_hits): dataset_path = dir_hits[0]
+        for root,dirs,files in os.walk(options.inputdir):
+            for dir in dirs:
+                if dir == options.inputDirFilter:
+                    dataset_path = os.path.join(root,dir)
 
         MainLoop.run(dataset_path,options.outputdir)
 
