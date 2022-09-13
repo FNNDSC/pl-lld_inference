@@ -85,7 +85,7 @@ class Dataset(object):
                                                   self.num_landmarks,
                                                   self.dim)
         return {'image_datasource': image_datasource,
-                'landmarks_datasource': landmarks_datasource}
+               'landmarks_datasource':landmarks_datasource}
 
     def data_generators(self, image_post_processing_np):
         """

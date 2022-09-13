@@ -27,7 +27,6 @@ class MainLoop(MainLoopBase):
         super().__init__()
         self.cv = cv
         self.network_id = network_id
-        #self.output_folder = '{}_cv{}'.format(network_id, cv) + '/' + self.output_folder_timestamp()
         self.output_folder = outputdir
         self.batch_size = 8
 #atsai        self.learning_rate = 0.0000001  # TODO adapt learning rates for different networks for faster training
@@ -105,6 +104,7 @@ class MainLoop(MainLoopBase):
         landmarks = placeholders[1]
         prediction = net(image, num_landmarks=self.num_landmarks, is_training=True, data_format=self.data_format)
         self.loss_net = self.loss_function(landmarks, prediction)
+
         with tf.control_dependencies(tf.get_collection(tf.GraphKeys.UPDATE_OPS)):
             if self.reg_constant > 0:
                 reg_losses = tf.get_collection(tf.GraphKeys.REGULARIZATION_LOSSES)
@@ -113,9 +113,11 @@ class MainLoop(MainLoopBase):
             else:
                 self.loss_reg = 0
                 self.loss = self.loss_net
+
         self.train_losses = OrderedDict([('loss', self.loss_net), ('loss_reg', self.loss_reg)])
         #self.optimizer = tf.train.AdamOptimizer(learning_rate=self.learning_rate).minimize(self.loss)
         self.optimizer = tf.train.MomentumOptimizer(learning_rate=self.learning_rate, momentum=0.99, use_nesterov=True).minimize(self.loss)
+        
 
         # build val graph
         self.val_placeholders = LLDcode.tensorflow_train.utils.tensorflow_util.create_placeholders(data_generator_entries_val, shape_prefix=[1])
@@ -126,7 +128,7 @@ class MainLoop(MainLoopBase):
         # losses
         self.loss_val = self.loss_function(self.landmarks_val, self.prediction_val)
         self.val_losses = OrderedDict([('loss', self.loss_val), ('loss_reg', self.loss_reg)])
-
+        
     def test_full_image(self, dataset_entry):
         generators = dataset_entry['generators']
         transformations = dataset_entry['transformations']

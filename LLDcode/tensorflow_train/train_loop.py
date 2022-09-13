@@ -182,10 +182,8 @@ class MainLoopBase(object):
             print('Output folder:', self.output_folder)
 
     def run(self):
-        print("*************INIT ALL****************")
         self.init_all()
         if self.current_iter > 0 or self.load_model_filename is not None:
-            print("*************LOADING MODEL****************")
             self.load_model()
         print('Starting main loop')
         self.print_training_parameters()
@@ -198,9 +196,9 @@ class MainLoopBase(object):
                 if (self.current_iter % self.test_iter) == 0 and (self.test_initialization or not self.first_iteration):
                     self.test()
                 # do not train in last iteration
-                #if self.current_iter < self.max_iter:
-                    #print("Run training")
-                    #self.train()
+                if self.current_iter < self.max_iter:
+                    self.train()
+                    
                 self.current_iter += 1
                 self.first_iteration = False
                 sys.stdout.flush()

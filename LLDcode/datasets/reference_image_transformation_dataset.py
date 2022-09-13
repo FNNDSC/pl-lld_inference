@@ -99,14 +99,14 @@ class ReferenceTransformationDataset(BasicDataset):
         generated_values = {}
         transformations = {}
         for key, data_generator in self.data_generators.items():
-            kwarguments = dict([(key, datasource_values[value]) for key, value in self.data_generator_sources[key].items()])
-            current_transformation = data_generator.get_transformation(base_transformation=base_transformation, **reference_datasource_dict)
-            if current_transformation is not None:
-                current_generated_values = data_generator.get(transformation=current_transformation, **kwarguments)
-                transformations[key] = current_transformation
-            else:
-                current_generated_values = data_generator.get(**kwarguments)
-            generated_values[key] = current_generated_values
+              kwarguments = dict([(key, datasource_values[value]) for key, value in self.data_generator_sources[key].items()])
+              current_transformation = data_generator.get_transformation(base_transformation=base_transformation, **reference_datasource_dict)
+              if current_transformation is not None:
+                  current_generated_values = data_generator.get(transformation=current_transformation, **kwarguments)
+                  transformations[key] = current_transformation
+              else:
+                  current_generated_values = data_generator.get(**kwarguments)
+              generated_values[key] = current_generated_values
 
         if self.all_generators_post_processing is not None:
             generated_values = self.all_generators_post_processing(generated_values)
