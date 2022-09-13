@@ -25,11 +25,6 @@ Gstr_title = r"""
 
 Gstr_synopsis = """
 
-(Edit this in-line help for app specifics. At a minimum, the 
-flags below are supported -- in the case of DS apps, both
-positional arguments <inputDir> and <outputDir>; for FS and TS apps
-only <outputDir> -- and similarly for <in> <out> directories
-where necessary.)
 
     NAME
 
@@ -88,7 +83,7 @@ where necessary.)
 
 class Lld_inference(ChrisApp):
     """
-    An app to ...
+    An app to run LLD inference .
     """
     PACKAGE                 = __package__
     TITLE                   = 'A ChRIS plugin that runs an inference model to predict landmark points on leg images '
@@ -120,6 +115,12 @@ class Lld_inference(ChrisApp):
         Define the CLI arguments accepted by this plugin app.
         Use self.add_argument to specify a new app argument.
         """
+        self.add_argument(  '--inputDirFilter','-d',
+                            dest         = 'inputDirFilter',
+                            type         = str,
+                            optional     = True,
+                            help         = 'Input directory filter',
+                            default      = 'EOS_dataset')
 
     def run(self, options):
         """
@@ -127,7 +128,25 @@ class Lld_inference(ChrisApp):
         """
         print(Gstr_title)
         print('Version: %s' % self.get_version())
-        MainLoop.run(options.inputdir,options.outputdir)
+        
+        # Output the space of CLI
+        d_options = vars(options)
+        for k,v in d_options.items():
+            print("%20s: %-40s" % (k, v))
+        print("")
+        
+        
+        st_glob = ""
+        if len(options.inputDirFilter):
+            str_glob = '%s/%s' % (options.inputdir, options.inputDirFilter)
+        
+        if len(str_glob):
+            dir_hits = glob.glob(str_glob, recursive = True)
+            
+            
+        if len(dir_hits): dataset_path = dir_hits[0]
+
+        MainLoop.run(dataset_path,options.outputdir)
 
     def show_man_page(self):
         """
