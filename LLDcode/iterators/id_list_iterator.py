@@ -50,11 +50,23 @@ class IdListIterator(IteratorBase):
         """
         Loads the id_list_filename. Called internally when initializing.
         """
-        ext = os.path.splitext(self.id_list_file_name)[1]
-        if ext in ['.csv', '.txt']:
-            self.id_list = LLDcode.utils.io.text.load_list_csv(self.id_list_file_name)
-        if self.whole_list_postprocessing is not None:
-            self.id_list = self.whole_list_postprocessing(self.id_list)
+        # Read the directory for all file with .mha ext
+        # store the file names in a list
+        
+        self.id_list = []
+        for root,dirs,files in os.walk(self.id_list_file_name):
+            for file in files:
+                if file.endswith('.mha'):
+                    file_path=file.split('.')
+                    self.id_list.append([file_path[0]]) 
+        self.id_list = list(self.id_list)
+        
+                    
+        #ext = os.path.splitext(self.id_list_file_name)[1]
+        #if ext in ['.csv', '.txt']:
+            #self.id_list = LLDcode.utils.io.text.load_list_csv(self.id_list_file_name)
+        #if self.whole_list_postprocessing is not None:
+            #self.id_list = self.whole_list_postprocessing(self.id_list)
         print('loaded %i ids' % len(self.id_list))
 
     def reset(self):

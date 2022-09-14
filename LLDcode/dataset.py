@@ -48,11 +48,11 @@ class Dataset(object):
         self.data_format = data_format
         self.save_debug_images = save_debug_images
         self.dim = 2
-        self.image_base_folder = os.path.join(self.base_folder, 'images')
+        self.image_base_folder = self.base_folder #os.path.join(self.base_folder, 'images')
         self.setup_base_folder = os.path.join(self.base_folder, 'setup')
         self.train_id_list_file_name = os.path.join(self.setup_base_folder, 'cv_reduced', 'set' + str(cv), 'train.txt')
-        self.val_id_list_file_name = os.path.join(self.setup_base_folder, 'cv_reduced', 'set' + str(cv), 'test.txt')
-        self.point_list_file_name = os.path.join(self.setup_base_folder, 'all.csv')
+        self.val_id_list_file_name = self.image_base_folder# os.path.join(self.setup_base_folder,'cv_reduced', 'set' + str(cv), 'test.txt')
+        #self.point_list_file_name = os.path.join(self.setup_base_folder, 'all.csv')
 
 
     def data_sources(self, cached, image_extension='.mha'):
@@ -81,7 +81,7 @@ class Dataset(object):
                                                image_extension,
                                                preprocessing=reduce_dimension,
                                                set_identity_spacing=True)
-        landmarks_datasource = LandmarkDataSource(self.point_list_file_name,
+        landmarks_datasource = LandmarkDataSource(None,#self.point_list_file_name,
                                                   self.num_landmarks,
                                                   self.dim)
         return {'image_datasource': image_datasource,

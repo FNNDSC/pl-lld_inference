@@ -77,9 +77,10 @@ class MainLoop(MainLoopBase):
                           self.cv,
                           self.data_format,
                           self.save_debug_images)
-        self.dataset_train = dataset.dataset_train()
-        self.dataset_train.get_next()
+        #self.dataset_train = dataset.dataset_train()
+        #self.dataset_train.get_next()
         self.dataset_val = dataset.dataset_val()
+        self.dataset_train =  self.dataset_val
         networks = {'scn': network_scn,
                     'unet': network_unet,
                     'downsampling': network_downsampling,
@@ -87,7 +88,7 @@ class MainLoop(MainLoopBase):
                     'scn_mmwhs': network_scn_mmwhs}
         self.network = networks[self.network_id]
         self.loss_function = lambda x, y: tf.nn.l2_loss(x - y) / get_batch_channel_image_size(x, self.data_format)[0]
-        self.files_to_copy = ['main.py', 'network.py', 'dataset.py']
+        self.files_to_copy = []
 
     def initNetworks(self):
         net = tf.make_template('net', self.network)
@@ -153,23 +154,15 @@ class MainLoop(MainLoopBase):
             current_id = dataset_entry['id']['image_id']
             datasources = dataset_entry['datasources']
             reference_image = datasources['image_datasource']
-            groundtruth_landmarks = datasources['landmarks_datasource']
             image, prediction, transform = self.test_full_image(dataset_entry)
             LLDcode.utils.io.image.write_np((prediction * 128).astype(np.int8), self.output_file_for_current_iteration(current_id + '_heatmap.mha'))
             predicted_landmarks = heatmap_test.get_landmarks(prediction, reference_image, transformation=transform)
             LLDcode.tensorflow_train.utils.tensorflow_util.print_progress_bar(i, self.dataset_val.num_entries())
             landmarks[current_id] = predicted_landmarks
-            landmark_statistics.add_landmarks(current_id, predicted_landmarks, groundtruth_landmarks, normalization_factor=50, normalization_indizes=[1, 5])
+
         toc=time.perf_counter()
         print(f"atsai time test duration = {toc-tic:4.4f} seconds")
         LLDcode.tensorflow_train.utils.tensorflow_util.print_progress_bar(self.dataset_val.num_entries(), self.dataset_val.num_entries())
-        print('ipe', landmark_statistics.get_ipe_statistics())
-        print('pe', landmark_statistics.get_pe_statistics())
-        print('outliers', landmark_statistics.get_num_outliers([2.0, 4.0, 10.0]))
-#atsai (1 line below)
-        print('atsai num training data', self.dataset_train.num_entries())
-        # finalize loss values
-        self.val_loss_aggregator.finalize(self.current_iter)
         LLDcode.utils.io.landmark.save_points_csv(landmarks, self.output_file_for_current_iteration('prediction.csv'))
         
         

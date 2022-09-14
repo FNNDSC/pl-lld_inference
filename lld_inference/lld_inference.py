@@ -11,6 +11,7 @@
 import os
 from chrisapp.base import ChrisApp
 from LLDcode.main import MainLoop
+import glob
 
 
 Gstr_title = r"""
@@ -116,12 +117,12 @@ class Lld_inference(ChrisApp):
         Define the CLI arguments accepted by this plugin app.
         Use self.add_argument to specify a new app argument.
         """
-        self.add_argument(  '--inputDirFilter','-d',
-                            dest         = 'inputDirFilter',
+        self.add_argument(  '--inputFileFilter','-f',
+                            dest         = 'inputFileFilter',
                             type         = str,
                             optional     = True,
-                            help         = 'Input directory filter',
-                            default      = 'EOS_dataset')
+                            help         = 'Input file filter',
+                            default      = '**/*.mha')
 
     def run(self, options):
         """
@@ -138,11 +139,13 @@ class Lld_inference(ChrisApp):
         
         dataset_path = options.inputdir 
         
-        for root,dirs,files in os.walk(options.inputdir):
-            for dir in dirs:
-                if dir == options.inputDirFilter:
-                    dataset_path = os.path.join(root,dir)
-
+        str_glob = '%s/%s' % (options.inputdir,options.inputFileFilter)
+        
+        l_datapath = glob.glob(str_glob, recursive=True)
+        
+        dataset_path = os.path.dirname(l_datapath[0])
+        
+                    
         MainLoop.run(dataset_path,options.outputdir)
 
     def show_man_page(self):

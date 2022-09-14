@@ -12,7 +12,7 @@ class LandmarkDataSource(DataSourceBase):
                  point_list_file_name,
                  num_points,
                  dim,
-                 silent_not_found=False,
+                 silent_not_found=True,
                  *args, **kwargs):
         """
         Initializer.
@@ -34,7 +34,7 @@ class LandmarkDataSource(DataSourceBase):
         """
         Loads the landmarks file. Either .idl or .csv.
         """
-        ext = os.path.splitext(self.point_list_file_name)[1]
+        ext = "none"#os.path.splitext(self.point_list_file_name)[1]
         if ext == '.csv':
             self.point_list = LLDcode.utils.io.landmark.load_csv(self.point_list_file_name, self.num_points, self.dim)
         if ext == '.idl':
@@ -45,6 +45,9 @@ class LandmarkDataSource(DataSourceBase):
         Returns the list of landmarks for a given image_id.
         :param image_id: The image_id.
         """
+        # Return random points as we don't care
+        return [Landmark() for _ in range(self.num_points)]
+        
         try:
             return self.point_list[image_id]
         except KeyError:
