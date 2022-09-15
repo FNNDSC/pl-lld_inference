@@ -77,8 +77,7 @@ class MainLoop(MainLoopBase):
                           self.cv,
                           self.data_format,
                           self.save_debug_images)
-        #self.dataset_train = dataset.dataset_train()
-        #self.dataset_train.get_next()
+
         self.dataset_val = dataset.dataset_val()
         self.dataset_train =  self.dataset_val
         networks = {'scn': network_scn,
@@ -151,7 +150,8 @@ class MainLoop(MainLoopBase):
 
         for i in range(self.dataset_val.num_entries()):
             dataset_entry = self.dataset_val.get_next()
-            current_id = dataset_entry['id']['image_id']
+            current_id = dataset_entry['id']
+            print(f"Currently testing {current_id}")
             datasources = dataset_entry['datasources']
             reference_image = datasources['image_datasource']
             image, prediction, transform = self.test_full_image(dataset_entry)

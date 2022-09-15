@@ -49,9 +49,11 @@ class Dataset(object):
         self.save_debug_images = save_debug_images
         self.dim = 2
         self.image_base_folder = self.base_folder #os.path.join(self.base_folder, 'images')
+        #self.image_base_folder = os.path.join(self.base_folder, 'images')
         self.setup_base_folder = os.path.join(self.base_folder, 'setup')
         self.train_id_list_file_name = os.path.join(self.setup_base_folder, 'cv_reduced', 'set' + str(cv), 'train.txt')
         self.val_id_list_file_name = self.image_base_folder# os.path.join(self.setup_base_folder,'cv_reduced', 'set' + str(cv), 'test.txt')
+        #self.val_id_list_file_name = os.path.join(self.setup_base_folder,'cv_reduced', 'set' + str(cv), 'test.txt')
         #self.point_list_file_name = os.path.join(self.setup_base_folder, 'all.csv')
 
 

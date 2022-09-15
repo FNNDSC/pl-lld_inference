@@ -138,13 +138,13 @@ class Lld_inference(ChrisApp):
         print("")
         
         dataset_path = options.inputdir 
-        
+
         str_glob = '%s/%s' % (options.inputdir,options.inputFileFilter)
         
         l_datapath = glob.glob(str_glob, recursive=True)
         
         dataset_path = os.path.dirname(l_datapath[0])
-        
+
                     
         MainLoop.run(dataset_path,options.outputdir)
 

@@ -115,5 +115,5 @@ class ImageDataSource(DataSourceBase):
         :return: The loaded and processed sitk image.
         """
         id_dict = self.preprocess_id_dict(id_dict)
-        image_id = id_dict['image_id']
+        image_id = str(id_dict)
         return self.load_and_preprocess(image_id)

@@ -52,22 +52,18 @@ class IdListIterator(IteratorBase):
         """
         # Read the directory for all file with .mha ext
         # store the file names in a list
-        
+
         self.id_list = []
         for root,dirs,files in os.walk(self.id_list_file_name):
             for file in files:
                 if file.endswith('.mha'):
                     file_path=file.split('.')
                     self.id_list.append([file_path[0]]) 
-        self.id_list = list(self.id_list)
+
         
-                    
-        #ext = os.path.splitext(self.id_list_file_name)[1]
-        #if ext in ['.csv', '.txt']:
-            #self.id_list = LLDcode.utils.io.text.load_list_csv(self.id_list_file_name)
-        #if self.whole_list_postprocessing is not None:
-            #self.id_list = self.whole_list_postprocessing(self.id_list)
+
         print('loaded %i ids' % len(self.id_list))
+
 
     def reset(self):
         """
@@ -77,7 +73,7 @@ class IdListIterator(IteratorBase):
         self.index_list = list(range(len(self.id_list)))
         if self.random:
             random.shuffle(self.index_list)
-        self.current_index = 0
+        self.current_index = -1
 
     def num_entries(self):
         """
@@ -92,13 +88,8 @@ class IdListIterator(IteratorBase):
         the entry 'unique_id' which joins all current entries.
         :return: The id dictionary.
         """
-        with self.lock:
-            if self.current_index >= len(self.id_list):
-                self.reset()
-            current_id_list = self.id_list[self.index_list[self.current_index]]
-            self.current_index += 1
-            current_dict = OrderedDict(zip(self.keys, current_id_list))
-            current_dict['unique_id'] = '_'.join(map(str, current_id_list))
-            if self.postprocessing is not None:
-                current_dict = self.postprocessing(current_dict)
-            return current_dict
+        self.current_index += 1
+        if(self.current_index>=len(self.id_list)):
+            self.reset()
+        return str(self.id_list[self.current_index][0])
+

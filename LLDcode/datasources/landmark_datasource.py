@@ -63,7 +63,7 @@ class LandmarkDataSource(DataSourceBase):
         :return: List of Landmarks().
         """
         id_dict = self.preprocess_id_dict(id_dict)
-        image_id = id_dict['image_id']
+        image_id = id_dict
         return self.get_landmarks(image_id)
 
 
@@ -133,6 +133,6 @@ class LandmarkDataSourceMultiple(DataSourceBase):
         :return: List of list of Landmarks(), if multiple is True. List of Landmarks(), otherwise.
         """
         id_dict = self.preprocess_id_dict(id_dict)
-        image_id = id_dict['image_id']
+        image_id = str(id_dict)
         instance_id = id_dict['instance_id']
         return self.get_landmarks(image_id, instance_id)

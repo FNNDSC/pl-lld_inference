@@ -52,13 +52,6 @@ class MainLoopBase(object):
         for i in tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES):
             print(i)  # i.name if you want just a name
 
-    def start_threads(self):
-        self.threads = tf.train.start_queue_runners(sess=self.sess, coord=self.coord)
-        if self.train_queue is not None:
-            self.train_queue.start_threads(self.sess)
-        if self.val_queue is not None:
-            self.val_queue.start_threads(self.sess)
-
     def load_model(self):
         model_filename = "/usr/local/lib/lld/model-20000"
         print('Restoring model ' + model_filename)
@@ -88,7 +81,6 @@ class MainLoopBase(object):
         self.init_networks()
         self.initLossAggregators()
         self.init_variables()
-        self.start_threads()
         self.init_saver()
         self.create_output_folder()
 
@@ -105,11 +97,8 @@ class MainLoopBase(object):
         self.init_all()
         self.load_model()
         print('Starting main test loop')
-        try:
-            self.test()
-        finally:
-            self.close()
-
+        self.test()
+        
     def initLossAggregators(self):
         if self.train_losses is not None and self.val_losses is not None:
             assert set(self.train_losses.keys()) == set(self.val_losses.keys()), 'train and val loss keys are not equal, ' + ', '.join(map(str, self.train_losses.keys())) + ' and ' + ', '.join(map(str, self.val_losses.keys()))
