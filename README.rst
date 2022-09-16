@@ -24,8 +24,8 @@ Description
 -----------
 
 
-``lld_inference`` is a *ChRIS ds-type* application that takes in ... as ... files
-and produces ...
+``lld_inference`` is a *ChRIS ds-type* application that takes in .mha leg images as input files
+and produces heatmaps and x-y co-ordinates as outputs
 
 
 Usage
@@ -34,6 +34,7 @@ Usage
 .. code::
 
     docker run --rm fnndsc/pl-lld_inference lld_inference
+        [-f/--inputFileFilter <inputFileFilter>]
         [-h|--help]
         [--json] [--man] [--meta]
         [--savejson <DIR>]
@@ -46,7 +47,11 @@ Arguments
 ~~~~~~~~~
 
 .. code::
-
+    [-f/--inputFileFilter <inputFileFilter>]
+    A glob pattern string, default is "**/*.mha",
+    representing the input file that we want to
+    test
+        
     [-h] [--help]
     If specified, show help message and exit.
     
@@ -85,7 +90,7 @@ You need to specify input and output directories using the `-v` flag to `docker 
 
     docker run --rm -u $(id -u)                             \
         -v $(pwd)/in:/incoming -v $(pwd)/out:/outgoing      \
-        fnndsc/pl-lld_inference lld_inference                        \
+        fnndsc/pl-lld_inference lld_inference               \
         /incoming /outgoing
 
 

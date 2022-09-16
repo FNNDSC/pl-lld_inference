@@ -34,7 +34,8 @@ Gstr_synopsis = """
 
     SYNOPSIS
 
-        docker run --rm fnndsc/pl-lld_inference lld_inference                     \\
+        docker run --rm fnndsc/pl-lld_inference lld_inference           \\
+            [-f/--inputFileFilter <inputFileFilter>]                    \\
             [-h] [--help]                                               \\
             [--json]                                                    \\
             [--man]                                                     \\
@@ -51,7 +52,7 @@ Gstr_synopsis = """
 
             docker run --rm -u $(id -u)                             \
                 -v $(pwd)/in:/incoming -v $(pwd)/out:/outgoing      \
-                fnndsc/pl-lld_inference lld_inference                        \
+                fnndsc/pl-lld_inference lld_inference               \
                 /incoming /outgoing
 
     DESCRIPTION
@@ -59,6 +60,10 @@ Gstr_synopsis = """
         `lld_inference` ...
 
     ARGS
+        [-f/--inputFileFilter <inputFileFilter>]
+        A glob pattern string, default is "**/*.mha",
+        representing the input file that we want to
+        test
 
         [-h] [--help]
         If specified, show help message and exit.

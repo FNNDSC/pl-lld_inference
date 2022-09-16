@@ -48,10 +48,6 @@ class MainLoopBase(object):
         self.sess.run(tf.global_variables_initializer())
         self.sess.run(tf.local_variables_initializer())
 
-        print('Variables')
-        for i in tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES):
-            print(i)  # i.name if you want just a name
-
     def load_model(self):
         model_filename = "/usr/local/lib/lld/model-20000"
         print('Restoring model ' + model_filename)
@@ -100,11 +96,6 @@ class MainLoopBase(object):
         self.test()
         
     def initLossAggregators(self):
-        if self.train_losses is not None and self.val_losses is not None:
-            assert set(self.train_losses.keys()) == set(self.val_losses.keys()), 'train and val loss keys are not equal, ' + ', '.join(map(str, self.train_losses.keys())) + ' and ' + ', '.join(map(str, self.val_losses.keys()))
-
-        if self.train_losses is None:
-            return
 
         summaries_placeholders = OrderedDict([(loss_name, create_summary_placeholder(loss_name)) for loss_name in self.train_losses.keys()])
 
@@ -112,7 +103,7 @@ class MainLoopBase(object):
 
         if self.additional_summaries_placeholders_val is not None:
             summaries_placeholders_val.update(self.additional_summaries_placeholders_val)
-
+        
         self.val_loss_aggregator = SummaryHandler(self.sess,
                                                   self.val_losses,
                                                   summaries_placeholders_val,

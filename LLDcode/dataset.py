@@ -48,13 +48,10 @@ class Dataset(object):
         self.data_format = data_format
         self.save_debug_images = save_debug_images
         self.dim = 2
-        self.image_base_folder = self.base_folder #os.path.join(self.base_folder, 'images')
-        #self.image_base_folder = os.path.join(self.base_folder, 'images')
+        self.image_base_folder = self.base_folder
         self.setup_base_folder = os.path.join(self.base_folder, 'setup')
         self.train_id_list_file_name = os.path.join(self.setup_base_folder, 'cv_reduced', 'set' + str(cv), 'train.txt')
-        self.val_id_list_file_name = self.image_base_folder# os.path.join(self.setup_base_folder,'cv_reduced', 'set' + str(cv), 'test.txt')
-        #self.val_id_list_file_name = os.path.join(self.setup_base_folder,'cv_reduced', 'set' + str(cv), 'test.txt')
-        #self.point_list_file_name = os.path.join(self.setup_base_folder, 'all.csv')
+        self.val_id_list_file_name = self.image_base_folder
 
 
     def data_sources(self, cached, image_extension='.mha'):
@@ -83,7 +80,7 @@ class Dataset(object):
                                                image_extension,
                                                preprocessing=reduce_dimension,
                                                set_identity_spacing=True)
-        landmarks_datasource = LandmarkDataSource(None,#self.point_list_file_name,
+        landmarks_datasource = LandmarkDataSource(None,
                                                   self.num_landmarks,
                                                   self.dim)
         return {'image_datasource': image_datasource,
@@ -174,27 +171,6 @@ class Dataset(object):
         normalized = normalize_robust(image)
         return normalized
 
-    def dataset_train(self):
-        """
-        Returns the training dataset. Random augmentation is performed.
-        :return: The training dataset.
-        """
-        data_sources = self.data_sources(True)
-        data_generator_sources = self.data_generator_sources()
-        data_generators = self.data_generators(self.intensity_postprocessing_augmented)
-        image_transformation = self.spatial_transformation_augmented()
-        iterator = IdListIterator(self.train_id_list_file_name,
-                                  random=True,
-                                  keys=['image_id'])
-        dataset = ReferenceTransformationDataset(dim=self.dim,
-                                                 reference_datasource_keys={'image': 'image_datasource'},
-                                                 reference_transformation=image_transformation,
-                                                 datasources=data_sources,
-                                                 data_generators=data_generators,
-                                                 data_generator_sources=data_generator_sources,
-                                                 iterator=iterator,
-                                                 debug_image_folder='debug_train' if self.save_debug_images else None)
-        return dataset
 
     def dataset_val(self):
         """

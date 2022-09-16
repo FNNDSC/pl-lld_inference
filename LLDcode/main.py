@@ -13,7 +13,6 @@ import LLDcode.utils.io.text
 from LLDcode.tensorflow_train.data_generator import DataGenerator
 from LLDcode.tensorflow_train.train_loop import MainLoopBase
 from LLDcode.utils.landmark.heatmap_test import HeatmapTest
-from LLDcode.utils.landmark.landmark_statistics import LandmarkStatistics
 
 from datetime import datetime
 import time
@@ -29,9 +28,6 @@ class MainLoop(MainLoopBase):
         self.network_id = network_id
         self.output_folder = outputdir
         self.batch_size = 8
-#atsai        self.learning_rate = 0.0000001  # TODO adapt learning rates for different networks for faster training
-#atsai        self.max_iter = 20000
-#atsai        self.test_iter = 5000
         self.learning_rate = 0.0000001 # TODO adapt learning rates for different networks for faster training
         self.max_iter = 20000
         self.test_iter = 5000
@@ -44,30 +40,28 @@ class MainLoop(MainLoopBase):
         image_sizes = {'scn': [256, 128],
                        'unet': [256, 256],
                        'downsampling': [256, 256],
-#atsai [y, x]                     'conv': [128, 128],
                        'conv': [256, 128],
                        'scn_mmwhs': [256, 256]}
+                       
         heatmap_sizes = {'scn': [256, 128],
                          'unet': [256, 256],
                          'downsampling': [64, 64],
-#atsai                         'conv': [128, 128],
                          'conv': [256, 128],
                          'scn_mmwhs': [256, 256]}
+                         
         sigmas = {'scn': 3.0,
                   'unet': 3.0,
                   'downsampling': 1.5,
-#atsai                  'conv': 3.0,
                   'conv': 2,
                   'scn_mmwhs': 3.0}
+                  
         self.image_size = image_sizes[self.network_id]
         self.heatmap_size = heatmap_sizes[self.network_id]
         self.sigma = sigmas[self.network_id]
         self.image_channels = 1
-#atsai        self.num_landmarks = 37 
         self.num_landmarks = 6
         self.data_format = 'channels_first'
         self.save_debug_images = False
-#atsai        self.base_folder = 'hand_xray_dataset/'
         self.base_folder = inputdir
         dataset = Dataset(self.image_size,
                           self.heatmap_size,
@@ -115,9 +109,6 @@ class MainLoop(MainLoopBase):
                 self.loss = self.loss_net
 
         self.train_losses = OrderedDict([('loss', self.loss_net), ('loss_reg', self.loss_reg)])
-        #self.optimizer = tf.train.AdamOptimizer(learning_rate=self.learning_rate).minimize(self.loss)
-        self.optimizer = tf.train.MomentumOptimizer(learning_rate=self.learning_rate, momentum=0.99, use_nesterov=True).minimize(self.loss)
-        
 
         # build val graph
         self.val_placeholders = LLDcode.tensorflow_train.utils.tensorflow_util.create_placeholders(data_generator_entries_val, shape_prefix=[1])
@@ -143,7 +134,6 @@ class MainLoop(MainLoopBase):
 
     def test(self):
         heatmap_test = HeatmapTest(channel_axis=0, invert_transformation=False)
-        landmark_statistics = LandmarkStatistics()
 
         landmarks = {}
         tic=time.perf_counter()
@@ -167,13 +157,8 @@ class MainLoop(MainLoopBase):
         
         
     def run(inputdir,outputdir):
-        # change networks
-        #atsai    networks = ['scn_mmwhs', 'scn', 'unet', 'downsampling', 'conv']
-        networks = ['conv']
-        for network in networks:
-            #atsai        for cv in [1, 2, 3]:
-            for cv in [0]:
-                loop = MainLoop(cv, network,inputdir,outputdir)
-                loop.run_test()
+        network = 'conv'
+        loop = MainLoop(0, network,inputdir,outputdir)
+        loop.run_test()
 
 
