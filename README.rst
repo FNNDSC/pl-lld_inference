@@ -17,7 +17,9 @@ pl-lld_inference
 Abstract
 --------
 
-An app to ...
+An app to run inference on leg(.mha) input images and predict landmarks points(x-y co-ordinates)
+on them. These points can further be used to calculate individual leg length for measuring 
+Leg Length Discrepancy (LLD).
 
 
 Description
@@ -47,6 +49,7 @@ Arguments
 ~~~~~~~~~
 
 .. code::
+
     [-f/--inputFileFilter <inputFileFilter>]
     A glob pattern string, default is "**/*.mha",
     representing the input file that we want to
