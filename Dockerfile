@@ -20,18 +20,18 @@
 #
 #   docker run -ti -e HOST_IP=$(ip route | grep -v docker | awk '{if(NF==11) print $9}') --entrypoint /bin/bash local/pl-lld_inference
 #
-FROM alpine:latest as download
-
-WORKDIR /tmp
-ADD https://fnndsc.childrens.harvard.edu/LLD/weights/model.tar.gz /tmp/model.tar.gz
-RUN ["tar", "xf", "model.tar.gz"]
-
 
 FROM tensorflow/tensorflow:latest-gpu-py3
 LABEL maintainer="FNNDSC <dev@babyMRI.org>"
 
+WORKDIR /tmp
+
 # Install `wget` to install `miniconda`
 RUN apt-get install wget
+
+RUN curl --insecure https://fnndsc.childrens.harvard.edu/LLD/weights/model.tar.gz --output /tmp/model.tar.gz
+RUN ["tar", "xf", "model.tar.gz"]
+RUN cp -r /tmp/model /usr/local/lib/lld
 
 # Install miniconda
 ENV CONDA_DIR /opt/conda
@@ -44,10 +44,6 @@ ENV PATH=$CONDA_DIR/bin:$PATH
 # install the cuda version required to work with tensorflow
 # chcek here: https://www.tensorflow.org/install/source#gpu to find out the right version
 RUN conda install -c conda-forge cudatoolkit=10.0
-
-COPY --from=download /tmp/model /usr/local/lib/lld
-
-WORKDIR /usr/local/src
 
 COPY requirements.txt .
 RUN pip install --upgrade pip setuptools wheel
