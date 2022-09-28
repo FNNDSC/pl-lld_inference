@@ -92,7 +92,7 @@ def print_conv_parameters(inputs,
                 printable_normalization(normalization),
                 is_training,
                 data_format)
-    print(print_string)
+    print(print_string.encode('utf-8'))
 
 
 def print_dense_parameters(inputs,
