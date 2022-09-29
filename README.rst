@@ -26,9 +26,9 @@ Description
 
 ``lld_inference`` is a *ChRIS ds-type* application that works off inputs of leg images (X-Ray images converted to `*mha` format). For each image, the plugin attempts to determine where six landmarks are located -- three in each leg (in layman's terms):
 
-    * top (or superior) of femur bone (close to the hip around the intertrochanteric line)
-    * middle of the knee, slightly inferior to the intercondylar notch
-    * bottom (or inferior) of the tibial bone (just inferior to the medial malleolus)
+* top (or superior) of femur bone (close to the hip around the intertrochanteric line)
+* middle of the knee, slightly inferior to the intercondylar notch
+* bottom (or inferior) of the tibial bone (just inferior to the medial malleolus)
 
 For each inferred location of these three landmark in each leg, the plugin generates a heatmap image over the region. These are then superimposed onto the original image for comparison. In addition to output images, the plugin also generates a text file in `csv` format that describes the heatmap centroids in `(x, y)` coordinate pairs.
 
@@ -52,7 +52,7 @@ Arguments
 
 .. code::
 
-    [-f/--inputFileFilter <inputFileFilter>]
+    [-f|--inputFileFilter <inputFileFilter>]
     A glob pattern string, default is "**/*.mha", representing the input
     file pattern to analyze.
 
