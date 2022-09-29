@@ -10,3 +10,4 @@ scikit-learn==0.22.1
 scikit-image
 tensorflow==1.15.0
 cachetools
+py-lspci

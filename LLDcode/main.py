@@ -42,19 +42,19 @@ class MainLoop(MainLoopBase):
                        'downsampling': [256, 256],
                        'conv': [256, 128],
                        'scn_mmwhs': [256, 256]}
-                       
+
         heatmap_sizes = {'scn': [256, 128],
                          'unet': [256, 256],
                          'downsampling': [64, 64],
                          'conv': [256, 128],
                          'scn_mmwhs': [256, 256]}
-                         
+
         sigmas = {'scn': 3.0,
                   'unet': 3.0,
                   'downsampling': 1.5,
                   'conv': 2,
                   'scn_mmwhs': 3.0}
-                  
+
         self.image_size = image_sizes[self.network_id]
         self.heatmap_size = heatmap_sizes[self.network_id]
         self.sigma = sigmas[self.network_id]
@@ -119,7 +119,7 @@ class MainLoop(MainLoopBase):
         # losses
         self.loss_val = self.loss_function(self.landmarks_val, self.prediction_val)
         self.val_losses = OrderedDict([('loss', self.loss_val), ('loss_reg', self.loss_reg)])
-        
+
     def test_full_image(self, dataset_entry):
         generators = dataset_entry['generators']
         transformations = dataset_entry['transformations']
@@ -141,7 +141,7 @@ class MainLoop(MainLoopBase):
         for i in range(self.dataset_val.num_entries()):
             dataset_entry = self.dataset_val.get_next()
             current_id = dataset_entry['id']
-            print(f"Currently testing {current_id}")
+            print(f"Currently processing {current_id}")
             datasources = dataset_entry['datasources']
             reference_image = datasources['image_datasource']
             image, prediction, transform = self.test_full_image(dataset_entry)
@@ -151,11 +151,11 @@ class MainLoop(MainLoopBase):
             landmarks[current_id] = predicted_landmarks
 
         toc=time.perf_counter()
-        print(f"atsai time test duration = {toc-tic:4.4f} seconds")
         LLDcode.tensorflow_train.utils.tensorflow_util.print_progress_bar(self.dataset_val.num_entries(), self.dataset_val.num_entries())
         LLDcode.utils.io.landmark.save_points_csv(landmarks, self.output_file_for_current_iteration('prediction.csv'))
-        
-        
+        print(f"total execute time duration = {toc-tic:4.4f} seconds")
+
+
     def run(inputdir,outputdir):
         network = 'conv'
         loop = MainLoop(0, network,inputdir,outputdir)
