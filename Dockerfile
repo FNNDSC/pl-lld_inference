@@ -46,7 +46,10 @@ ENV PATH=$CONDA_DIR/bin:$PATH
 RUN conda install -c conda-forge cudatoolkit=10.0
 
 COPY requirements.txt .
+RUN  apt-key adv --keyserver keyserver.ubuntu.com --recv A4B469963BF863CC && \
+     apt update && apt -y install pciutils sudo kmod
 RUN pip install --upgrade pip setuptools wheel
+RUN pip install pyOpenSSL --upgrade
 RUN pip install -r requirements.txt
 
 COPY . .
