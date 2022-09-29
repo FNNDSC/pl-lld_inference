@@ -18,7 +18,7 @@ def create_reset_metric(metric, variable_scope, **metric_args):
     return metric_op, update_op, reset_op
 
 
-def print_progress_bar(iteration, total, prefix='Testing ', suffix=' complete', decimals=1, length=50, fill='X'):
+def print_progress_bar(iteration, total, prefix='Exec ', suffix=' complete', decimals=1, length=50, fill='X'):
     """
     Call in a loop to create terminal progress bar
     @params:
