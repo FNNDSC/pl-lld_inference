@@ -30,7 +30,7 @@ Description
 * middle of the knee, slightly inferior to the intercondylar notch
 * bottom (or inferior) of the tibial bone (just inferior to the medial malleolus)
 
-For each inferred location of these three landmark in each leg, the plugin generates a heatmap image over the region. These are then superimposed onto the original image for comparison. In addition to output images, the plugin also generates a text file in `csv` format that describes the heatmap centroids in `(x, y)` coordinate pairs.
+For each inferred location of these three landmark in each leg, the plugin generates a heatmap image for that landmark. Thus, six separate images are created -- blank everywhere except for the heatmap. Taken all together, these six images are then superimposed onto the original image for comparison. In addition to output images, the plugin also generates a text file in `csv` format that describes the heatmap centroids in `(x, y)` coordinate pairs.
 
 Usage
 -----
@@ -95,7 +95,7 @@ You need to specify input and output directories using the `-v` flag to
 
     mkdir in out && chmod 777 out
     docker run --rm -u $(id -u)                             \
-        -v $(pwd)/in:/incoming -v $(pwd)/out:/outgoing      \
+        -v $PWD/in:/incoming -v $PWD/out:/outgoing          \
         fnndsc/pl-lld_inference lld_inference               \
         /incoming /outgoing
 
@@ -136,7 +136,7 @@ Examples
     mkdir in out && chmod 777 out
     cp *mha in
     docker run --rm -u $(id -u)                             \
-        -v $(pwd)/in:/incoming -v $(pwd)/out:/outgoing      \
+        -v $PWD/in:/incoming -v $PWD/out:/outgoing          \
         fnndsc/pl-lld_inference lld_inference               \
         /incoming /outgoing
 
