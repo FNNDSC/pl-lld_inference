@@ -57,7 +57,7 @@ class IdListIterator(IteratorBase):
         for root,dirs,files in os.walk(self.id_list_file_name):
             for file in files:
                 if file.endswith('.mha'):
-                    file_path=file.split('.')
+                    file_path=file.split('.mha')
                     self.id_list.append([file_path[0]]) 
 
         
