@@ -144,8 +144,8 @@ class MainLoop(MainLoopBase):
             print(f"Currently processing {current_id}")
             datasources = dataset_entry['datasources']
             reference_image = datasources['image_datasource']
-            x,y = reference_image.GetSize()
-            f.write(f"{current_id},{x},{y}\n")
+            width,height = reference_image.GetSize()
+            f.write(f"{current_id},{height},{width}\n")
             image, prediction, transform = self.test_full_image(dataset_entry)
             LLDcode.utils.io.image.write_np((prediction * 128).astype(np.int8), self.output_file_for_current_iteration(current_id + '_heatmap.mha'))
             predicted_landmarks = heatmap_test.get_landmarks(prediction, reference_image, transformation=transform)
