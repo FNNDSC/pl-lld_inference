@@ -137,22 +137,20 @@ class MainLoop(MainLoopBase):
 
         landmarks = {}
         tic=time.perf_counter()
-        f = open(os.path.join(self.output_folder,"dimension.csv"),"a")
+ 
         for i in range(self.dataset_val.num_entries()):
             dataset_entry = self.dataset_val.get_next()
             current_id = dataset_entry['id']
             print(f"Currently processing {current_id}")
             datasources = dataset_entry['datasources']
             reference_image = datasources['image_datasource']
-            width,height = reference_image.GetSize()
-            f.write(f"{current_id},{height},{width}\n")
             image, prediction, transform = self.test_full_image(dataset_entry)
             LLDcode.utils.io.image.write_np((prediction * 128).astype(np.int8), self.output_file_for_current_iteration(current_id + '_heatmap.mha'))
             predicted_landmarks = heatmap_test.get_landmarks(prediction, reference_image, transformation=transform)
             LLDcode.tensorflow_train.utils.tensorflow_util.print_progress_bar(i, self.dataset_val.num_entries())
             landmarks[current_id] = predicted_landmarks
 
-        f.close()
+
         toc=time.perf_counter()
         LLDcode.tensorflow_train.utils.tensorflow_util.print_progress_bar(self.dataset_val.num_entries(), self.dataset_val.num_entries())
         LLDcode.utils.io.landmark.save_points_csv(landmarks, self.output_file_for_current_iteration('prediction.csv'))
