@@ -117,6 +117,9 @@ Run unit tests:
 
 For in-container debugging, mount the source directories appropriately:
 
+
+.. code:: bash
+    
     cd pl-lld_inference
     docker run -it --rm                                                             \
         -v $PWD/LLDcode:/opt/conda/lib/python3.6/site-packages/LLDcode              \
