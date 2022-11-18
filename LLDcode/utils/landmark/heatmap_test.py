@@ -1,5 +1,6 @@
 import numpy as np
 import SimpleITK as sitk
+import LLDcode.utils
 import LLDcode.utils.geometry
 import LLDcode.utils.sitk_image
 import LLDcode.utils.sitk_np
@@ -7,6 +8,7 @@ import LLDcode.utils.np_image
 from LLDcode.utils.landmark.common import Landmark
 import LLDcode.utils.landmark.transform
 
+import pudb
 
 class HeatmapTest(object):
     """
@@ -48,7 +50,7 @@ class HeatmapTest(object):
         :return: A list of transformed sitk images.
         """
         if transformation is not None:
-            predictions_sitk = utils.sitk_image.transform_np_output_to_sitk_input(output_image=prediction_np,
+            predictions_sitk = LLDcode.utils.sitk_image.transform_np_output_to_sitk_input(output_image=prediction_np,
                                                                                   output_spacing=output_spacing,
                                                                                   channel_axis=None,
                                                                                   input_image_sitk=reference_sitk,
@@ -104,6 +106,7 @@ class HeatmapTest(object):
         :param transformation: The transformation. If transformation is None, the prediction np array will not be transformed.
         :return: A Landmark object.
         """
+        # pudb.set_trace()
         output_spacing = output_spacing or [1] * image.ndim
         if self.return_multiple_maxima:
             landmarks = []
