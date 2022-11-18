@@ -119,9 +119,9 @@ For in-container debugging, mount the source directories appropriately:
 
 
 .. code:: bash
-    
+
     cd pl-lld_inference
-    docker run -it --rm                                                             \
+    docker run -it --rm --gpus all                                                  \
         -v $PWD/LLDcode:/opt/conda/lib/python3.6/site-packages/LLDcode              \
         -v $PWD/lld_inference:/opt/conda/lib/python3.6/site-packages/lld_inference  \
         -v $PWD/in:/incoming -v $PWD/out:/outgoing                                  \
@@ -138,9 +138,9 @@ Examples
     cd ~/some/dir
     mkdir in out && chmod 777 out
     cp *mha in
-    docker run --rm -u $(id -u)                             \
-        -v $PWD/in:/incoming -v $PWD/out:/outgoing          \
-        fnndsc/pl-lld_inference lld_inference               \
+    docker run --rm -u $(id -u) --gpus all                                          \
+        -v $PWD/in:/incoming -v $PWD/out:/outgoing                                  \
+        fnndsc/pl-lld_inference lld_inference                                       \
         /incoming /outgoing
 
 _-30-_
