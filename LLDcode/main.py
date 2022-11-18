@@ -20,6 +20,17 @@ import time
 from .dataset import Dataset
 from .network import network_scn, network_unet, network_downsampling, network_conv, network_scn_mmwhs
 
+from    PIL             import  Image as pImage
+import  cv2
+import  imageio
+import  SimpleITK       as      sitk
+from    SimpleITK       import  Image
+from    pathlib         import  Path
+import  pudb
+import  tempfile
+from    functools       import  reduce
+from    operator        import  mul
+
 
 class MainLoop(MainLoopBase):
     def __init__(self, cv, network_id,inputdir,outputdir):
@@ -133,11 +144,10 @@ class MainLoop(MainLoopBase):
         return image, prediction, transformation
 
     def test(self):
-        heatmap_test = HeatmapTest(channel_axis=0, invert_transformation=False)
-
+        heatmap_test = HeatmapTest(channel_axis=0, invert_transformation=self.invert_transformation)
         landmarks = {}
         tic=time.perf_counter()
- 
+        pudb.set_trace()
         for i in range(self.dataset_val.num_entries()):
             dataset_entry = self.dataset_val.get_next()
             current_id = dataset_entry['id']
@@ -147,6 +157,10 @@ class MainLoop(MainLoopBase):
             image, prediction, transform = self.test_full_image(dataset_entry)
             LLDcode.utils.io.image.write_np((prediction * 128).astype(np.int8), self.output_file_for_current_iteration(current_id + '_heatmap.mha'))
             predicted_landmarks = heatmap_test.get_landmarks(prediction, reference_image, transformation=transform)
+            p2r     = p2r_transform( reference      = reference_image,
+                                     landmarks      = predicted_landmarks,
+                                     predictions    = prediction)
+            p2r.run()
             LLDcode.tensorflow_train.utils.tensorflow_util.print_progress_bar(i, self.dataset_val.num_entries())
             landmarks[current_id] = predicted_landmarks
 
@@ -162,4 +176,111 @@ class MainLoop(MainLoopBase):
         loop = MainLoop(0, network,inputdir,outputdir)
         loop.run_test()
 
+class p2r_transform:
+    """
+    A class to encapsulate operations relating to transforming a
+    "p"redicted_image to a "r"eference image.
 
+    This class implements a "reactive" solution to an observed
+    mismatch between heatmaps in the learning space and the transformed
+    center coordinate in the reference space.
+
+    Heatmaps (i.e. landmark probabilities) are generated in a 256x128
+    image space. While the calculated transformation of the "brightest"
+    heatmap point back into the reference space is correct, the heatmap
+    itself, if naively mapped back into the reference space, might not
+    match the landmark location.
+
+    """
+
+    def __init__(self, *args, **kwargs):
+        self.imageITK_reference     : Image         = None
+        self.image                  : np.ndarray    = None
+        self.l_heatmap              : list          = []
+        self.heatmap                : np.ndarray    = None
+        self.l_landmarks            : list          = []
+
+        self.mmFilter               = sitk.MinimumMaximumImageFilter()
+
+        # High pass filter on heatmap values (normalized)
+        self.f_HPFheatmap           : float         = 0.85
+
+        for k,v in kwargs.items():
+            if k == 'reference'     : self.imageITK_reference   = v
+            if k == 'landmarks'     : self.l_landmarks          = v
+            if k == 'predictions'   : self.l_heatmap            = v
+            if k == 'HPFheatmap'    : self.f_HPFheatmap         = v
+
+        self.image      = sitk.GetArrayFromImage(self.imageITK_reference)
+        self.imageInt   = self.image.astype(np.uint8)
+
+    @property
+    def HPFheatmap(self):
+        return self.f_HPFheatmap
+
+    @HPFheatmap.setter
+    def HPFheatmap(self, f_v):
+        self.f_HPFheatmap = f_v
+
+    def heatmaps_intensityHighPassFilter(self):
+        """
+        Simple high pass filter on intensity values in heatmap matrices.
+        This is an in-place modification of the internal self.l_heatmap list!
+        """
+        l_image         : list  = []
+        l_filtered      : list  = []
+        for heatmap in self.l_heatmap:
+            l_image     = heatmap.tolist()
+            l_filtered  = [[x if x > self.f_HPFheatmap else 0.0 for x in y] for y in l_image]
+            heatmap     = np.array(l_filtered)
+
+    def heatmaps_transformToReferenceImage(self):
+        """
+        Transform the heatmaps into a new matrix/array in the coordinate system
+        (size) as the reference image.
+
+        This re-uses existing code, lightly copy/pasted and factored into this class
+        so to have minimal impact on existing code.
+
+        PRECONDITIONS:
+        * ideally, the heatmaps have been passed through an intensity high-pass filter
+        """
+        pass
+
+
+    def landmarks_combine(self):
+        """
+        Combine (collapse) all the landmark images into a single image
+        and reduce noise with cv2.normalize()
+        """
+        imageSum        = reduce(mul, self.l_heatmap)
+        # imageAve        = imageSum / len(self.l_heatmap)
+        imageAve        = imageSum
+        self.heatmap    = cv2.normalize(imageAve, None, 0, 255, cv2.NORM_MINMAX)
+
+    def save(self, toPath : Path, imtype : str = 'jpg'):
+        """
+        Save the class data structures in 'toPath'
+        """
+
+        str_refImageStem    : str   = 'reference'
+        str_heatImageStem   : str   = 'heatMap'
+        str_landMarkStem    : str   = 'landMark'
+        heatMapCount        : int   = 0
+
+        toPath.mkdir(mode = 0o777, exist_ok = True)
+        pudb.set_trace()
+        self.mmFilter.Execute(self.imageITK_reference)
+
+        for hm in self.l_heatmap:
+            heatMapCount += 1
+            imageio.imwrite(str(toPath / str(str_heatImageStem+'%02d.' % heatMapCount+imtype)), hm)
+        imageio.imwrite(str(toPath / str(str_refImageStem+'.'+imtype)), self.imageInt)
+        imageio.imwrite(str(toPath / str(str_heatImageStem+'.'+imtype)), self.heatmap)
+
+    def run(self):
+        """
+        'run' this class
+        """
+        self.landmarks_combine()
+        self.save(Path(tempfile.mkdtemp(prefix='lld-')))
