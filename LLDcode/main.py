@@ -4,15 +4,16 @@ import numpy as np
 import tensorflow as tf
 from collections import OrderedDict
 
-import LLDcode.tensorflow_train
-import LLDcode.tensorflow_train.utils.tensorflow_util
-from LLDcode.tensorflow_train.utils.data_format import get_batch_channel_image_size
-import LLDcode.utils.io.image
-import LLDcode.utils.io.landmark
-import LLDcode.utils.io.text
-from LLDcode.tensorflow_train.data_generator import DataGenerator
-from LLDcode.tensorflow_train.train_loop import MainLoopBase
-from LLDcode.utils.landmark.heatmap_test import HeatmapTest
+import  LLDcode.tensorflow_train
+import  LLDcode.tensorflow_train.utils.tensorflow_util
+from    LLDcode.tensorflow_train.utils.data_format import get_batch_channel_image_size
+import  LLDcode.utils
+import  LLDcode.utils.io.image
+import  LLDcode.utils.io.landmark
+import  LLDcode.utils.io.text
+from    LLDcode.tensorflow_train.data_generator     import DataGenerator
+from    LLDcode.tensorflow_train.train_loop         import MainLoopBase
+from    LLDcode.utils.landmark.heatmap_test         import HeatmapTest
 
 from datetime import datetime
 import time
@@ -20,16 +21,21 @@ import time
 from .dataset import Dataset
 from .network import network_scn, network_unet, network_downsampling, network_conv, network_scn_mmwhs
 
-from    PIL             import  Image as pImage
+import  itertools
+from    sklearn.preprocessing                       import normalize
+from    PIL                                         import  Image as pImage
 import  cv2
 import  imageio
-import  SimpleITK       as      sitk
-from    SimpleITK       import  Image
-from    pathlib         import  Path
+import  SimpleITK                                   as      sitk
+from    SimpleITK                                   import  Image
+from    pathlib                                     import  Path
+from    functools                                   import  reduce
+from    operator                                    import  mul
+from    scipy                                       import  interpolate
+import  skimage.filters
+
 import  pudb
 import  tempfile
-from    functools       import  reduce
-from    operator        import  mul
 
 
 class MainLoop(MainLoopBase):
@@ -144,10 +150,11 @@ class MainLoop(MainLoopBase):
         return image, prediction, transformation
 
     def test(self):
-        heatmap_test = HeatmapTest(channel_axis=0, invert_transformation=self.invert_transformation)
+        heatmap_test = HeatmapTest( channel_axis=0,
+                                    invert_transformation=self.invert_transformation)
         landmarks = {}
         tic=time.perf_counter()
-        pudb.set_trace()
+        # pudb.set_trace()
         for i in range(self.dataset_val.num_entries()):
             dataset_entry = self.dataset_val.get_next()
             current_id = dataset_entry['id']
@@ -157,9 +164,13 @@ class MainLoop(MainLoopBase):
             image, prediction, transform = self.test_full_image(dataset_entry)
             LLDcode.utils.io.image.write_np((prediction * 128).astype(np.int8), self.output_file_for_current_iteration(current_id + '_heatmap.mha'))
             predicted_landmarks = heatmap_test.get_landmarks(prediction, reference_image, transformation=transform)
+            # pudb.set_trace()
             p2r     = p2r_transform( reference      = reference_image,
                                      landmarks      = predicted_landmarks,
-                                     predictions    = prediction)
+                                     predictions    = prediction,
+                                     transform      = transform,
+                                     heatmapobj     = heatmap_test,
+                                     outputdir      = self.output_folder)
             p2r.run()
             LLDcode.tensorflow_train.utils.tensorflow_util.print_progress_bar(i, self.dataset_val.num_entries())
             landmarks[current_id] = predicted_landmarks
@@ -188,65 +199,329 @@ class p2r_transform:
     Heatmaps (i.e. landmark probabilities) are generated in a 256x128
     image space. While the calculated transformation of the "brightest"
     heatmap point back into the reference space is correct, the heatmap
-    itself, if naively mapped back into the reference space, might not
-    match the landmark location.
+    itself, if naively mapped back into the reference space, does not
+    always match the landmark location.
+
+    This class provides methods to intensity-filter an image and apply
+    the same landmark transform to each filtered non-zero pixel.
 
     """
 
     def __init__(self, *args, **kwargs):
-        self.imageITK_reference     : Image         = None
-        self.image                  : np.ndarray    = None
-        self.l_heatmap              : list          = []
-        self.heatmap                : np.ndarray    = None
+        self.itk_imageReference     : Image         = None
+        self.nd_image               : np.ndarray    = None
+        self.lnd_heatmap            : list          = []
+        self.nd_heatmap             : np.ndarray    = None
         self.l_landmarks            : list          = []
+        self.f_heatmapHighPassFilter: float         = 0.65
+        self.itk_transform                          = None
+        self.lnd_heatmapRefSpace    : list          = []
+        self.path_outputDir         : Path          = Path(tempfile.mkdtemp(prefix='lld-'))
+
+        self.o_heatmap                              = None
 
         self.mmFilter               = sitk.MinimumMaximumImageFilter()
 
-        # High pass filter on heatmap values (normalized)
-        self.f_HPFheatmap           : float         = 0.85
-
         for k,v in kwargs.items():
-            if k == 'reference'     : self.imageITK_reference   = v
-            if k == 'landmarks'     : self.l_landmarks          = v
-            if k == 'predictions'   : self.l_heatmap            = v
-            if k == 'HPFheatmap'    : self.f_HPFheatmap         = v
+            if k == 'reference'     : self.itk_imageReference       = v
+            if k == 'landmarks'     : self.l_landmarks              = v
+            if k == 'predictions'   : self.lnd_heatmap              = v
+            if k == 'heatmapFilter' : self.f_heatmapHighPassFilter  = v
+            if k == 'transform'     : self.itk_transform            = v
+            if k == 'heatmapobj'    : self.o_heatmap                = v
+            if k == 'outputdir'     : self.path_outputDir           = Path(v)
 
-        self.image      = sitk.GetArrayFromImage(self.imageITK_reference)
-        self.imageInt   = self.image.astype(np.uint8)
+        self.nd_image               = sitk.GetArrayFromImage(self.itk_imageReference)
+        self.nd_imageInt            = (self.nd_image*128).astype(np.uint8)
+
+        nd_heatmapRefSpace          = np.zeros(self.nd_image.shape)
+        for newheatmap in self.lnd_heatmap:
+            self.lnd_heatmapRefSpace.append(nd_heatmapRefSpace.copy())
 
     @property
-    def HPFheatmap(self):
-        return self.f_HPFheatmap
+    def heatmapFilter(self):
+        return self.f_heatmapHighPassFilter
 
-    @HPFheatmap.setter
-    def HPFheatmap(self, f_v):
-        self.f_HPFheatmap = f_v
+    @heatmapFilter.setter
+    def heatmapFilter(self, f_v):
+        self.f_heatmapHighPassFilter = f_v
 
-    def heatmaps_intensityHighPassFilter(self):
+    def heatmaplist_intensityHighPassFilter(self) -> dict:
         """
-        Simple high pass filter on intensity values in heatmap matrices.
-        This is an in-place modification of the internal self.l_heatmap list!
-        """
-        l_image         : list  = []
-        l_filtered      : list  = []
-        for heatmap in self.l_heatmap:
-            l_image     = heatmap.tolist()
-            l_filtered  = [[x if x > self.f_HPFheatmap else 0.0 for x in y] for y in l_image]
-            heatmap     = np.array(l_filtered)
+        Simple high pass filter on intensity values in the list of heatmap
+        matrices.
 
-    def heatmaps_transformToReferenceImage(self):
+        A new filtered heatmap list is returned in a dictionary, as well as
+        some counts on pre/post filter pixel counts.
+        """
+        l_image                 : list  = []
+        l_filtered              : list  = []
+        ldn_heatmapFiltered     : list  = []
+        nd_heatmapFiltered              = None
+        l_maxIntensity_coordVal : list  = []
+        l_prefilterNonZero      : list  = []
+        l_postFilterNonZero     : list  = []
+        # pudb.set_trace()
+        for nd_heatmap in self.lnd_heatmap:
+            value, coord        = LLDcode.utils.np_image.find_quadratic_subpixel_maximum_in_image(nd_heatmap)
+            l_prefilterNonZero.append(np.count_nonzero(nd_heatmap))
+            f_filterAbsolute    = self.f_heatmapHighPassFilter * value
+            l_image             = nd_heatmap.tolist()
+            l_filtered          = [[x if x > f_filterAbsolute else 0.0
+                                        for x in y] for y in l_image]
+            nd_heatmapFiltered  = np.array(l_filtered)
+            l_postFilterNonZero.append(np.count_nonzero(nd_heatmapFiltered))
+            ldn_heatmapFiltered.append(nd_heatmapFiltered)
+        return {
+            'prefilterNonZero'  :   l_prefilterNonZero,
+            'postfilterNonZero' :   l_postFilterNonZero,
+            'heatmap'           :   ldn_heatmapFiltered
+        }
+
+    def pointInGrid(self, A_point, a_gridSize, *args):
+        """
+        SYNOPSIS
+
+            [A_point] = pointInGrid(A_point, a_gridSize [, ab_wrapGridEdges])
+
+        ARGS
+
+            INPUT
+            A_point        array of N-D points     points in grid space
+            a_gridSize     array                   the size (rows, cols) of
+                                                + the grid space
+
+            OPTIONAL
+            ab_wrapGridEdges        bool          if True, wrap "external"
+                                                points back into grid
+
+            OUTPUT
+            A_point        array of N-D points     points that are within the
+                                                grid.
+
+        DESC
+            Determines if set of N-dimensionals <A_point> is within a grid
+            <a_gridSize>.
+
+        PRECONDITIONS
+            o Assumes strictly positive domains, i.e. points with negative
+            locations are by definition out-of-range. If negative domains
+            are valid in a particular problem space, the caller will need
+            to offset <a_point> to be strictly positive first.
+
+        POSTCONDITIONS
+            o if <ab_wrapGridEdges> is False, returns only the subset of points
+            in A_point that are within the <a_gridSize>.
+            o if <ab_wrapGridEdges> is True, "wraps" any points in A_point
+            back into a_gridSize first, and then checks for those that
+            are still within <a_gridSize>.
+
+        """
+        b_wrapGridEdges = False # If True, wrap around edges of grid
+
+        if len(args): b_wrapGridEdges = args[0]
+
+        # Check for points "less than" grid space
+        if b_wrapGridEdges:
+            W = np.where(A_point < 0)
+            A_point[W] += a_gridSize[W[1]]
+
+        Wbool = A_point >= 0
+        W = Wbool.prod(axis=1)
+        A_point = A_point[np.where(W > 0)]
+
+        # Check for points "more than" grid space
+        A_inGrid = a_gridSize - A_point
+        if b_wrapGridEdges:
+            W = np.where(A_inGrid <= 0)
+            A_point[W] = -A_inGrid[W]
+            A_inGrid = a_gridSize - A_point
+
+        Wbool = A_inGrid > 0
+        W = Wbool.prod(axis=1)
+        A_point = A_point[np.where(W > 0)]
+        return A_point
+
+    def neighbours_findFast(self, a_dimension, a_depth, *args, **kwargs):
+        """
+
+            SYNOPSIS
+
+                [A] = neighbours_findFast(a_dimension, a_depth, *args, **kwargs)
+
+            ARGS
+
+            INPUT
+            a_dimension         int32           number of dimensions
+            a_depth             int32           depth of neighbours to find
+
+            OPTIONAL
+            av_origin           array          row vector that defines the
+                                                + origin in the <a_dimension>
+                                                + space. Neighbours' locations
+                                                + are returned relative to this
+                                                + origin. Default is the zero
+                                                + origin.
+
+                                                If specified, this *must* be
+                                                a 1xa_dimension nparray, i.e.
+                                                np.array( [(x,y)] ) in the
+                                                2D case.
+
+            OUTPUT
+            A                   array           a single array containing
+                                                    all the neighbours. This
+                                                    does not include the origin.
+
+            Named keyword args
+            "includeOrigin"     If True, return the origin in the set.
+            "wrapGridEdges"     If True, wrap around the edges of grid.
+                                If False, do not wrap around grid edges.
+            "gridSize"          Specifies the gridSize for 'wrapEdges'.
+
+            If "gridSize" is set, and "wrapEdges" is not, then the neighbors will
+            not include coordinates "outside" of the grid.
+
+            DESC
+                This method determines the neighbours of a point in an
+                n - dimensional discrete space. The "depth" (or ply) to
+                calculate is `a_depth'.
+
+            NOTE
+                o Uses the 'itertools' module product() method for
+                    MUCH faster results than the explicit neighbours_find()
+                    method.
+
+            PRECONDITIONS
+                o The underlying problem is discrete.
+
+            POSTCONDITIONS
+                o Returns all neighbours
+
+            HISTORY
+            23 December 2011
+            o Rewrote earlier method using python idioms and resulting
+            in multiple order speed improvement.
+        """
+
+        # Process *kwargs and behavioural arguments
+        b_includeOrigin = False # If True, include the "origin" in A
+        b_wrapGridEdges = False # If True, wrap around edges of grid
+        b_gridSize      = False # Helper flag for tracking wrap
+        b_flipAxes      = False # If True, 'flip' axes
+
+        for key, value in kwargs.items():
+            if key == 'includeOrigin':      b_includeOrigin = value
+            if key == 'wrapGridEdges':      b_wrapGridEdges = value
+            if key == 'flipAxes':           b_flipAxes      = value
+            if key == 'gridSize':
+                a_gridSize = value
+                b_gridSize = True
+
+        # Check on *args, i.e. an optional 'origin' point in N-space
+        v_origin = np.zeros((a_dimension))
+        b_origin = 0
+        if len(args):
+            av_origin = args[0].astype(np.uint16)
+            if b_flipAxes:
+                v_origin = np.flip(av_origin)
+            else:
+                v_origin = av_origin
+            b_origin = 1
+
+        A = np.array(list(itertools.product(np.arange(-a_depth, a_depth + 1),
+                                            repeat=a_dimension)))
+        if not b_includeOrigin:
+            Wbool = A == 0
+            W = Wbool.prod(axis=1)
+            A = A[np.where(W == 0)]
+        if b_origin:
+            try:
+                A += v_origin
+            except:
+                return np.array(list(v_origin))
+        if b_gridSize: A  = self.pointInGrid(A, a_gridSize, b_wrapGridEdges)
+        return A
+
+    def heatmaplist_transformToReferenceImageSpace(self, d_filteredHeatMap) -> dict:
         """
         Transform the heatmaps into a new matrix/array in the coordinate system
         (size) as the reference image.
 
-        This re-uses existing code, lightly copy/pasted and factored into this class
-        so to have minimal impact on existing code.
+        This re-uses existing code, lightly copy/pasted and factored into this
+        class so to have minimal impact on existing code.
+
+        Note that this simply "transforms/projects" the pixels in the low
+        resolution heatmap into an ndarray of the same resolution as the
+        reference image. Since the reference image is typically a much
+        higher resolution, the projected pixels will be much more sparse
+        in the higher resolution space.
 
         PRECONDITIONS:
-        * ideally, the heatmaps have been passed through an intensity high-pass filter
-        """
-        pass
+        * ideally, the heatmaps have been passed through an intensity high-pass
+        filter
 
+        Returns
+        * dictionary containing a list of high resolution ndarrays with
+          sparse pixel projections
+        """
+        # pudb.set_trace()
+        coordInferenceSpace         = None
+        coordReferenceSpace         = None
+        index = 0
+        for nd_heatmap in d_filteredHeatMap['heatmap']:
+            # get a list of coord pairs of nonzero heatmap pixels
+            nonzeroIndices = np.transpose(np.nonzero(nd_heatmap))
+            for coordInferenceSpace in nonzeroIndices:
+                f_value = nd_heatmap[coordInferenceSpace[0],
+                                     coordInferenceSpace[1]]
+                coordInferenceSpace = np.flip(coordInferenceSpace, axis = 0)
+                coordReferenceSpace = LLDcode.utils.landmark.transform.transform_coords(
+                                        coordInferenceSpace,
+                                        self.itk_transform
+                                    )
+                regionAboutCoord    = self.neighbours_findFast(2, 7,
+                                        np.array(coordReferenceSpace),
+                                        gridSize        = self.lnd_heatmapRefSpace[index].shape,
+                                        includeOrigin   = True,
+                                        flipAxes        = True
+                                    )
+                for pixel in regionAboutCoord:
+                    try:
+                        # pudb.set_trace()
+                        f_dist  = np.linalg.norm(pixel - np.flip(coordReferenceSpace))
+                        f_scale = 1-f_dist/20
+                        self.lnd_heatmapRefSpace[index][pixel[0], pixel[1]] = f_value * f_scale
+                    except:
+                        print("\nWARNING: Transform error for heatmap about landmark [%d]" % index)
+                        print("Inference: coordInferenceSpace  %s" % coordInferenceSpace)
+                        print("Reference: coordRerferenceSpace %s" % coordReferenceSpace)
+                        print("ignoring...")
+            index += 1
+        return {
+            'heatmapsReferenceSpace'    : self.lnd_heatmapRefSpace
+        }
+
+    def heatmapList_interpolateReferenceImageSpace(self, d_referenceSpace) -> dict:
+        """
+        Interpolate the sparsely transformed points from the low resolution inference
+        space
+        """
+        # pudb.set_trace()
+
+        l_f     : list      = []
+        f_sigma : float     = 2
+        index   : int       = 0
+        for nd_heatmapInReferenceSpace in d_referenceSpace['heatmapsReferenceSpace']:
+            print("Smearing image %d" % index)
+            smeared     = skimage.filters.gaussian(
+                nd_heatmapInReferenceSpace, sigma = (f_sigma, f_sigma*3), truncate = 4
+            )
+            index       += 1
+            l_f.append(smeared)
+        return {
+            'heatmapsReferenceSpace': l_f
+        }
 
     def landmarks_combine(self):
         """
@@ -258,29 +533,70 @@ class p2r_transform:
         imageAve        = imageSum
         self.heatmap    = cv2.normalize(imageAve, None, 0, 255, cv2.NORM_MINMAX)
 
-    def save(self, toPath : Path, imtype : str = 'jpg'):
+    def dir_checkAndCreate(self, path_dir : Path):
         """
-        Save the class data structures in 'toPath'
+        Check on a pathlib dir argument and create/chmod if needed.
+        """
+        if not path_dir.is_dir():
+            path_dir.mkdir(exist_ok = True)
+            path_dir.chmod(0o777)
+
+    def save(self, d_heatmaps : dict, imtype : str = 'jpg'):
+        """
+        Save the class data structures in 'toPath':
+
+            referenceSpace: <toPath>/referenceSpace
+            inferenceSpace: <toPath>/inferenceSpace
+
         """
 
         str_refImageStem    : str   = 'reference'
         str_heatImageStem   : str   = 'heatMap'
         str_landMarkStem    : str   = 'landMark'
+        nd_heatRefNorm              = None
+        nd_heatInfNorm              = None
         heatMapCount        : int   = 0
 
-        toPath.mkdir(mode = 0o777, exist_ok = True)
-        pudb.set_trace()
-        self.mmFilter.Execute(self.imageITK_reference)
+        # pudb.set_trace()
+        self.mmFilter.Execute(self.itk_imageReference)
 
-        for hm in self.l_heatmap:
-            heatMapCount += 1
-            imageio.imwrite(str(toPath / str(str_heatImageStem+'%02d.' % heatMapCount+imtype)), hm)
-        imageio.imwrite(str(toPath / str(str_refImageStem+'.'+imtype)), self.imageInt)
-        imageio.imwrite(str(toPath / str(str_heatImageStem+'.'+imtype)), self.heatmap)
+        for heatmapRef, heatmapInf in zip(  d_heatmaps['heatmapsReferenceSpace'],
+                                            self.lnd_heatmap):
+            str_fileName        = '%s%02d.%s' % (str_heatImageStem, heatMapCount, imtype)
+            path_reference      = self.path_outputDir / 'referenceSpace'
+            path_inference      = self.path_outputDir / 'inferenceSpace'
+            self.dir_checkAndCreate(path_reference)
+            self.dir_checkAndCreate(path_inference)
+            str_referenceImg    = str(path_reference / str_fileName)
+            str_inferenceImg    = str(path_inference / str_fileName)
+            heatMapCount       += 1
+            nd_heatRefNorm      = normalize(heatmapRef)
+            nd_heatInfNorm      = normalize(heatmapInf)
+            print("Saving normalized heatmap in reference space %s..." % str_referenceImg)
+            imageio.imwrite(str_referenceImg, (normalize(heatmapRef)*256).astype(np.uint8))
+            print("Saving normalized heatmap in inference space %s..." % str_inferenceImg)
+            imageio.imwrite(str_inferenceImg, (normalize(heatmapInf)*128).astype(np.uint8))
+
+        str_inputImageName      = 'input.%s'    % imtype
+        str_inputIntImageName   = 'inputInt.%s' % imtype
+        print("Saving original   input   in reference space %s..." % str(path_reference / str_inputImageName))
+        imageio.imwrite(str(path_reference / str_inputImageName), self.nd_image.astype(np.uint8))
+        print("Saving original int input in reference space %s..." % str(path_reference / str_inputIntImageName))
+        imageio.imwrite(str(path_reference / str_inputIntImageName), self.nd_imageInt)
+
 
     def run(self):
         """
         'run' this class
         """
-        self.landmarks_combine()
-        self.save(Path(tempfile.mkdtemp(prefix='lld-')))
+        # pudb.set_trace()
+        self.save(
+            # self.heatmapList_interpolateReferenceImageSpace(
+                self.heatmaplist_transformToReferenceImageSpace(
+                    self.heatmaplist_intensityHighPassFilter()
+                )
+            # )
+        )
+
+        # self.landmarks_combine()
+        # self.save(Path(tempfile.mkdtemp(prefix='lld-')))
