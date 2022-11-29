@@ -211,7 +211,7 @@ class p2r_transform:
         self.itk_imageReference     : Image         = None
         self.nd_image               : np.ndarray    = None
         self.lnd_heatmap            : list          = []
-        self.nd_heatmap             : np.ndarray    = None
+        self.lnd_heatmapHPF         : list          = []
         self.l_landmarks            : list          = []
         self.f_heatmapHighPassFilter: float         = 0.65
         self.itk_transform                          = None
@@ -256,7 +256,7 @@ class p2r_transform:
         """
         l_image                 : list  = []
         l_filtered              : list  = []
-        ldn_heatmapFiltered     : list  = []
+        lnd_heatmapFiltered     : list  = []
         nd_heatmapFiltered              = None
         l_maxIntensity_coordVal : list  = []
         l_prefilterNonZero      : list  = []
@@ -271,11 +271,12 @@ class p2r_transform:
                                         for x in y] for y in l_image]
             nd_heatmapFiltered  = np.array(l_filtered)
             l_postFilterNonZero.append(np.count_nonzero(nd_heatmapFiltered))
-            ldn_heatmapFiltered.append(nd_heatmapFiltered)
+            lnd_heatmapFiltered.append(nd_heatmapFiltered)
+            self.lnd_heatmapHPF.append(nd_heatmapFiltered)
         return {
             'prefilterNonZero'  :   l_prefilterNonZero,
             'postfilterNonZero' :   l_postFilterNonZero,
-            'heatmap'           :   ldn_heatmapFiltered
+            'heatmap'           :   lnd_heatmapFiltered
         }
 
     def pointInGrid(self, A_point, a_gridSize, *args):
@@ -490,7 +491,7 @@ class p2r_transform:
                     try:
                         # pudb.set_trace()
                         f_dist  = np.linalg.norm(pixel - np.flip(coordReferenceSpace))
-                        f_scale = 1-f_dist/20
+                        f_scale = 1
                         self.lnd_heatmapRefSpace[index][pixel[0], pixel[1]] = f_value * f_scale
                     except:
                         print("\nWARNING: Transform error for heatmap about landmark [%d]" % index)
@@ -538,44 +539,53 @@ class p2r_transform:
         Check on a pathlib dir argument and create/chmod if needed.
         """
         if not path_dir.is_dir():
-            path_dir.mkdir(exist_ok = True)
+            path_dir.mkdir(parents = True, exist_ok = True)
             path_dir.chmod(0o777)
 
     def save(self, d_heatmaps : dict, imtype : str = 'jpg'):
         """
-        Save the class data structures in 'toPath':
+        Save resultant images:
 
-            referenceSpace: <toPath>/referenceSpace
-            inferenceSpace: <toPath>/inferenceSpace
+            referenceSpace: self.path_outputDir/referenceSpace
+            inferenceSpace: self.path_outputDir/inferenceSpace
+
+        The inferenceSpace additionally contains 'original' and
+        'highPassFiltered' for the original and intensity filtered
+        heatmaps.
 
         """
 
-        str_refImageStem    : str   = 'reference'
-        str_heatImageStem   : str   = 'heatMap'
-        str_landMarkStem    : str   = 'landMark'
-        nd_heatRefNorm              = None
-        nd_heatInfNorm              = None
-        heatMapCount        : int   = 0
+        str_refImageStem    : str   = 'reference'   # subdir for reference space
+        str_heatImageStem   : str   = 'heatMap'     # stem name for heatmaps
+        path_reference      : Path  = None          # path to reference space
+        path_inference      : Path  = None          # path to inference space
+        heatMapCount        : int   = 0             # index of current heatmap
+        str_fileName        : str   = ""            # rolling heatmap filename
+        str_referenceImg    : str   = ""            # heatmap name in reference
+        str_inferenceImg    : str   = ""            # heatmap name in inference
+        str_inferenceHPF    : str   = ""            # HPF heatmap name in inference
 
         # pudb.set_trace()
-        self.mmFilter.Execute(self.itk_imageReference)
-
-        for heatmapRef, heatmapInf in zip(  d_heatmaps['heatmapsReferenceSpace'],
-                                            self.lnd_heatmap):
+        for heatmapRef, heatmapInf, heatmapInfHPF in zip(
+                d_heatmaps['heatmapsReferenceSpace'],
+                self.lnd_heatmap,
+                self.lnd_heatmapHPF):
             str_fileName        = '%s%02d.%s' % (str_heatImageStem, heatMapCount, imtype)
             path_reference      = self.path_outputDir / 'referenceSpace'
             path_inference      = self.path_outputDir / 'inferenceSpace'
             self.dir_checkAndCreate(path_reference)
-            self.dir_checkAndCreate(path_inference)
+            self.dir_checkAndCreate(path_inference / 'original')
+            self.dir_checkAndCreate(path_inference / 'highPassFiltered')
             str_referenceImg    = str(path_reference / str_fileName)
-            str_inferenceImg    = str(path_inference / str_fileName)
+            str_inferenceImg    = str(path_inference / 'original'         / str_fileName)
+            str_inferenceHPF    = str(path_inference / 'highPassFiltered' / str_fileName)
             heatMapCount       += 1
-            nd_heatRefNorm      = normalize(heatmapRef)
-            nd_heatInfNorm      = normalize(heatmapInf)
             print("Saving normalized heatmap in reference space %s..." % str_referenceImg)
             imageio.imwrite(str_referenceImg, (normalize(heatmapRef)*256).astype(np.uint8))
             print("Saving normalized heatmap in inference space %s..." % str_inferenceImg)
             imageio.imwrite(str_inferenceImg, (normalize(heatmapInf)*128).astype(np.uint8))
+            print("Saving normalized heatHPF in inference space %s..." % str_inferenceHPF)
+            imageio.imwrite(str_inferenceHPF, (normalize(heatmapInfHPF)*128).astype(np.uint8))
 
         str_inputImageName      = 'input.%s'    % imtype
         str_inputIntImageName   = 'inputInt.%s' % imtype
@@ -591,11 +601,11 @@ class p2r_transform:
         """
         # pudb.set_trace()
         self.save(
-            # self.heatmapList_interpolateReferenceImageSpace(
+            self.heatmapList_interpolateReferenceImageSpace(
                 self.heatmaplist_transformToReferenceImageSpace(
                     self.heatmaplist_intensityHighPassFilter()
                 )
-            # )
+            )
         )
 
         # self.landmarks_combine()
