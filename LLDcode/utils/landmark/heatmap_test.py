@@ -83,17 +83,17 @@ class HeatmapTest(object):
         :return: List of value, coord tuples of local maxima.
         """
         value_coord_pairs = []
-        value, coord = utils.np_image.find_quadratic_subpixel_maximum_in_image(image)
+        value, coord = LLDcode.utils.np_image.find_quadratic_subpixel_maximum_in_image(image)
         value_coord_pairs.append((value, coord))
         absolute_max_value = value
         if absolute_max_value < self.min_max_value:
             return value_coord_pairs
-        image = utils.np_image.draw_sphere(np.copy(image), center=coord, radius=self.min_max_distance, value=0)
-        value, coord = utils.np_image.find_quadratic_subpixel_maximum_in_image(image)
+        image = LLDcode.utils.np_image.draw_sphere(np.copy(image), center=coord, radius=self.min_max_distance, value=0)
+        value, coord = LLDcode.utils.np_image.find_quadratic_subpixel_maximum_in_image(image)
         while value > absolute_max_value * self.multiple_min_max_value_factor:
             value_coord_pairs.append((value, coord))
-            image = utils.np_image.draw_sphere(np.copy(image), center=coord, radius=self.min_max_distance, value=0)
-            value, coord = utils.np_image.find_quadratic_subpixel_maximum_in_image(image)
+            image = LLDcode.utils.np_image.draw_sphere(np.copy(image), center=coord, radius=self.min_max_distance, value=0)
+            value, coord = LLDcode.utils.np_image.find_quadratic_subpixel_maximum_in_image(image)
         return value_coord_pairs
 
     def get_landmark(self, image, transformation=None, reference_sitk=None, output_spacing=None):
