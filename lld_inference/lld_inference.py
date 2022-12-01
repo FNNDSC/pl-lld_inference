@@ -40,12 +40,13 @@ Gstr_synopsis = """
 
         docker run --rm fnndsc/pl-lld_inference lld_inference           \\
             [-f|--inputFileFilter <inputFileFilter>]                    \\
+            [--heatmapThreshold <f_fraction>]                           \\
             [-h] [--help]                                               \\
             [--json]                                                    \\
             [--man]                                                     \\
             [--meta]                                                    \\
             [--savejson <DIR>]                                          \\
-            [-v <level>] [--verbosity <level>]                          \\
+            [-v |--verbosity <level>]                                   \\
             [--version]                                                 \\
             <inputDir>                                                  \\
             <outputDir>
@@ -84,6 +85,14 @@ Gstr_synopsis = """
         [-f|--inputFileFilter <inputFileFilter>]
         A glob pattern string, default is "**/*.mha", representing the input
         file pattern to analyze.
+
+        [--heatmapThreshold <f_fraction>]
+        A fractional value between 0.0 and 1.0 that defines the threshold for
+        heatmap cutoff. Values in calculated inference heatmaps greater than
+        <f_fraction> are conserved, while all others are set to zero. This
+        reduces image noise considerably (compare heatmaps as generated in
+        the original 'inferenceSpace' vs those filtered and transformed to
+        the 'referenceSpace').
 
         [-h] [--help]
         If specified, show help message and exit.
@@ -126,17 +135,6 @@ class Lld_inference(ChrisApp):
     MIN_GPU_LIMIT           = 1    # Override with the minimum number of GPUs as int
     MAX_GPU_LIMIT           = 1    # Override with the maximum number of GPUs as int
 
-    # Use this dictionary structure to provide key-value output descriptive information
-    # that may be useful for the next downstream plugin. For example:
-    #
-    # {
-    #   "finalOutputFile":  "final/file.out",
-    #   "viewer":           "genericTextViewer",
-    # }
-    #
-    # The above dictionary is saved when plugin is called with a ``--saveoutputmeta``
-    # flag. Note also that all file paths are relative to the system specified
-    # output directory.
     OUTPUT_META_DICT = {}
 
     def define_parameters(self):
@@ -150,6 +148,28 @@ class Lld_inference(ChrisApp):
                             optional     = True,
                             help         = 'Input file filter',
                             default      = '**/*.mha')
+
+        self.add_argument(  '--heatmapThreshold',
+                            dest         = 'heatmapThreshold',
+                            type         = str,
+                            optional     = True,
+                            help         = 'fractional heatmap threshold',
+                            default      = '0.5')
+
+        self.add_argument(  '--compositeWeight',
+                            dest         = 'compositeWeight',
+                            type         = str,
+                            optional     = True,
+                            help         = 'heatmap-over-reference weighting',
+                            default      = '0.3,0.7')
+
+        self.add_argument(  '--heatmapKernel',
+                            dest         = 'heatmapKernel',
+                            type         = str,
+                            optional     = True,
+                            help         = 'size of heatmap kernel in reference space',
+                            default      = '7')
+
 
     def NVIDIA_scan(self):
         """
@@ -183,16 +203,18 @@ class Lld_inference(ChrisApp):
 
         self.NVIDIA_scan()
 
-        dataset_path = options.inputdir
-
-        str_glob = '%s/%s' % (options.inputdir,options.inputFileFilter)
-
-        l_datapath = glob.glob(str_glob, recursive=True)
-
-        dataset_path = os.path.dirname(l_datapath[0])
-
-
-        MainLoop.run(dataset_path,options.outputdir)
+        dataset_path    = options.inputdir
+        str_glob        = '%s/%s' % (options.inputdir, options.inputFileFilter)
+        l_datapath      = glob.glob(str_glob, recursive=True)
+        dataset_path    = os.path.dirname(l_datapath[0])
+        # pudb.set_trace()
+        MainLoop.run(
+            dataset_path,
+            options.outputdir,
+            float(options.heatmapThreshold),
+            options.heatmapKernel,
+            options.compositeWeight
+        )
 
     def show_man_page(self):
         """
