@@ -226,7 +226,7 @@ def transform_np_output_to_sitk_input(output_image, output_spacing, channel_axis
 
 
 def transform_single_np_output_to_input(output_image, output_spacing, input_image_size, input_image_spacing, input_image_origin, input_image_direction, transform, interpolator='linear', output_pixel_type=None):
-    output_image_sitk = utils.sitk_np.np_to_sitk(output_image)
+    output_image_sitk = LLDcode.utils.sitk_np.np_to_sitk(output_image)
     if output_spacing is not None:
         output_image_sitk.SetSpacing(output_spacing)
     transformed_output_image_sitk = resample(output_image_sitk,

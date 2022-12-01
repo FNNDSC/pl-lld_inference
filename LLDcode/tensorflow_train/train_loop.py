@@ -88,13 +88,12 @@ class MainLoopBase(object):
             self.val_queue.close(self.sess)
         self.coord.join(self.threads)
 
-    
-    def run_test(self):
+    def process(self):
         self.init_all()
         self.load_model()
-        print('Starting main test loop')
-        self.test()
-        
+        print('Starting main processing loop')
+        self.inference_do()
+
     def initLossAggregators(self):
 
         summaries_placeholders = OrderedDict([(loss_name, create_summary_placeholder(loss_name)) for loss_name in self.train_losses.keys()])
@@ -103,7 +102,7 @@ class MainLoopBase(object):
 
         if self.additional_summaries_placeholders_val is not None:
             summaries_placeholders_val.update(self.additional_summaries_placeholders_val)
-        
+
         self.val_loss_aggregator = SummaryHandler(self.sess,
                                                   self.val_losses,
                                                   summaries_placeholders_val,

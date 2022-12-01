@@ -11,3 +11,5 @@ scikit-image
 tensorflow==1.15.0
 cachetools
 py-lspci
+opencv-python
+scipy

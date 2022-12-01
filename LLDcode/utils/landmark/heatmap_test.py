@@ -1,5 +1,6 @@
 import numpy as np
 import SimpleITK as sitk
+import LLDcode.utils
 import LLDcode.utils.geometry
 import LLDcode.utils.sitk_image
 import LLDcode.utils.sitk_np
@@ -7,6 +8,7 @@ import LLDcode.utils.np_image
 from LLDcode.utils.landmark.common import Landmark
 import LLDcode.utils.landmark.transform
 
+import pudb
 
 class HeatmapTest(object):
     """
@@ -48,7 +50,7 @@ class HeatmapTest(object):
         :return: A list of transformed sitk images.
         """
         if transformation is not None:
-            predictions_sitk = utils.sitk_image.transform_np_output_to_sitk_input(output_image=prediction_np,
+            predictions_sitk = LLDcode.utils.sitk_image.transform_np_output_to_sitk_input(output_image=prediction_np,
                                                                                   output_spacing=output_spacing,
                                                                                   channel_axis=None,
                                                                                   input_image_sitk=reference_sitk,
@@ -81,17 +83,17 @@ class HeatmapTest(object):
         :return: List of value, coord tuples of local maxima.
         """
         value_coord_pairs = []
-        value, coord = utils.np_image.find_quadratic_subpixel_maximum_in_image(image)
+        value, coord = LLDcode.utils.np_image.find_quadratic_subpixel_maximum_in_image(image)
         value_coord_pairs.append((value, coord))
         absolute_max_value = value
         if absolute_max_value < self.min_max_value:
             return value_coord_pairs
-        image = utils.np_image.draw_sphere(np.copy(image), center=coord, radius=self.min_max_distance, value=0)
-        value, coord = utils.np_image.find_quadratic_subpixel_maximum_in_image(image)
+        image = LLDcode.utils.np_image.draw_sphere(np.copy(image), center=coord, radius=self.min_max_distance, value=0)
+        value, coord = LLDcode.utils.np_image.find_quadratic_subpixel_maximum_in_image(image)
         while value > absolute_max_value * self.multiple_min_max_value_factor:
             value_coord_pairs.append((value, coord))
-            image = utils.np_image.draw_sphere(np.copy(image), center=coord, radius=self.min_max_distance, value=0)
-            value, coord = utils.np_image.find_quadratic_subpixel_maximum_in_image(image)
+            image = LLDcode.utils.np_image.draw_sphere(np.copy(image), center=coord, radius=self.min_max_distance, value=0)
+            value, coord = LLDcode.utils.np_image.find_quadratic_subpixel_maximum_in_image(image)
         return value_coord_pairs
 
     def get_landmark(self, image, transformation=None, reference_sitk=None, output_spacing=None):
@@ -104,6 +106,7 @@ class HeatmapTest(object):
         :param transformation: The transformation. If transformation is None, the prediction np array will not be transformed.
         :return: A Landmark object.
         """
+        # pudb.set_trace()
         output_spacing = output_spacing or [1] * image.ndim
         if self.return_multiple_maxima:
             landmarks = []
