@@ -42,7 +42,8 @@ class MainLoop(MainLoopBase):
     def __init__(
                     self,
                     cv, network_id, inputdir, outputdir,
-                    heatmapThreshold, heatmapKernel, compositeWeight
+                    heatmapThreshold, heatmapKernel, compositeWeight,
+                    imageType
         ):
         super().__init__()
         self.cv                     = cv
@@ -61,6 +62,7 @@ class MainLoop(MainLoopBase):
         self.heatmapThreshold       = heatmapThreshold
         self.heatmapKernel          = heatmapKernel
         self.compositeWeight        = compositeWeight
+        self.imageType              = imageType
 
         image_sizes = {'scn': [256, 128],
                        'unet': [256, 256],
@@ -181,8 +183,8 @@ class MainLoop(MainLoopBase):
                             heatmapfilter   = self.heatmapThreshold,
                             heatmapkernel   = self.heatmapKernel,
                             composite       = self.compositeWeight,
-                            outputdir       = self.output_file_for_current_iteration(current_id)).\
-                                run()
+                            outputdir       = self.output_file_for_current_iteration(current_id),
+                            imagetype       = self.imageType).run()
             LLDcode.tensorflow_train.utils.tensorflow_util.print_progress_bar(i, self.dataset_val.num_entries())
             landmarks[current_id]           = predicted_landmarks
 
@@ -191,9 +193,12 @@ class MainLoop(MainLoopBase):
         LLDcode.utils.io.landmark.save_points_csv(landmarks, self.output_file_for_current_iteration('prediction.csv'))
         print(f"total execute time duration = {toc-tic:4.4f} seconds")
 
-    def run(inputdir, outputdir, heatmapThreshold, heatmapKernel, compositeWeight):
+    def run(inputdir, outputdir,
+            heatmapThreshold, heatmapKernel, compositeWeight,
+            imageType):
         loop        = MainLoop(0, 'conv', inputdir, outputdir,
-                                heatmapThreshold, heatmapKernel, compositeWeight)
+                                heatmapThreshold, heatmapKernel, compositeWeight,
+                                imageType)
         loop.process()
 
 class p2r_transform:
@@ -229,6 +234,7 @@ class p2r_transform:
         self.path_outputDir         : Path          = Path(tempfile.mkdtemp(prefix='lld-'))
         self.compositeWeight        : tuple         = None
         self.heatmapKernel          : int           = 0
+        self.imageType              : str           = 'jpg'
 
         self.o_heatmap                              = None
 
@@ -244,6 +250,7 @@ class p2r_transform:
             if k == 'outputdir'     : self.path_outputDir           = Path(v)
             if k == 'heatmapkernel' : self.heatmapKernel            = int(v)
             if k == 'composite'     : self.compositeWeight          = tuple(float(s) for s in v.split(','))
+            if k == 'imagetype'     : self.imageType                = v
 
         self.nd_image               = sitk.GetArrayFromImage(self.itk_imageReference)
         self.nd_imageInt            = (self.nd_image*128).astype(np.uint8)
@@ -723,7 +730,7 @@ class p2r_transform:
                         self.norm(d_heatmaps['heatmapsReferenceSpaceAll'], 255))
 
         str_heatmapsOnInput     = 'inputWithHeatmaps.%s'    % imtype
-        print("Saving combined heatmaps on input reference %s..." % \
+        print("Saving combined heatmaps  on input reference %s..." % \
             str(path_reference / str_heatmapsOnInput))
         imageio.imwrite(str(path_reference / str_heatmapsOnInput),
                         d_heatmaps['heatmapsOnInput'].astype(np.uint8))
@@ -749,5 +756,6 @@ class p2r_transform:
                         )
                     )
                 )
-            )
+            ),
+            self.imageType
         )
