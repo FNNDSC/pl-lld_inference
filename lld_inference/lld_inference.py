@@ -170,6 +170,12 @@ class Lld_inference(ChrisApp):
                             help         = 'size of heatmap kernel in reference space',
                             default      = '7')
 
+        self.add_argument(  '--imageType',
+                            dest         = 'imageType',
+                            type         = str,
+                            optional     = True,
+                            help         = 'output image type',
+                            default      = 'jpg')
 
     def NVIDIA_scan(self):
         """
@@ -213,7 +219,8 @@ class Lld_inference(ChrisApp):
             options.outputdir,
             float(options.heatmapThreshold),
             options.heatmapKernel,
-            options.compositeWeight
+            options.compositeWeight,
+            options.imageType
         )
 
     def show_man_page(self):
