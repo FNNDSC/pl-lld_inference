@@ -11,9 +11,9 @@ import  LLDcode.utils
 import  LLDcode.utils.io.image
 import  LLDcode.utils.io.landmark
 import  LLDcode.utils.io.text
-from    LLDcode.tensorflow_train.data_generator     import DataGenerator
-from    LLDcode.tensorflow_train.train_loop         import MainLoopBase
-from    LLDcode.utils.landmark.heatmap_test         import HeatmapTest
+from    LLDcode.tensorflow_train.data_generator     import  DataGenerator
+from    LLDcode.tensorflow_train.train_loop         import  MainLoopBase
+from    LLDcode.utils.landmark.heatmap_test         import  HeatmapTest
 
 from datetime import datetime
 import time
@@ -22,7 +22,7 @@ from .dataset import Dataset
 from .network import network_scn, network_unet, network_downsampling, network_conv, network_scn_mmwhs
 
 import  itertools
-from    sklearn.preprocessing                       import normalize
+from    sklearn.preprocessing                       import  normalize
 from    PIL                                         import  Image as pImage
 import  cv2
 import  imageio
@@ -39,21 +39,29 @@ import  tempfile
 
 
 class MainLoop(MainLoopBase):
-    def __init__(self, cv, network_id,inputdir,outputdir):
+    def __init__(
+                    self,
+                    cv, network_id, inputdir, outputdir,
+                    heatmapThreshold, heatmapKernel, compositeWeight
+        ):
         super().__init__()
-        self.cv = cv
-        self.network_id = network_id
-        self.output_folder = outputdir
-        self.batch_size = 8
-        self.learning_rate = 0.0000001 # TODO adapt learning rates for different networks for faster training
-        self.max_iter = 20000
-        self.test_iter = 5000
-        self.disp_iter = 10
-        self.snapshot_iter = self.test_iter
-        self.test_initialization = True
-        self.current_iter = 0
-        self.reg_constant = 0.00005
-        self.invert_transformation = False
+        self.cv                     = cv
+        self.network_id             = network_id
+        self.output_folder          = outputdir
+        self.batch_size             = 8
+        self.learning_rate          = 0.0000001 # TODO adapt learning rates for different networks for faster training
+        self.max_iter               = 20000
+        self.test_iter              = 5000
+        self.disp_iter              = 10
+        self.snapshot_iter          = self.test_iter
+        self.test_initialization    = True
+        self.current_iter           = 0
+        self.reg_constant           = 0.00005
+        self.invert_transformation  = False
+        self.heatmapThreshold       = heatmapThreshold
+        self.heatmapKernel          = heatmapKernel
+        self.compositeWeight        = compositeWeight
+
         image_sizes = {'scn': [256, 128],
                        'unet': [256, 256],
                        'downsampling': [256, 256],
@@ -149,43 +157,44 @@ class MainLoop(MainLoopBase):
         transformation = transformations['image']
         return image, prediction, transformation
 
-    def test(self):
-        heatmap_test = HeatmapTest( channel_axis=0,
+    def inference_do(self):
+        heatmap_test    = HeatmapTest( channel_axis=0,
                                     invert_transformation=self.invert_transformation)
-        landmarks = {}
-        tic=time.perf_counter()
+        landmarks       = {}
+        tic             = time.perf_counter()
         # pudb.set_trace()
         for i in range(self.dataset_val.num_entries()):
-            dataset_entry = self.dataset_val.get_next()
-            current_id = dataset_entry['id']
-            print(f"Currently processing {current_id}")
-            datasources = dataset_entry['datasources']
-            reference_image = datasources['image_datasource']
-            image, prediction, transform = self.test_full_image(dataset_entry)
+            dataset_entry                   = self.dataset_val.get_next()
+            current_id                      = dataset_entry['id']
+            print(f"\nProcessing {current_id}")
+            datasources                     = dataset_entry['datasources']
+            reference_image                 = datasources['image_datasource']
+            image, prediction, transform    = self.test_full_image(dataset_entry)
             LLDcode.utils.io.image.write_np((prediction * 128).astype(np.int8), self.output_file_for_current_iteration(current_id + '_heatmap.mha'))
-            predicted_landmarks = heatmap_test.get_landmarks(prediction, reference_image, transformation=transform)
+            predicted_landmarks             = heatmap_test.get_landmarks(prediction, reference_image, transformation=transform)
             # pudb.set_trace()
-            p2r     = p2r_transform( reference      = reference_image,
-                                     landmarks      = predicted_landmarks,
-                                     predictions    = prediction,
-                                     transform      = transform,
-                                     heatmapobj     = heatmap_test,
-                                     outputdir      = self.output_folder)
-            p2r.run()
+            p2r_transform(  reference       = reference_image,
+                            landmarks       = predicted_landmarks,
+                            predictions     = prediction,
+                            transform       = transform,
+                            heatmapobj      = heatmap_test,
+                            heatmapfilter   = self.heatmapThreshold,
+                            heatmapkernel   = self.heatmapKernel,
+                            composite       = self.compositeWeight,
+                            outputdir       = self.output_file_for_current_iteration(current_id)).\
+                                run()
             LLDcode.tensorflow_train.utils.tensorflow_util.print_progress_bar(i, self.dataset_val.num_entries())
-            landmarks[current_id] = predicted_landmarks
-
+            landmarks[current_id]           = predicted_landmarks
 
         toc=time.perf_counter()
         LLDcode.tensorflow_train.utils.tensorflow_util.print_progress_bar(self.dataset_val.num_entries(), self.dataset_val.num_entries())
         LLDcode.utils.io.landmark.save_points_csv(landmarks, self.output_file_for_current_iteration('prediction.csv'))
         print(f"total execute time duration = {toc-tic:4.4f} seconds")
 
-
-    def run(inputdir,outputdir):
-        network = 'conv'
-        loop = MainLoop(0, network,inputdir,outputdir)
-        loop.run_test()
+    def run(inputdir, outputdir, heatmapThreshold, heatmapKernel, compositeWeight):
+        loop        = MainLoop(0, 'conv', inputdir, outputdir,
+                                heatmapThreshold, heatmapKernel, compositeWeight)
+        loop.process()
 
 class p2r_transform:
     """
@@ -212,11 +221,14 @@ class p2r_transform:
         self.nd_image               : np.ndarray    = None
         self.lnd_heatmap            : list          = []
         self.lnd_heatmapHPF         : list          = []
+        self.nd_heatmapsAll         : np.ndarray    = None
         self.l_landmarks            : list          = []
-        self.f_heatmapHighPassFilter: float         = 0.65
+        self.f_heatmapHighPassFilter: float         = 0.4
         self.itk_transform                          = None
         self.lnd_heatmapRefSpace    : list          = []
         self.path_outputDir         : Path          = Path(tempfile.mkdtemp(prefix='lld-'))
+        self.compositeWeight        : tuple         = None
+        self.heatmapKernel          : int           = 0
 
         self.o_heatmap                              = None
 
@@ -226,10 +238,12 @@ class p2r_transform:
             if k == 'reference'     : self.itk_imageReference       = v
             if k == 'landmarks'     : self.l_landmarks              = v
             if k == 'predictions'   : self.lnd_heatmap              = v
-            if k == 'heatmapFilter' : self.f_heatmapHighPassFilter  = v
+            if k == 'heatmapfilter' : self.f_heatmapHighPassFilter  = v
             if k == 'transform'     : self.itk_transform            = v
             if k == 'heatmapobj'    : self.o_heatmap                = v
             if k == 'outputdir'     : self.path_outputDir           = Path(v)
+            if k == 'heatmapkernel' : self.heatmapKernel            = int(v)
+            if k == 'composite'     : self.compositeWeight          = tuple(float(s) for s in v.split(','))
 
         self.nd_image               = sitk.GetArrayFromImage(self.itk_imageReference)
         self.nd_imageInt            = (self.nd_image*128).astype(np.uint8)
@@ -246,37 +260,68 @@ class p2r_transform:
     def heatmapFilter(self, f_v):
         self.f_heatmapHighPassFilter = f_v
 
-    def heatmaplist_intensityHighPassFilter(self) -> dict:
+    def imagelist_intensityFilter(self, lnd_image : list, **kwargs) -> dict:
         """
-        Simple high pass filter on intensity values in the list of heatmap
-        matrices.
+        Simple filter on intensity values in the list of supplied image
+        matrices. By default, a high pass filter is performed (i.e. only
+        intensity values higher than the thresholdPercentage are allowed
+        through). This can be set to a low pass filter with the
+
+                        kwarg: filter = 'lowpass'
+
+        The filter threshold is a percentage of the maximum intensity value
+        in the image. By default this will be the heatmapFilter() value, but
+        can be overriden with the
+
+                        kwarg: thresholdPerc = <v>
 
         A new filtered heatmap list is returned in a dictionary, as well as
         some counts on pre/post filter pixel counts.
         """
         l_image                 : list  = []
         l_filtered              : list  = []
-        lnd_heatmapFiltered     : list  = []
-        nd_heatmapFiltered              = None
+        lnd_imageFiltered       : list  = []
+        nd_imageFiltered                = None
         l_maxIntensity_coordVal : list  = []
         l_prefilterNonZero      : list  = []
         l_postFilterNonZero     : list  = []
+        l_thresholdAbsolute     : list  = []
+        index                   : int   = 0
+
         # pudb.set_trace()
-        for nd_heatmap in self.lnd_heatmap:
-            value, coord        = LLDcode.utils.np_image.find_quadratic_subpixel_maximum_in_image(nd_heatmap)
-            l_prefilterNonZero.append(np.count_nonzero(nd_heatmap))
-            f_filterAbsolute    = self.f_heatmapHighPassFilter * value
-            l_image             = nd_heatmap.tolist()
-            l_filtered          = [[x if x > f_filterAbsolute else 0.0
-                                        for x in y] for y in l_image]
-            nd_heatmapFiltered  = np.array(l_filtered)
-            l_postFilterNonZero.append(np.count_nonzero(nd_heatmapFiltered))
-            lnd_heatmapFiltered.append(nd_heatmapFiltered)
-            self.lnd_heatmapHPF.append(nd_heatmapFiltered)
+
+        f_filterThreshold       : float = self.heatmapFilter
+        str_filterType          : str   = "highpass"
+
+        for k, v in kwargs.items():
+            if k == 'filter'        : str_filterType        = v
+            if k == 'thresholdPerc' : f_filterThreshold     = v
+            if k == 'thresholdList' : l_thresholdAbsolute   = v
+
+        for nd_image in lnd_image:
+            print("FILTERING: %s intensity filter on image index %d, shape %s, threshold %f..." %
+                    (str_filterType.lower(), index, nd_image.shape, self.heatmapFilter))
+            value, coord        = LLDcode.utils.np_image.\
+                                    find_quadratic_subpixel_maximum_in_image(nd_image)
+            l_prefilterNonZero.append(np.count_nonzero(nd_image))
+            f_filterAbsolute    = f_filterThreshold * value
+            if len(l_thresholdAbsolute):
+                f_filterAbsolute    = l_thresholdAbsolute[index]
+            l_image             = nd_image.tolist()
+            if 'high' in str_filterType.lower():
+                l_filtered          = [[x if x >= f_filterAbsolute else 0.0
+                                            for x in y] for y in l_image]
+            else:
+                l_filtered          = [[x if x <= f_filterAbsolute else 0.0
+                                            for x in y] for y in l_image]
+            nd_imageFiltered  = np.array(l_filtered)
+            l_postFilterNonZero.append(np.count_nonzero(nd_imageFiltered))
+            lnd_imageFiltered.append(nd_imageFiltered)
+            index            += 1
         return {
             'prefilterNonZero'  :   l_prefilterNonZero,
             'postfilterNonZero' :   l_postFilterNonZero,
-            'heatmap'           :   lnd_heatmapFiltered
+            'images'            :   lnd_imageFiltered
         }
 
     def pointInGrid(self, A_point, a_gridSize, *args):
@@ -447,10 +492,10 @@ class p2r_transform:
     def heatmaplist_transformToReferenceImageSpace(self, d_filteredHeatMap) -> dict:
         """
         Transform the heatmaps into a new matrix/array in the coordinate system
-        (size) as the reference image.
+        (size) of the reference image.
 
-        This re-uses existing code, lightly copy/pasted and factored into this
-        class so to have minimal impact on existing code.
+        This re-uses existing LLD code, lightly copy/pasted and factored into
+        this class so to have minimal impact on existing code.
 
         Note that this simply "transforms/projects" the pixels in the low
         resolution heatmap into an ndarray of the same resolution as the
@@ -467,21 +512,24 @@ class p2r_transform:
           sparse pixel projections
         """
         # pudb.set_trace()
+        index                       = 0
         coordInferenceSpace         = None
         coordReferenceSpace         = None
-        index = 0
-        for nd_heatmap in d_filteredHeatMap['heatmap']:
+        self.lnd_heatmapHPF         = d_filteredHeatMap['images']
+        for nd_heatmap in self.lnd_heatmapHPF:
             # get a list of coord pairs of nonzero heatmap pixels
-            nonzeroIndices = np.transpose(np.nonzero(nd_heatmap))
+            nonzeroIndices          = np.transpose(np.nonzero(nd_heatmap))
+            print("TRANSFORMING: inference heatmap %d shape %s to reference shape %s using kernel size %d..." %
+                    (index, nd_heatmap.shape, self.nd_image.shape, self.heatmapKernel))
             for coordInferenceSpace in nonzeroIndices:
-                f_value = nd_heatmap[coordInferenceSpace[0],
-                                     coordInferenceSpace[1]]
+                f_value             = nd_heatmap[coordInferenceSpace[0],
+                                                 coordInferenceSpace[1]]
                 coordInferenceSpace = np.flip(coordInferenceSpace, axis = 0)
                 coordReferenceSpace = LLDcode.utils.landmark.transform.transform_coords(
                                         coordInferenceSpace,
                                         self.itk_transform
                                     )
-                regionAboutCoord    = self.neighbours_findFast(2, 7,
+                regionAboutCoord    = self.neighbours_findFast(2, self.heatmapKernel,
                                         np.array(coordReferenceSpace),
                                         gridSize        = self.lnd_heatmapRefSpace[index].shape,
                                         includeOrigin   = True,
@@ -505,34 +553,111 @@ class p2r_transform:
 
     def heatmapList_interpolateReferenceImageSpace(self, d_referenceSpace) -> dict:
         """
-        Interpolate the sparsely transformed points from the low resolution inference
-        space
-        """
-        # pudb.set_trace()
+        Interpolate the sparsely transformed points from the low resolution
+        inference space.
 
-        l_f     : list      = []
-        f_sigma : float     = 2
-        index   : int       = 0
+        Since the aspect ratio of the reference and inference spaces differ,
+        we downsample the reference space heatmap to a smaller image in a
+        space close to the original heatmap -- this has the effect of
+        "densifying" the sparse reference image. Then, we upsample the image
+        again back to the reference space with interpolation.
+
+        NOTE:
+            The interpolation method makes a difference!
+            'cv2.INTER_CUBIC' is interesting as it effectively creates a border
+            artifact about the heatmap which might be academically interesting.
+        """
+        l_f             : list      = []
+        f_aspectRatio   : float     = 0.0
+        f_sigma         : float     = 2
+        index           : int       = 0
+        rowsRef         : int       = 0
+        colsRef         : int       = 0
+        rowsInf         : int       = 0
+        colsInf         : int       = 0
+        l_maxIntensity  : list      = []
+
+        rowsRef, colsRef    = self.nd_image.shape
+        f_aspectRatio       = colsRef / rowsRef
+        rowsInf, colsInf    = self.lnd_heatmap[0].shape
+        nd_downsample       = np.zeros([rowsInf, int(rowsInf * f_aspectRatio)])
         for nd_heatmapInReferenceSpace in d_referenceSpace['heatmapsReferenceSpace']:
-            print("Smearing image %d" % index)
-            smeared     = skimage.filters.gaussian(
-                nd_heatmapInReferenceSpace, sigma = (f_sigma, f_sigma*3), truncate = 4
-            )
+            print("INTERPOLATING: Downsampling heatmap %d shape %s to shape (%d, %d)... " %\
+                (index, nd_heatmapInReferenceSpace.shape, rowsInf, int(rowsInf*f_aspectRatio)),
+                end="")
+            # First we downsample the reference heatmap to a space close to the
+            # inference space with correct aspect ration to "densify" the image...
+            nd_downsample   = cv2.resize( nd_heatmapInReferenceSpace,
+                                        dsize           = (int(rowsInf*f_aspectRatio), rowsInf),
+                                        interpolation   = cv2.INTER_LINEAR)
+            l_maxIntensity.append(np.max(nd_heatmapInReferenceSpace))
+            print("Upsampling heatmap %d to shape (%d, %d) (linear interpolation)" % (index, rowsRef, colsRef))
+            # And now we upsample again to hopefully get a nice interpolated map
+            # in the larger image space
+            nd_upsample     = cv2.resize(nd_downsample,
+                                         dsize          = (colsRef, rowsRef),
+                                         interpolation  = cv2.INTER_LINEAR)
             index       += 1
-            l_f.append(smeared)
+            l_f.append(nd_upsample)
+
         return {
-            'heatmapsReferenceSpace': l_f
+            'heatmapsReferenceSpace': l_f,
+            'maxIntensity'          : l_maxIntensity
         }
 
-    def landmarks_combine(self):
+    def heatmapList_combine(self, d_heatmaps : dict) -> dict:
         """
-        Combine (collapse) all the landmark images into a single image
-        and reduce noise with cv2.normalize()
+        Combine (collapse) all the reference heatmap images into a single image.
         """
-        imageSum        = reduce(mul, self.l_heatmap)
-        # imageAve        = imageSum / len(self.l_heatmap)
-        imageAve        = imageSum
-        self.heatmap    = cv2.normalize(imageAve, None, 0, 255, cv2.NORM_MINMAX)
+        print("COMBINING: Placing all referenceSpace heatmaps into common space...")
+        nd_heatmap0         = d_heatmaps['heatmapsReferenceSpace'][0]
+        nd_imageSum         = np.copy(nd_heatmap0)
+        for idx in range(1, len(d_heatmaps['heatmapsReferenceSpace'])):
+            nd_imageSum    += d_heatmaps['heatmapsReferenceSpace'][idx]
+        return {
+            'heatmapsReferenceSpace'    : d_heatmaps['heatmapsReferenceSpace'],
+            'heatmapsReferenceSpaceAll' : nd_imageSum
+        }
+
+    def norm(self, nd_arr : np.array , range : int = 1, ntype = np.uint8) -> np.array:
+        """
+        Normalize the input <nd_arr>, optionally scaling values to range <range>
+        """
+        nd_norm     = nd_arr / np.max(nd_arr)
+        if range > 1:
+            nd_norm = (nd_norm * range).astype(ntype)
+        return nd_norm
+
+    def images_combine(self,
+                        np_im1 : np.array,
+                        np_im2 : np.array,
+                        weight : tuple = (0.5, 0.5) ) -> np.array:
+        """
+        Create a composite image between two images, with per-image
+        weighting as specified.
+        """
+        print("COMPOSITING: Placing reference heatmaps over reference image with weight %s" %\
+            str(weight))
+        np_im1n                 = self.norm(np_im1) * weight[0]
+        np_im2n                 = self.norm(np_im2) * weight[1]
+
+        return np_im1n + np_im2n
+
+    def heatmapList_onInput(self, d_heatmaps : dict) -> dict:
+        """
+        Create a composite image with the heatmaps in the same image as the
+        input -- this is rather naive matrix addition.
+        """
+        nd_heatmapsOnInput          = self.images_combine(
+                                            d_heatmaps['heatmapsReferenceSpaceAll'],
+                                            self.nd_image,
+                                            self.compositeWeight
+                                    )*256
+        return {
+            'heatmapsReferenceSpace'    : d_heatmaps['heatmapsReferenceSpace'],
+            'heatmapsReferenceSpaceAll' : d_heatmaps['heatmapsReferenceSpaceAll'],
+            'heatmapsOnInput'           : nd_heatmapsOnInput
+        }
 
     def dir_checkAndCreate(self, path_dir : Path):
         """
@@ -556,7 +681,7 @@ class p2r_transform:
         """
 
         str_refImageStem    : str   = 'reference'   # subdir for reference space
-        str_heatImageStem   : str   = 'heatMap'     # stem name for heatmaps
+        str_heatImageStem   : str   = 'heatmap'     # stem name for heatmaps
         path_reference      : Path  = None          # path to reference space
         path_inference      : Path  = None          # path to inference space
         heatMapCount        : int   = 0             # index of current heatmap
@@ -565,35 +690,47 @@ class p2r_transform:
         str_inferenceImg    : str   = ""            # heatmap name in inference
         str_inferenceHPF    : str   = ""            # HPF heatmap name in inference
 
-        # pudb.set_trace()
-        for heatmapRef, heatmapInf, heatmapInfHPF in zip(
-                d_heatmaps['heatmapsReferenceSpace'],
-                self.lnd_heatmap,
-                self.lnd_heatmapHPF):
-            str_fileName        = '%s%02d.%s' % (str_heatImageStem, heatMapCount, imtype)
+        def dir_checkAndCreate():
+            nonlocal path_reference, path_inference
             path_reference      = self.path_outputDir / 'referenceSpace'
             path_inference      = self.path_outputDir / 'inferenceSpace'
             self.dir_checkAndCreate(path_reference)
             self.dir_checkAndCreate(path_inference / 'original')
             self.dir_checkAndCreate(path_inference / 'highPassFiltered')
+
+        # pudb.set_trace()
+        dir_checkAndCreate()
+        for heatmapRef, heatmapInf, heatmapInfHPF in zip(
+                d_heatmaps['heatmapsReferenceSpace'],
+                self.lnd_heatmap,
+                self.lnd_heatmapHPF):
+            str_fileName        = '%s%02d.%s' % (str_heatImageStem, heatMapCount, imtype)
             str_referenceImg    = str(path_reference / str_fileName)
             str_inferenceImg    = str(path_inference / 'original'         / str_fileName)
             str_inferenceHPF    = str(path_inference / 'highPassFiltered' / str_fileName)
             heatMapCount       += 1
-            print("Saving normalized heatmap in reference space %s..." % str_referenceImg)
-            imageio.imwrite(str_referenceImg, (normalize(heatmapRef)*256).astype(np.uint8))
+            print("Saving normalized heatHPF in reference space %s..." % str_referenceImg)
+            imageio.imwrite(str_referenceImg, self.norm(heatmapRef, 255))
             print("Saving normalized heatmap in inference space %s..." % str_inferenceImg)
-            imageio.imwrite(str_inferenceImg, (normalize(heatmapInf)*128).astype(np.uint8))
+            imageio.imwrite(str_inferenceImg, self.norm(heatmapInf, 255))
             print("Saving normalized heatHPF in inference space %s..." % str_inferenceHPF)
-            imageio.imwrite(str_inferenceHPF, (normalize(heatmapInfHPF)*128).astype(np.uint8))
+            imageio.imwrite(str_inferenceHPF, self.norm(heatmapInfHPF, 255))
+
+        str_combinedHeatmap     = 'heatmapAll.%s'    % imtype
+        print("Saving combined heatmaps  in reference space %s..." % \
+            str(path_reference / str_combinedHeatmap))
+        imageio.imwrite(str(path_reference / str_combinedHeatmap),
+                        self.norm(d_heatmaps['heatmapsReferenceSpaceAll'], 255))
+
+        str_heatmapsOnInput     = 'inputWithHeatmaps.%s'    % imtype
+        print("Saving combined heatmaps on input reference %s..." % \
+            str(path_reference / str_heatmapsOnInput))
+        imageio.imwrite(str(path_reference / str_heatmapsOnInput),
+                        d_heatmaps['heatmapsOnInput'].astype(np.uint8))
 
         str_inputImageName      = 'input.%s'    % imtype
-        str_inputIntImageName   = 'inputInt.%s' % imtype
         print("Saving original   input   in reference space %s..." % str(path_reference / str_inputImageName))
         imageio.imwrite(str(path_reference / str_inputImageName), self.nd_image.astype(np.uint8))
-        print("Saving original int input in reference space %s..." % str(path_reference / str_inputIntImageName))
-        imageio.imwrite(str(path_reference / str_inputIntImageName), self.nd_imageInt)
-
 
     def run(self):
         """
@@ -601,12 +738,16 @@ class p2r_transform:
         """
         # pudb.set_trace()
         self.save(
-            self.heatmapList_interpolateReferenceImageSpace(
-                self.heatmaplist_transformToReferenceImageSpace(
-                    self.heatmaplist_intensityHighPassFilter()
+            self.heatmapList_onInput(
+                self.heatmapList_combine(
+                    self.heatmapList_interpolateReferenceImageSpace(
+                        self.heatmaplist_transformToReferenceImageSpace(
+                            self.imagelist_intensityFilter(
+                                    self.lnd_heatmap,
+                                    filter              = 'highpass',
+                                    thesholdPerc        = self.heatmapFilter)
+                        )
+                    )
                 )
             )
         )
-
-        # self.landmarks_combine()
-        # self.save(Path(tempfile.mkdtemp(prefix='lld-')))
