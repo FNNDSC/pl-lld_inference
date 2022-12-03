@@ -648,7 +648,7 @@ class p2r_transform:
         np_im1n                 = self.norm(np_im1) * weight[0]
         np_im2n                 = self.norm(np_im2) * weight[1]
 
-        return np_im1n + np_im2n
+        return self.norm(np_im1n + np_im2n)
 
     def heatmapList_onInput(self, d_heatmaps : dict) -> dict:
         """
