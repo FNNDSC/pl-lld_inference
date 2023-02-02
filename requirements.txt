@@ -13,3 +13,4 @@ cachetools
 py-lspci
 opencv-python
 scipy
+loguru
