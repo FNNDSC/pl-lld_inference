@@ -6,7 +6,7 @@ with open(path.join(path.dirname(path.abspath(__file__)), 'README.rst')) as f:
 
 setup(
     name             = 'lld_inference',
-    version          = '2.0.4',
+    version          = '2.0.6',
     description      = 'An app to run LLD inference',
     long_description = readme,
     author           = 'FNNDSC',

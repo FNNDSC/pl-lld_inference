@@ -55,4 +55,4 @@ RUN pip install -r requirements.txt
 COPY . .
 RUN pip install .
 
-CMD ["lld_inference", "--help"]
+CMD ["lld_inference", "--man"]

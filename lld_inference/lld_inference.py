@@ -98,6 +98,7 @@ Gstr_synopsis = """
         centroids in `(x, y)` coordinate pairs.
 
     ARGS
+
         [-f|--inputFileFilter <inputFileFilter>]
         A glob pattern string, default is "**/*.mha", representing the input
         file pattern to analyze.
