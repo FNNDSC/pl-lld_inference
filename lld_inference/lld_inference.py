@@ -12,11 +12,27 @@ import  logging
 import  warnings
 warnings.filterwarnings(action='ignore',message='Python 3.6 is no longer supported')
 
-import  os
+import  os, sys
 from    chrisapp.base import ChrisApp
 from    LLDcode.main import MainLoop
 import  glob
 import  pudb
+
+from    loguru                  import logger
+LOG             = logger.debug
+
+logger_format = (
+    "<green>{time:YYYY-MM-DD HH:mm:ss}</green> │ "
+    "<level>{level: <5}</level> │ "
+    "<yellow>{name: >28}</yellow>::"
+    "<cyan>{function: <30}</cyan> @"
+    "<cyan>{line: <4}</cyan> ║ "
+    "<level>{message}</level>"
+)
+logger.remove()
+logger.opt(colors = True)
+logger.add(sys.stderr, format=logger_format)
+
 
 Gstr_title = r"""
  _ _     _   _        __
@@ -82,6 +98,7 @@ Gstr_synopsis = """
         centroids in `(x, y)` coordinate pairs.
 
     ARGS
+
         [-f|--inputFileFilter <inputFileFilter>]
         A glob pattern string, default is "**/*.mha", representing the input
         file pattern to analyze.
@@ -182,30 +199,30 @@ class Lld_inference(ChrisApp):
         Simply show the VGA devices reported by `lspci` as a very basic check
         on GPU resources
         """
-        print('------------------------------------------------------')
-        print('Scanning devices using lspci...')
-        print('------------------------------------------------------')
+        LOG('------------------------------------------------------')
+        LOG('Scanning devices using lspci...')
+        LOG('------------------------------------------------------')
         os.system('lspci | grep -i VGA')
-        print('------------------------------------------------------')
-        print('Checking for nvidia drivers...')
-        print('------------------------------------------------------')
+        LOG('------------------------------------------------------')
+        LOG('Checking for nvidia drivers...')
+        LOG('------------------------------------------------------')
         os.system('lsmod | grep nvidia')
-        print('------------------------------------------------------')
-        print('Starting inference...')
-        print('------------------------------------------------------')
+        LOG('------------------------------------------------------')
+        LOG('Starting inference...')
+        LOG('------------------------------------------------------')
 
     def run(self, options):
         """
         Define the code to be run by this plugin app.
         """
-        print(Gstr_title)
-        print('Version: %s' % self.get_version())
+        LOG(Gstr_title)
+        LOG('Version: %s' % self.get_version())
 
         # Output the space of CLI
         d_options = vars(options)
         for k,v in d_options.items():
-            print("%20s: %-40s" % (k, v))
-        print("")
+            LOG("%20s: %-40s" % (k, v))
+        LOG("")
 
         self.NVIDIA_scan()
 
@@ -227,4 +244,4 @@ class Lld_inference(ChrisApp):
         """
         Print the app's man page.
         """
-        print(Gstr_synopsis)
+        LOG(Gstr_synopsis)
