@@ -14,3 +14,7 @@ py-lspci
 opencv-python
 scipy
 loguru
+pftag~=1.2.10
+pflog
+pftel-client~=1.0.6
+
