@@ -13,12 +13,16 @@ import  warnings
 warnings.filterwarnings(action='ignore',message='Python 3.6 is no longer supported')
 
 import  os, sys
-from    chrisapp.base import ChrisApp
-from    LLDcode.main import MainLoop
+from    chrisapp.base       import ChrisApp
+from    LLDcode.main        import MainLoop
 import  glob
 import  pudb
+from    argparse            import Namespace
+from    datetime            import datetime
+from    pftag               import pftag
+from    pflog               import pflog
 
-from    loguru                  import logger
+from    loguru              import logger
 LOG             = logger.debug
 
 logger_format = (
@@ -57,6 +61,7 @@ Gstr_synopsis = """
         docker run --rm fnndsc/pl-lld_inference lld_inference           \\
             [-f|--inputFileFilter <inputFileFilter>]                    \\
             [--heatmapThreshold <f_fraction>]                           \\
+            [--pftelDB <DBURLpath>]                                     \\
             [-h] [--help]                                               \\
             [--json]                                                    \\
             [--man]                                                     \\
@@ -110,6 +115,25 @@ Gstr_synopsis = """
         reduces image noise considerably (compare heatmaps as generated in
         the original 'inferenceSpace' vs those filtered and transformed to
         the 'referenceSpace').
+
+        [--pftelDB <DBURLpath>]
+        If specified, send telemetry logging to the pftel server and the
+        specfied DBpath:
+
+            --pftelDB   <URLpath>/<logObject>/<logCollection>/<logEvent>
+
+        for example
+
+            --pftelDB http://localhost:22223/api/v1/weather/massachusetts/boston
+
+        Indirect parsing of each of the object, collection, event strings is
+        available through `pftag` so any embedded pftag SGML is supported. So
+
+            http://localhost:22223/api/vi/%platform/%timestamp_strmsk|**********_/%name
+
+        would be parsed to, for example:
+
+            http://localhost:22223/api/vi/Linux/2023-03-11/posix
 
         [-h] [--help]
         If specified, show help message and exit.
@@ -193,6 +217,14 @@ class Lld_inference(ChrisApp):
                             optional     = True,
                             help         = 'output image type',
                             default      = 'jpg')
+        self.add_argument(  '--pftelDB',
+                            dest        = 'pftelDB',
+                            default     = '',
+                            type        = str,
+                            optional    = True,
+                            help        = 'optional pftel server DB path'
+                        )
+
 
     def NVIDIA_scan(self):
         """
@@ -211,10 +243,61 @@ class Lld_inference(ChrisApp):
         LOG('Starting inference...')
         LOG('------------------------------------------------------')
 
-    def run(self, options):
+    def epilogue(self, options:Namespace, dt_start:datetime = None) -> None:
+        """
+        Some epilogue cleanup -- basically determine a delta time
+        between passed epoch and current, and if indicated in CLI
+        pflog this.
+
+        Args:
+            options (Namespace): option space
+            dt_start (datetime): optional start date
+        """
+        tagger:pftag.Pftag  = pftag.Pftag({})
+        dt_end:datetime     = pftag.timestamp_dt(tagger(r'%timestamp')['result'])
+        ft:float            = 0.0
+        if dt_start:
+            ft              = (dt_end - dt_start).total_seconds()
+        if options.pftelDB:
+            options.pftelDB = '/'.join(options.pftelDB.split('/')[:-1] + ['predict-landmarks'])
+            d_log:dict      = pflog.pfprint(
+                                options.pftelDB,
+                                f"Shutting down after {ft} seconds.",
+                                appName     = 'pl-lld_inference',
+                                execTime    = ft
+                            )
+
+    def epilogue(self, options:Namespace, dt_start:datetime = None) -> None:
+        """
+        Some epilogue cleanup -- basically determine a delta time
+        between passed epoch and current, and if indicated in CLI
+        pflog this.
+
+        Args:
+            options (Namespace): option space
+            dt_start (datetime): optional start date
+        """
+        tagger:pftag.Pftag  = pftag.Pftag({})
+        dt_end:datetime     = pftag.timestamp_dt(tagger(r'%timestamp')['result'])
+        ft:float            = 0.0
+        if dt_start:
+            ft              = (dt_end - dt_start).total_seconds()
+        if options.pftelDB:
+            options.pftelDB = '/'.join(options.pftelDB.split('/')[:-1] + ['infer-landmarks'])
+            d_log:dict      = pflog.pfprint(
+                                options.pftelDB,
+                                f"Shutting down after {ft} seconds.",
+                                appName     = 'pl-lld_inference',
+                                execTime    = ft
+                            )
+
+    def run(self, options) -> None:
         """
         Define the code to be run by this plugin app.
         """
+        # pudb.set_trace()
+        tagger:pftag.Pftag  = pftag.Pftag({})
+        dt_start:datetime   = pftag.timestamp_dt(tagger(r'%timestamp')['result'])
         LOG(Gstr_title)
         LOG('Version: %s' % self.get_version())
 
@@ -239,6 +322,7 @@ class Lld_inference(ChrisApp):
             options.compositeWeight,
             options.imageType
         )
+        self.epilogue(options, dt_start)
 
     def show_man_page(self):
         """
