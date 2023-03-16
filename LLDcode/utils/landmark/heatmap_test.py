@@ -7,6 +7,8 @@ import LLDcode.utils.sitk_np
 import LLDcode.utils.np_image
 from LLDcode.utils.landmark.common import Landmark
 import LLDcode.utils.landmark.transform
+import os
+os.environ['XDG_CONFIG_HOME'] = '/tmp'
 
 import pudb
 

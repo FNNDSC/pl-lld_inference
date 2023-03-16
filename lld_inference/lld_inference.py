@@ -13,6 +13,7 @@ import  warnings
 warnings.filterwarnings(action='ignore',message='Python 3.6 is no longer supported')
 
 import  os, sys
+os.environ['XDG_CONFIG_HOME'] = '/tmp'
 from    chrisapp.base       import ChrisApp
 from    LLDcode.main        import MainLoop
 import  glob

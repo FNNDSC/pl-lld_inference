@@ -1,5 +1,6 @@
 
 import os, sys
+os.environ['XDG_CONFIG_HOME'] = '/tmp'
 import numpy as np
 import tensorflow as tf
 from collections import OrderedDict
