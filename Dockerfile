@@ -21,30 +21,26 @@
 #   docker run -ti -e HOST_IP=$(ip route | grep -v docker | awk '{if(NF==11) print $9}') --entrypoint /bin/bash local/pl-lld_inference
 #
 
-FROM tensorflow/tensorflow:1.15.0-py3
+# Using CPU optimized base image for Tensorflow v1.15
+# https://www.intel.com/content/www/us/en/developer/articles/guide/optimization-for-tensorflow-installation-guide.html#docker_images
+#
+# LLDCode does not work with the official Tensorflow image, tensorflow/tensorflow:1.15.5-py3
+# You get this error:
+#
+#    tensorflow.python.framework.errors_impl.UnimplementedError: The Conv2D op currently only supports the NHWC tensor format on the CPU.
+#    The op was given the format: NCHW
+#
+# The image from Intel has a fix for the problem.
+# Ref: https://github.com/onnx/onnx-tensorflow/issues/535
+
+FROM gcr.io/deeplearning-platform-release/tf-cpu.1-15
 LABEL maintainer="FNNDSC <dev@babyMRI.org>"
 
-WORKDIR /tmp
+# download and unpack ML model weights
+RUN curl https://fnndsc.childrens.harvard.edu/LLD/weights/model.tar.gz \
+     | tar --transform 's/^model/lld/' -xvz -C /usr/local/lib
 
-# Install `wget` to install `miniconda`
-RUN apt-get install wget
-
-RUN curl --insecure https://fnndsc.childrens.harvard.edu/LLD/weights/model.tar.gz --output /tmp/model.tar.gz
-RUN ["tar", "xf", "model.tar.gz"]
-RUN cp -r /tmp/model /usr/local/lib/lld
-
-# Install miniconda
-ENV CONDA_DIR /opt/conda
-RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-4.5.1-Linux-x86_64.sh -O ~/miniconda.sh && \
-     /bin/bash ~/miniconda.sh -b -u -p /opt/conda
-
-# Put conda in path so we can use conda activate
-ENV PATH=$CONDA_DIR/bin:$PATH
-
-# install the cuda version required to work with tensorflow
-# chcek here: https://www.tensorflow.org/install/source#gpu to find out the right version
-RUN conda install -c conda-forge cudatoolkit=10.0
-
+# install dependencies and helpful (?) tools
 COPY requirements.txt .
 RUN  apt-key adv --keyserver keyserver.ubuntu.com --recv A4B469963BF863CC && \
      apt update && apt -y install pciutils sudo kmod libgl1-mesa-glx ffmpeg libsm6 libxext6
