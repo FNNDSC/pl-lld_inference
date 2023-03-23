@@ -87,6 +87,12 @@ Getting inline help is:
 Run
 ~~~
 
+.. ATTENTION::
+    ``pl-lld_inference`` is built from a base image containing an Intel CPU
+    optimized image of Tensorflow. A (modern) Intel CPU is expected, AMD
+    probably won't work. The usage below has not been updated, the ``--gpus``
+    flag is not required.
+
 You need to specify input and output directories using the `-v` flag to
 `docker run`. Also set the output directory to be world writable
 

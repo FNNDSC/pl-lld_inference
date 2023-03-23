@@ -1,17 +1,13 @@
-from os import path
 from setuptools import setup
 
-with open(path.join(path.dirname(path.abspath(__file__)), 'README.rst')) as f:
-    readme = f.read()
 
 setup(
     name             = 'lld_inference',
     version          = '2.2.7',
     description      = 'An app to run LLD inference',
-    long_description = readme,
     author           = 'FNNDSC',
     author_email     = 'dev@babyMRI.org',
-    url              = 'http://wiki',
+    url              = 'https://github.com/FNNDSC/pl-lld_inference#readme',
     packages         = ['lld_inference',
                         'LLDcode',
                         'LLDcode.datasets',
