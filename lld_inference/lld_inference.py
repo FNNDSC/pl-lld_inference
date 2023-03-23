@@ -244,61 +244,14 @@ class Lld_inference(ChrisApp):
         LOG('Starting inference...')
         LOG('------------------------------------------------------')
 
-    def epilogue(self, options:Namespace, dt_start:datetime = None) -> None:
-        """
-        Some epilogue cleanup -- basically determine a delta time
-        between passed epoch and current, and if indicated in CLI
-        pflog this.
-
-        Args:
-            options (Namespace): option space
-            dt_start (datetime): optional start date
-        """
-        tagger:pftag.Pftag  = pftag.Pftag({})
-        dt_end:datetime     = pftag.timestamp_dt(tagger(r'%timestamp')['result'])
-        ft:float            = 0.0
-        if dt_start:
-            ft              = (dt_end - dt_start).total_seconds()
-        if options.pftelDB:
-            options.pftelDB = '/'.join(options.pftelDB.split('/')[:-1] + ['predict-landmarks'])
-            d_log:dict      = pflog.pfprint(
-                                options.pftelDB,
-                                f"Shutting down after {ft} seconds.",
-                                appName     = 'pl-lld_inference',
-                                execTime    = ft
-                            )
-
-    def epilogue(self, options:Namespace, dt_start:datetime = None) -> None:
-        """
-        Some epilogue cleanup -- basically determine a delta time
-        between passed epoch and current, and if indicated in CLI
-        pflog this.
-
-        Args:
-            options (Namespace): option space
-            dt_start (datetime): optional start date
-        """
-        tagger:pftag.Pftag  = pftag.Pftag({})
-        dt_end:datetime     = pftag.timestamp_dt(tagger(r'%timestamp')['result'])
-        ft:float            = 0.0
-        if dt_start:
-            ft              = (dt_end - dt_start).total_seconds()
-        if options.pftelDB:
-            options.pftelDB = '/'.join(options.pftelDB.split('/')[:-1] + ['infer-landmarks'])
-            d_log:dict      = pflog.pfprint(
-                                options.pftelDB,
-                                f"Shutting down after {ft} seconds.",
-                                appName     = 'pl-lld_inference',
-                                execTime    = ft
-                            )
-
+    @pflog.tel_logTime(
+            event       = 'lld_inference',
+            log         = 'Determine leg landmarks'
+    )
     def run(self, options) -> None:
         """
         Define the code to be run by this plugin app.
         """
-        # pudb.set_trace()
-        tagger:pftag.Pftag  = pftag.Pftag({})
-        dt_start:datetime   = pftag.timestamp_dt(tagger(r'%timestamp')['result'])
         LOG(Gstr_title)
         LOG('Version: %s' % self.get_version())
 
@@ -323,7 +276,6 @@ class Lld_inference(ChrisApp):
             options.compositeWeight,
             options.imageType
         )
-        self.epilogue(options, dt_start)
 
     def show_man_page(self):
         """
