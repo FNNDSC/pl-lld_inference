@@ -142,4 +142,4 @@ jobs:
           auth: ${{ secrets.CHRIS_STORE_USER }}
           chris_admin_auth: ${{ secrets.CUBE_CHRISPROJECT_ORG_ADMIN_USER }}
           chris_admin_url: https://cube.chrisproject.org/chris-admin/api/v1/
-          compute_resources: galena
+          compute_resources: galena-avx
