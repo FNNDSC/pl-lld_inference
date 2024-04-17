@@ -173,7 +173,9 @@ class Lld_inference(ChrisApp):
     MIN_NUMBER_OF_WORKERS   = 1    # Override with the minimum number of workers as int
     MAX_NUMBER_OF_WORKERS   = 1    # Override with the maximum number of workers as int
     MIN_CPU_LIMIT           = 3000 # Override with millicore value as int (1000 millicores == 1 CPU core)
-    MIN_MEMORY_LIMIT        = 32000  # Override with memory MegaByte (MB) limit as int
+    # Dt-04/17/2024- Current configuration of `pman` & `galena` cannot handle a plugin asking  for more memory.
+    # Which is why we had to reduce this plugin's memory requirement. Temporary and unstable hack
+    MIN_MEMORY_LIMIT        = 8000 # 32000  # Override with memory MegaByte (MB) limit as int
     MIN_GPU_LIMIT           = 0    # Override with the minimum number of GPUs as int
     MAX_GPU_LIMIT           = 1    # Override with the maximum number of GPUs as int
 
