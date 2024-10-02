@@ -46,6 +46,29 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
+      - name: Stop docker
+        run: sudo systemctl stop docker
+
+      - name: Clean docker data
+        run: |
+          sudo rm -rf /var/lib/docker
+          sudo mkdir /var/lib/docker
+
+      - name: Maximize build space
+        uses: easimon/maximize-build-space@6ae56c86ea8db291ae39f62352a412c36ab8179b
+        with:
+          root-reserve-mb: 8192  # space needed for logs
+          swap-size-mb: 1024       # must be >0
+          build-mount-path: /var/lib/docker
+          remove-dotnet: 'true'
+          remove-android: 'true'
+          remove-haskell: 'true'
+          remove-codeql: 'true'
+          remove-docker-images: 'false'
+
+      - name: Start docker
+        run: sudo systemctl start docker
+
       - name: Decide image tags
         id: info
         shell: python
@@ -91,21 +114,6 @@ jobs:
       - uses: docker/setup-buildx-action@v3
         with:
           driver-opts: network=host
-      - name: Clean docker data
-        run: |
-          sudo rm -rf /var/lib/docker
-          sudo mkdir /var/lib/docker
-      - name: Maximize build space
-        uses: easimon/maximize-build-space@6ae56c86ea8db291ae39f62352a412c36ab8179b
-        with:
-            root-reserve-mb: 8192  # space needed for logs
-            swap-size-mb: 1024       # must be >0
-            build-mount-path: /var/lib/docker
-            remove-dotnet: 'true'
-            remove-android: 'true'
-            remove-haskell: 'true'
-            remove-codeql: 'true'
-            remove-docker-images: 'false'
 
         # Here, we want to do the docker build twice:
         # The first build pushes to our local registry for testing.
