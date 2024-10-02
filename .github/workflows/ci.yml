@@ -69,43 +69,28 @@ jobs:
       - name: Start docker
         run: sudo systemctl start docker
 
-      - name: Decide image tags
-        id: info
-        shell: python
+      - name: Get git tag
+        id: git_info
+        if: startsWith(github.ref, 'refs/tags/')
+        run: echo "tag=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
+      - name: Get project info
+        id: determine
+        env:
+          git_tag: ${{ steps.git_info.outputs.tag }}
         run: |
-          import os
-          import itertools
-
-          def join_tag(t):
-            registry, repo, tag = t
-            return f'{registry}/{repo}:{tag}'.lower()
-
-          registries = ['docker.io', 'ghcr.io']
-          repos = ['${{ github.repository }}']
-          if '${{ github.ref_type }}' == 'branch':
-              tags = ['latest']
-          elif '${{ github.ref_type }}' == 'tag':
-              tag = '${{ github.ref_name }}'
-              version = tag[1:] if tag.startswith('v') else tag
-              tags = ['latest', version]
-          else:
-              tags = []
-
-          if '${{ github.ref_type }}' == 'tag':
-              local_tag = join_tag(('ghcr.io', '${{ github.repository }}', version))
-          else:
-              local_tag = join_tag(('localhost', '${{ github.repository }}', 'latest'))
-
-          product = itertools.product(registries, repos, tags)
-          tags_csv = ','.join(map(join_tag, product))
-          outputs = {
-              'tags_csv' : tags_csv,
-              'push'     : 'true' if tags_csv else 'false',
-              'local_tag': local_tag
-          }
-          with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
-              for k, v in outputs.items():
-                  out.write(f'{k}={v}\n')
+            repo="${GITHUB_REPOSITORY,,}"  # to lower case
+            # if build triggered by tag, use tag name
+            tag="${git_tag:-latest}"
+                
+            # if tag is a version number prefixed by 'v', remove the 'v'
+            if [[ "$tag" =~ ^v[0-9].* ]]; then
+              tag="${tag:1}"
+            fi
+                
+            dock_image=$repo:$tag
+            echo $dock_image
+            echo "dock_image=$dock_image" >> $GITHUB_OUTPUT
+            echo "repo=$repo" >> $GITHUB_OUTPUT
 
       - uses: actions/checkout@v4
         # QEMU is used for non-x86_64 builds
@@ -124,9 +109,10 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          tags: ${{ steps.info.outputs.local_tag }}
+          tags: localhost/${{ steps.determine.outputs.dock_image }}
           load: true
-          cache-from: type=gha
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
       # If you have a directory called examples/incoming/ and examples/outgoing/, then
       # run your ChRIS plugin with no parameters, and assert that it creates all the files
       # which are expected. File contents are not compared.
@@ -138,7 +124,7 @@ jobs:
             exit 0
           fi
         
-          dock_image=${{ steps.info.outputs.local_tag }}
+          dock_image=localhost/${{ steps.determine.outputs.dock_image }}
           output_dir=$(mktemp -d)
           cmd=$(docker image inspect -f '{{ (index .Config.Cmd 0) }}' $dock_image)
           docker run --rm -u "$(id -u):$(id -g)" \
@@ -159,38 +145,42 @@ jobs:
           done
 
       - name: Login to DockerHub
-        if: (github.event_name == 'push' || github.event_name == 'release') && contains(steps.info.outputs.tags_csv, 'docker.io')
-        uses: docker/login-action@v3
+        id: dockerhub_login
+        uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
       - name: Login to GitHub Container Registry
-        if: (github.event_name == 'push' || github.event_name == 'release') && contains(steps.info.outputs.tags_csv, 'ghcr.io')
-        uses: docker/login-action@v3
+        uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and push
-        uses: docker/build-push-action@v5
-        if: (github.event_name == 'push' || github.event_name == 'release')
+        uses: docker/build-push-action@v3
+        if: github.event_name == 'push' || github.event_name == 'release'
         with:
           context: .
           file: ./Dockerfile
-          tags: ${{ steps.info.outputs.tags_csv }}
+          tags: |
+            docker.io/${{ steps.determine.outputs.dock_image }}
+            ghcr.io/${{ steps.determine.outputs.dock_image }}
           # if non-x86_84 architectures are supported, add them here
           platforms: linux/amd64  #,linux/arm64,linux/ppc64le
-          push: ${{ steps.info.outputs.push }}
-          cache-to: type=gha,mode=max
+          push: true
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
 
       - name: Get plugin meta
         id: pluginmeta
         run: |
-            dock_image=${{ steps.info.outputs.local_tag }}
+            repo=${{ steps.determine.outputs.repo }}
+            dock_image=${{ steps.determine.outputs.dock_image }}
             docker pull localhost:5000/$dock_image
             docker tag localhost:5000/$dock_image $dock_image
             script=$(docker inspect --format '{{ (index .Config.Cmd 0) }}' $dock_image)
-            json="$(docker run --rm $dock_image $script --json)"
+            docker run --rm $dock_image $script --json > /tmp/description.json
             jq <<< "$json"  # pretty print in log
             
             echo "::set-output name=json::$json"
