@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name             = 'lld_inference',
-    version          = '2.2.17',
+    version          = '2.2.18',
     description      = 'An app to run LLD inference',
     author           = 'FNNDSC',
     author_email     = 'dev@babyMRI.org',
