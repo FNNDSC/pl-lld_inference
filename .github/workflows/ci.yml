@@ -39,11 +39,23 @@ jobs:
           docker run -v "$GITHUB_WORKSPACE:/app:ro" -w /app localhost/local/app:dev \
             pytest -o cache_dir=/tmp/pytest
 
-  build:
-    name: Build
+  publish:
     if: github.event_name == 'push' || github.event_name == 'release'
-    # needs: [ test ]  # uncomment to require passing tests
     runs-on: ubuntu-24.04
+
+    # we want to both push the build to DockerHub, but also
+    # keep a local copy so that we can run
+    #
+    #     docker run fnndsc/pl-app app --json > App.json
+    #
+    # buildx currently does not support multiple output locations,
+    # neither can multi-architectural builds be loaded into docker.
+    # Here we use a local registry to cache the build.
+    services:
+      registry:
+        image: registry:2
+        ports:
+          - 5000:5000
 
     steps:
       - name: Stop docker
@@ -72,7 +84,8 @@ jobs:
       - name: Get git tag
         id: git_info
         if: startsWith(github.ref, 'refs/tags/')
-        run: echo "tag=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
+        run: |
+          echo "tag=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
 
       - name: Decide image tag name
         id: determine
