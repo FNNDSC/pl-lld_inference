@@ -165,7 +165,7 @@ jobs:
       - name: Get plugin meta
         id: pluginmeta
         run: |
-          dock_image: ${{ steps.info.outputs.local_tag }}
+          dock_image=${{ steps.info.outputs.local_tag }}
           docker pull localhost:5000/$dock_image
           docker tag localhost:5000/$dock_image $dock_image
           script=$(docker inspect --format '{{ (index .Config.Cmd 0) }}' $dock_image)
