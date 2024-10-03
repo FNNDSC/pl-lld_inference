@@ -84,7 +84,7 @@ jobs:
       - name: Get git tag
         id: git_info
         if: startsWith(github.ref, 'refs/tags/')
-        run: echo "tag=${{ github.ref }}" >> $GITHUB_OUTPUT
+        run: echo "tag=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
 
       - name: Decide image tag name
         id: determine
