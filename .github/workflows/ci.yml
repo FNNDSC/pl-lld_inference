@@ -81,23 +81,43 @@ jobs:
       - name: Start docker
         run: sudo systemctl start docker
 
-      - name: Get git tag
-        id: git_info
-        if: startsWith(github.ref, 'refs/tags/')
-        run: echo "tag=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
-
-      - name: Decide image tag name
-        id: determine
-        env:
-          git_tag: ${{ steps.git_info.outputs.tag }}
+      - name: Decide image tags
+        id: info
+        shell: python
         run: |
-          repo="${GITHUB_REPOSITORY,,}"  # to lower case
-          # if build triggered by tag, use tag name
-          tag="${git_tag:-latest}"
-          dock_image=$repo:$tag
-          echo $dock_image
-          echo "dock_image=$dock_image" >> $GITHUB_OUTPUT
-          echo "repo=$repo" >> $GITHUB_OUTPUT
+          import os
+          import itertools
+            
+          def join_tag(t):
+            registry, repo, tag = t
+            return f'{registry}/{repo}:{tag}'.lower()
+            
+          registries = ['docker.io', 'ghcr.io']
+          repos = ['${{ github.repository }}']
+          if '${{ github.ref_type }}' == 'branch':
+              tags = ['latest']
+          elif '${{ github.ref_type }}' == 'tag':
+              tag = '${{ github.ref_name }}'
+              version = tag[1:] if tag.startswith('v') else tag
+              tags = ['latest', version]
+          else:
+              tags = []
+            
+          if '${{ github.ref_type }}' == 'tag':
+              local_tag = join_tag(('ghcr.io', '${{ github.repository }}', version))
+          else:
+              local_tag = join_tag(('localhost', '${{ github.repository }}', 'latest'))
+            
+          product = itertools.product(registries, repos, tags)
+          tags_csv = ','.join(map(join_tag, product))
+          outputs = {
+              'tags_csv' : tags_csv,
+              'push'     : 'true' if tags_csv else 'false',
+              'local_tag': local_tag
+          }
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
+              for k, v in outputs.items():
+                  out.write(f'{k}={v}\n')
 
       - uses: actions/checkout@v2
 
@@ -131,41 +151,27 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push
-        uses: docker/build-push-action@v3
-        id: docker_build
+        uses: docker/build-push-action@v5
+        if: (github.event_name == 'push' || github.event_name == 'release')
         with:
           context: .
           file: ./Dockerfile
-          tags: |
-            ${{ steps.determine.outputs.dock_image }}
-            localhost:5000/${{ steps.determine.outputs.dock_image }}
-            ghcr.io/${{ steps.determine.outputs.dock_image }}
-          platforms: linux/amd64
-          push: true
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache
+          tags: ${{ steps.info.outputs.tags_csv }}
+          # if non-x86_84 architectures are supported, add them here
+          platforms: linux/amd64  #,linux/arm64,linux/ppc64le
+          push: ${{ steps.info.outputs.push }}
+          cache-to: type=gha,mode=max
 
       - name: Get plugin meta
         id: pluginmeta
         run: |
-          repo=${{ steps.determine.outputs.repo }}
-          dock_image=${{ steps.determine.outputs.dock_image }}
+          dock_image: ${{ steps.info.outputs.local_tag }}
           docker pull localhost:5000/$dock_image
           docker tag localhost:5000/$dock_image $dock_image
           script=$(docker inspect --format '{{ (index .Config.Cmd 0) }}' $dock_image)
           docker run --rm $dock_image $script --json \
               | jq '. += {"name":"pl-lld_inference", "dock_image": "'$dock_image'", "public_repo": "'${{ github.server_url }}/${{ github.repository }}'" }' \
               > /tmp/description.json
-
-      - name: Update DockerHub description
-        uses: peter-evans/dockerhub-description@v2
-        continue-on-error: true  # it is not crucial that this works
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          short-description: ${{ steps.pluginmeta.outputs.title }}
-          readme-filepath: ./README.rst
-          repository: ${{ steps.determine.outputs.repo }}
 
       - name: Upload ChRIS Plugin
         id: upload
@@ -177,3 +183,13 @@ jobs:
           password: ${{ secrets.CHRISPROJECT_PASSWORD }}
           chris_url: https://cube.chrisproject.org/api/v1/
           compute_names: NERC
+
+      - name: Update DockerHub description
+        if: steps.upload.outcome == 'success'
+        uses: peter-evans/dockerhub-description@v3
+        continue-on-error: true  # it is not crucial that this works
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          short-description: ${{ steps.upload.outputs.title }}
+          readme-filepath: ./README.rst
