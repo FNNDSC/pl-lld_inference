@@ -129,7 +129,7 @@ jobs:
 
       - name: Create plugin description
         run: |
-          docker run --rm ${{ steps.info.outputs.local_tag }} dircopy --json \
+          docker run --rm ${{ steps.info.outputs.local_tag }} lld_inference --json \
           | jq '. + {"name": "pl-lld_inference", "public_repo": "${{ github.server_url }}/${{ github.repository }}", "dock_image": "${{ steps.info.outputs.one_tag }}"}' > ./description.json
       - name: Upload ChRIS Plugin
         id: upload
