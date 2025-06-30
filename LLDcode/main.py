@@ -60,9 +60,9 @@ class MainLoop(MainLoopBase):
                     self,
                     cv, network_id, inputdir, outputdir,
                     heatmapThreshold, heatmapKernel, compositeWeight,
-                    imageType
+                    imageType, modelType
         ):
-        super().__init__()
+        super().__init__(modelType)
         self.cv                     = cv
         self.network_id             = network_id
         self.output_folder          = outputdir
@@ -80,7 +80,6 @@ class MainLoop(MainLoopBase):
         self.heatmapKernel          = heatmapKernel
         self.compositeWeight        = compositeWeight
         self.imageType              = imageType
-
         image_sizes = {'scn': [256, 128],
                        'unet': [256, 256],
                        'downsampling': [256, 256],
@@ -212,10 +211,10 @@ class MainLoop(MainLoopBase):
 
     def run(inputdir, outputdir,
             heatmapThreshold, heatmapKernel, compositeWeight,
-            imageType):
+            imageType, modelType):
         loop        = MainLoop(0, 'conv', inputdir, outputdir,
                                 heatmapThreshold, heatmapKernel, compositeWeight,
-                                imageType)
+                                imageType, modelType)
         loop.process()
 
 class p2r_transform:

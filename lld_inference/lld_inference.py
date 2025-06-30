@@ -10,6 +10,7 @@
 
 import  logging
 import  warnings
+import  platform
 warnings.filterwarnings(action='ignore',message='Python 3.6 is no longer supported')
 
 import  os, sys
@@ -24,6 +25,10 @@ from    pftag               import pftag
 from    pflog               import pflog
 
 from    loguru              import logger
+
+# Get the hostname
+hostname = platform.node()
+
 LOG             = logger.debug
 
 logger_format = (
@@ -67,6 +72,7 @@ Gstr_synopsis = """
             [--json]                                                    \\
             [--man]                                                     \\
             [--meta]                                                    \\
+            [--modelType]                                               \\
             [--savejson <DIR>]                                          \\
             [-v |--verbosity <level>]                                   \\
             [--version]                                                 \\
@@ -147,6 +153,10 @@ Gstr_synopsis = """
 
         [--meta]
         If specified, print plugin meta data and exit.
+        
+        [--modelType]
+        If specified, choose the specified model weights for inference.
+        Options are 1) lld 2) vv. Default is lld
 
         [--savejson <DIR>]
         If specified, save json representation file to DIR and exit.
@@ -220,6 +230,12 @@ class Lld_inference(ChrisApp):
                             optional     = True,
                             help         = 'output image type',
                             default      = 'jpg')
+        self.add_argument(  '--modelType',
+                            dest='modelType',
+                            type=str,
+                            optional=True,
+                            help='select which model to use for inference: 1) lld 2) vv',
+                            default='lld')
         self.add_argument(  '--pftelDB',
                             dest        = 'pftelDB',
                             default     = '',
@@ -256,6 +272,7 @@ class Lld_inference(ChrisApp):
         """
         LOG(Gstr_title)
         LOG('Version: %s' % self.get_version())
+        LOG(f'Hostname: {hostname}')
 
         # Output the space of CLI
         d_options = vars(options)
@@ -276,7 +293,8 @@ class Lld_inference(ChrisApp):
             float(options.heatmapThreshold),
             options.heatmapKernel,
             options.compositeWeight,
-            options.imageType
+            options.imageType,
+            options.modelType
         )
 
     def show_man_page(self):

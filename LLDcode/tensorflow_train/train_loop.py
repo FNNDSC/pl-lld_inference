@@ -10,7 +10,7 @@ from collections import OrderedDict
 from glob import glob
 
 class MainLoopBase(object):
-    def __init__(self):
+    def __init__(self, model_type):
         config = tf.ConfigProto()
         config.gpu_options.allow_growth = True
         self.sess = tf.Session(config=config)
@@ -39,6 +39,8 @@ class MainLoopBase(object):
         self.additional_summaries_placeholders_val = None
         self.raise_on_nan_loss = True
         self.loss_name_for_nan_loss_check = 'loss'
+        self.model_type = model_type
+
 
     def init_saver(self):
         # initialize variables
@@ -49,7 +51,7 @@ class MainLoopBase(object):
         self.sess.run(tf.local_variables_initializer())
 
     def load_model(self):
-        model_filename = "/usr/local/lib/lld/model-20000"
+        model_filename = f"/usr/local/lib/{self.model_type}/model-20000"
         print('Restoring model ' + model_filename)
         self.restore_variables(self.sess, model_filename)
 

@@ -37,8 +37,14 @@ FROM gcr.io/deeplearning-platform-release/tf-cpu.1-15
 LABEL maintainer="FNNDSC <dev@babyMRI.org>"
 
 # download and unpack ML model weights
+# There are 2 different weights:
+#    1) LLD
+#    2) VV
 RUN curl -f https://stack.nerc.mghpcc.org:13808/swift/v1/AUTH_2dd3b02b267242d9b28f94a512ea9ede/fnndsc-public/weights/LLD/model.tar.gz \
      | tar --transform 's/^model/lld/' -xvz -C /usr/local/lib
+
+RUN curl -f https://stack.nerc.mghpcc.org:13808/swift/v1/AUTH_2dd3b02b267242d9b28f94a512ea9ede/fnndsc-public/weights/VV/model.tar.gz \
+     | tar --transform 's/^model/vv/' -xvz -C /usr/local/lib
 
 # install dependencies and helpful (?) tools
 COPY requirements.txt .

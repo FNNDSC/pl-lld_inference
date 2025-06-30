@@ -68,6 +68,10 @@ Arguments
     [--meta]
     If specified, print plugin meta data and exit.
 
+    [--modelType]
+    If specified, choose the specified model weights for inference.
+    Options are 1) lld 2) vv. Default is lld.
+
     [--savejson <DIR>]
     If specified, save json representation file to DIR and exit.
 
